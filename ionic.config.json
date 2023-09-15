@@ -1,0 +1,7 @@
+{
+  "name": "AnimeCat",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
