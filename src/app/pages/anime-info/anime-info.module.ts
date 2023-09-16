@@ -4,21 +4,19 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { SeeChapterPageRoutingModule } from './see-chapter-routing.module';
+import { AnimeInfoPageRoutingModule } from './anime-info-routing.module';
 
-import { SeeChapterPage } from './see-chapter.page';
+import { AnimeInfoPage } from './anime-info.page';
 import { NgxLoadingModule } from 'ngx-loading';
-import { PipesModule } from '../pipe.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    SeeChapterPageRoutingModule,
+    AnimeInfoPageRoutingModule,
     NgxLoadingModule.forRoot({}),
-    PipesModule
   ],
-  declarations: [SeeChapterPage]
+  declarations: [AnimeInfoPage]
 })
-export class SeeChapterPageModule {}
+export class AnimeInfoPageModule {}

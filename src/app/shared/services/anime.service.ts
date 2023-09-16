@@ -17,7 +17,11 @@ export class AnimeService {
     return this.httpClient.get(environment.apiUrl+ "animeyt/homeSeeMore");
   }
 
-  seeChapterManga(body: any){
+  seeChapterAnime(body: any){
     return this.httpClient.post(environment.apiUrl+ "animeyt/SeeChapter", body);
+  }
+
+  getAnimeInfo(body:any){
+    return this.httpClient.post(environment.apiUrl+ "animeyt/getAnimeInfo", body);
   }
 }

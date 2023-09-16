@@ -1,0 +1,91 @@
+ion-content {
+    --background: none;
+    background-position: center center;
+    background-repeat: no-repeat;
+    // background-color: black;
+    background: radial-gradient(circle, rgba(2, 0, 36, 1) 0%, rgba(9, 28, 121, 1) 28%, rgba(43, 32, 136, 1) 63%, rgba(3, 9, 10, 1) 100%);
+
+}
+
+
+.main {
+    h1 {
+        font-family: cursive;
+        padding: 5px;
+        text-align: center;
+        color: white;
+        font-size: 2rem;
+    }
+
+    hr {
+        border-bottom: 1px solid gray;
+    }
+
+    .info {
+        display: flex;
+        position: relative;
+        left: 5%;
+        width: 90%;
+
+        .description {
+            display: block;
+            padding: 20px;
+            color: white;
+            text-align: start;
+            max-height: 500px;
+            overflow: scroll;
+            width: 70%;
+            font-family: cursive;
+            height: -moz-fit-content;
+            height: fit-content;
+            font-size: 19px;
+        }
+
+        .genreList {
+            width: fit-content;
+            margin-top: 3%;
+            height: fit-content;
+        }
+
+        img {
+            width: 25%;
+        }
+    }
+
+    .chapters {
+        color: white;
+        font-family: cursive;
+        text-align: center;
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            margin: 0 auto;
+            width: 80%;
+
+            tr {
+                border-bottom: 2px solid gray;
+
+                td {
+                    color: white;
+                    text-align: center;
+                    padding: 12px 0 10px 0;
+                    font-size: 15px;
+
+                    &:focus,
+                    &:focus-visible {
+                        background: #7cbcf3;
+                        color: black;
+                    }
+
+                }
+
+                th {
+                    color: white;
+                    font-family: sans-serif;
+                    padding: 10px 0 10px 0;
+                }
+            }
+        }
+    }
+}

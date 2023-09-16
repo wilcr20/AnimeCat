@@ -12,12 +12,16 @@ const routes: Routes = [
   },
   {
     path: 'see-chapter',
-    loadChildren: () => import('./see-chapter/see-chapter.module').then( m => m.SeeChapterPageModule)
+    loadChildren: () => import('./pages/see-chapter/see-chapter.module').then( m => m.SeeChapterPageModule)
   },
   {
     path: '',
     redirectTo: '/home',
     pathMatch: 'full'
+  },
+  {
+    path: 'anime-info/:id',
+    loadChildren: () => import('./pages/anime-info/anime-info.module').then( m => m.AnimeInfoPageModule)
   }
 ];
 

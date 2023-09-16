@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AnimeService } from '../shared/services/anime.service';
+import { AnimeService } from '../../shared/services/anime.service';
 import { InAppBrowserOptions, InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 
 @Component({
@@ -31,12 +31,16 @@ export class SeeChapterPage {
     public router: Router,
     private theInAppBrowser: InAppBrowser
   ) {
-    this.data = window.history.state;
+    let animeData = localStorage.getItem("seeChapterData");
+    if(animeData){
+      this.data = JSON.parse(animeData)  //window.history.state;
+    }
   }
 
   ionViewWillEnter() {
     this.isLoading = true;
-    this.animeService.seeChapterManga({ animeUrl: this.data.url }).subscribe((resp) => {
+    console.log("see",this.data.url)
+    this.animeService.seeChapterAnime({ animeUrl: this.data.url }).subscribe((resp) => {
       this.isLoading = false;
       if (resp) {
         this.animeData = resp;
@@ -74,7 +78,7 @@ export class SeeChapterPage {
   }
 
   redirectToAnimeInfo(url: string) {
-    console.log(url)
+    this.router.navigate(['/anime-info', url]);
   }
 
 }

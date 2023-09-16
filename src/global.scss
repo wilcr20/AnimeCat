@@ -24,3 +24,11 @@
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
+
+
+ion-chip {
+    --background: black;
+    --color: white;
+    --border-color: 1px solid white;
+    font-size: 18px;
+  }

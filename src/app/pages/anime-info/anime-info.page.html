@@ -1,0 +1,41 @@
+<ion-content>
+
+  <div class="main">
+    <h1 *ngIf="data">{{data.title}}</h1>
+    <hr>
+
+    <div tabindex="0"  class="info">
+      <img *ngIf="data" src={{data.imageUrl}} alt="" srcset="">
+      <div class="description" *ngIf="data && data.description">
+        {{data.description}}
+        <div class="genreList"  *ngIf="data && data.genreList">
+          <ion-chip *ngFor="let genre of data.genreList">{{genre.genre}}</ion-chip>
+        </div>
+      </div>
+      <br>
+    </div>
+    <div class="chapters">
+      <h3>Lista de capitulos</h3>
+      <table *ngIf="data && data.chapterList.length > 0">
+        <tr>
+            <th>#</th>
+            <th>Nombre del capítulo</th>
+            <th>Fecha</th>
+            <th>Visto</th>
+        </tr>
+        <tr *ngFor="let chapter of data.chapterList; let i = index">
+            <td>{{getChapterNumber(i)}}</td>
+            <td (keyup.enter)="seeChapterAnime(chapter.chapterUrl,data.website, data.title, data.imageUrl)" tabindex="0">{{chapter.chapter}}</td>
+            <td>{{chapter.date}}</td>
+            <td></td>
+        </tr>
+    </table>
+    <br>
+    <br>
+    </div>
+
+
+  </div>
+  <ngx-loading [show]="isLoading" [config]="{
+    backdropBorderRadius: '5px', fullScreenBackdrop:true}"></ngx-loading>
+</ion-content>
