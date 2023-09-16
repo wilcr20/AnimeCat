@@ -13,6 +13,10 @@ export class AnimeService {
     return this.httpClient.get(environment.apiUrl+ "animeyt/home");
   }
 
+  getMoreHomeAnime(){
+    return this.httpClient.get(environment.apiUrl+ "animeyt/homeSeeMore");
+  }
+
   seeChapterManga(body: any){
     return this.httpClient.post(environment.apiUrl+ "animeyt/SeeChapter", body);
   }

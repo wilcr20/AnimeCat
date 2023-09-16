@@ -13,6 +13,7 @@ export class SeeChapterPage {
   title = ""
   animeData: any;
   isLoading = false;
+  playerImg = "";
 
   options: InAppBrowserOptions = {
     location: 'no',//Or 'no' 
@@ -37,10 +38,10 @@ export class SeeChapterPage {
     this.isLoading = true;
     this.animeService.seeChapterManga({ animeUrl: this.data.url }).subscribe((resp) => {
       this.isLoading = false;
-      if(resp){
+      if (resp) {
         this.animeData = resp;
         this.title = this.animeData.title
-        console.log(this.animeData);
+        this.setPlayerimg();
       }
     }, (err) => {
       this.isLoading = false;
@@ -48,24 +49,31 @@ export class SeeChapterPage {
     })
   }
 
-  openPlayer(url: string){
-    let target = "_blank";
-    let codeToExec = 'var func = (function f() { var iframes = document.getElementsByTagName("iframe");setInterval(() => {for (let index = 0; index < iframes.length; index++) { iframes[index].style.display = "none" }; }, 20); return f; })();document.addEventListener("click", handler, true); function handler(e) { }'
-        let browser = this.theInAppBrowser.create(url, target, this.options);
-        browser.on("loadstart").subscribe(() => {
-          browser.executeScript({
-            code: codeToExec
-          });
-        });
-
-        browser.on('loadstop').subscribe(() => {
-          browser.executeScript({
-            code: codeToExec
-          });
-        });
+  setPlayerimg() {
+    let player = document.getElementById("player");
+    if (player) {
+      player.style.backgroundImage = "url(" + this.data.img + ")";
+    }
   }
 
-  redirectToAnimeInfo(url: string){
+  openPlayer(url: string) {
+    let target = "_blank";
+    let codeToExec = 'var func = (function f() { var iframes = document.getElementsByTagName("iframe");setInterval(() => {for (let index = 0; index < iframes.length; index++) { iframes[index].style.display = "none" }; }, 20); return f; })();document.addEventListener("click", handler, true); function handler(e) { }'
+    let browser = this.theInAppBrowser.create(url, target, this.options);
+    browser.on("loadstart").subscribe(() => {
+      browser.executeScript({
+        code: codeToExec
+      });
+    });
+
+    browser.on('loadstop').subscribe(() => {
+      browser.executeScript({
+        code: codeToExec
+      });
+    });
+  }
+
+  redirectToAnimeInfo(url: string) {
     console.log(url)
   }
 

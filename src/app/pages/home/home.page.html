@@ -4,8 +4,9 @@
     <h1>Animes recientes</h1>
     <hr>
     <div class="cards-container" *ngIf="animeList.length > 0">
-      <ion-card  tabindex="0" *ngFor="let anime of animeList" (click)="seeChapterAnime(anime.url, anime.website, anime.title)" 
-      (keyup.enter)="seeChapterAnime(anime.url, anime.website, anime.title)" >
+      <ion-card  tabindex="0" *ngFor="let anime of animeList" 
+      (click)="seeChapterAnime(anime.url, anime.website, anime.title, anime.imageUrl)" 
+      (keyup.enter)="seeChapterAnime(anime.url, anime.website, anime.title, anime.imageUrl)" >
         <img src={{anime.imageUrl}} onerror="this.src='../../../assets/imgNotFound.jpg'" />
         <ion-card-header>
           <ion-card-title>{{anime.title}}</ion-card-title>
@@ -13,7 +14,11 @@
       </ion-card>
     </div>
     <br>
-    <p></p>
+    <br>
+    <div *ngIf="canLoadMore && animeList.length > 0">
+      <button tabindex="0" (click)="loadMore()" (keyup.enter)="loadMore()" class="loadMore">Mostrar más.</button>
+    </div>
+    <br>
   </div>
 
   <ngx-loading [show]="isLoading" [config]="{

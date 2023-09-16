@@ -2,12 +2,16 @@ ion-content {
     --background: none;
     background-position: center center;
     background-repeat: no-repeat;
-    background-color: black;
+    // background-color: black;
+    background: radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(9,28,121,1) 28%, rgba(43,32,136,1) 63%, rgba(3,9,10,1) 100%);
+
 }
 
 
 .main {
     h1 {
+        font-family: cursive;
+        padding: 5px;
         text-align: center;
         color: white;
         font-size: 2rem;
@@ -26,6 +30,7 @@ ion-content {
 
         &:focus,
         &:focus-visible {
+            border-radius: 10px;
             padding: 5px;
             border: 2px solid rgb(0, 119, 255);
         }
@@ -49,12 +54,16 @@ ion-content {
     .player {
         border: 3px solid gray;
         border-radius: 15px;
-        padding: 7em;
-        margin: 2em 30%;
-        background: #000030;
+        padding: 5em 10em;
+        margin: 2em 20%;
+        // background: #000030;
         display: flex;
         justify-content: center;
         align-items: center;
+        background-repeat: initial;
+        background-size: auto;
+        background-attachment: fixed;
+        background-position: center;
 
         .fake-player {
             display: flex;
@@ -63,7 +72,8 @@ ion-content {
             width: 10rem;
             height: 10rem;
             padding: 2rem;
-            border: 0.2rem solid #edd;
+            border: 0.2rem solid black;
+            background: white;
             border-radius: 50%;
             filter: drop-shadow(0 0 3.1rem rgba(255, 255, 255, 0.8));
 
@@ -76,7 +86,7 @@ ion-content {
                     border: none;
                     border-top: 2rem solid transparent;
                     border-bottom: 2rem solid transparent;
-                    border-left: calc(2rem * 2 * 0.86) solid #edd;
+                    border-left: calc(2rem * 2 * 0.86) solid black;
 
                 }
             }
@@ -84,6 +94,12 @@ ion-content {
             &:focus,
             &:focus-visible {
                 border: 10px solid rgb(0, 119, 255);
+
+                button {
+                    &.play {
+                        border-left: calc(2rem * 2 * 0.86) solid rgb(0, 119, 255);
+                    }
+                }
             }
         }
 
