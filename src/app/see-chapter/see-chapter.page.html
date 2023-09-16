@@ -1,0 +1,28 @@
+<ion-content>
+
+  <div class="main" *ngIf="animeData">
+    <h1>{{data.title}}</h1>
+    <hr>
+
+    <p id="animeName" tabindex="0" (keyup.enter)="redirectToAnimeInfo(animeData.animeUrl)"
+      (click)="redirectToAnimeInfo(animeData.animeUrl)">{{title}}</p>
+    <p id="datePublish" *ngIf="animeData.date">Publicado el {{animeData.date}}</p>
+    <br>
+    <div class="description" *ngIf="animeData.description">
+      <blockquote>
+        {{animeData.description}}
+      </blockquote>
+    </div>
+    <div class="player">
+      <div tabindex="0" (click)="openPlayer(animeData.defaultPlayer)"
+        (keyup.enter)="openPlayer(animeData.defaultPlayer)" class="fake-player">
+        <button role="play" class="play"></button>
+      </div>
+      <!-- <iframe id="mainIframe" width="100%"
+      [src]="animeData.defaultPlayer | safe" frameborder="0"></iframe> -->
+    </div>
+  </div>
+
+  <ngx-loading [show]="isLoading" [config]="{
+    backdropBorderRadius: '5px', fullScreenBackdrop:true}"></ngx-loading>
+</ion-content>

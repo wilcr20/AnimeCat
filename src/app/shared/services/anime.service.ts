@@ -9,7 +9,11 @@ export class AnimeService {
 
   constructor(public httpClient: HttpClient) { }
 
-  getHomeManga(){
+  getHomeAnime(){
     return this.httpClient.get(environment.apiUrl+ "animeyt/home");
+  }
+
+  seeChapterManga(body: any){
+    return this.httpClient.post(environment.apiUrl+ "animeyt/SeeChapter", body);
   }
 }
