@@ -12,11 +12,12 @@
       <blockquote>
         {{animeData.description}}
       </blockquote>
-    </div>
+    </div>   
+
     <div class="player">
       <div tabindex="0" (click)="openPlayer(animeData.defaultPlayer)"
         (keyup.enter)="openPlayer(animeData.defaultPlayer)" class="fake-player">
-        <button role="play" class="play"></button>
+        <button tabindex="-1" role="play" class="play"></button>
       </div>
       <!-- <iframe id="mainIframe" width="100%"
       [src]="animeData.defaultPlayer | safe" frameborder="0"></iframe> -->
