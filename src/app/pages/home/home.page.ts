@@ -31,6 +31,7 @@ export class HomePage {
         console.log(resp);
         
         this.animeList = resp.data;
+        
       }
     }, (err) => {
       this.isLoading = false;

@@ -1,37 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title *ngIf="data && data.title">{{data.title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content>
-
   <div class="main">
-    <h1 *ngIf="data && data.title">{{data.title}}</h1>
-    <hr>
-
-    <div tabindex="0"  class="info">
+    <br>
+    <div tabindex="0" class="info">
       <img *ngIf="data" src={{data.imageUrl}} alt="" srcset="">
       <div class="description" *ngIf="data && data.description">
-        <p>{{data.description}}</p>
-        <div class="genreList"  *ngIf="data && data.genreList">
+        {{data.description}}
+        <div class="genreList" *ngIf="data && data.genreList">
           <ion-chip *ngFor="let genre of data.genreList">{{genre.genre}}</ion-chip>
         </div>
       </div>
       <br>
     </div>
-    <div class="chapters">
+    <br>
+    <div *ngIf="data" class="animeOptions">
+      <button (click)="favoriteClick()" [ngClass]="{'add': !isFavorite, 'remove': isFavorite}">
+        {{textFavorite}}
+      </button>
+    </div>
+    <br>
+    <div class="chapters" *ngIf="data">
       <h3>Lista de capitulos</h3>
-      <table *ngIf="data && data.chapterList.length > 0">
+      <table *ngIf=" data.chapterList.length > 0">
         <tr>
-            <th>#</th>
-            <th>Nombre del capítulo</th>
-            <th>Fecha</th>
-            <th>Visto</th>
+          <th>#</th>
+          <th>Nombre del capítulo</th>
+          <th>Fecha</th>
+          <th *ngIf="isFavorite">Visto</th>
         </tr>
         <tr *ngFor="let chapter of data.chapterList; let i = index">
-            <td>{{getChapterNumber(i)}}</td>
-            <td (keyup.enter)="seeChapterAnime(chapter.chapterUrl,data.website, chapter.chapter, data.imageUrl)" tabindex="0">{{chapter.chapter}}</td>
-            <td>{{chapter.date}}</td>
-            <td></td>
+          <td>{{getChapterNumber(i)}}</td>
+          <td (keyup.enter)="seeChapterAnime(chapter.chapterUrl,data.website, chapter.chapter, data.imageUrl)"
+            tabindex="0">{{chapter.chapter}}</td>
+          <td>{{chapter.date}}</td>
+          <td *ngIf="isFavorite"></td>
         </tr>
-    </table>
-    <br>
-    <br>
+      </table>
+      <br>
+      <br>
     </div>
 
 

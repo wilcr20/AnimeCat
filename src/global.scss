@@ -27,8 +27,70 @@
 
 
 ion-chip {
-    --background: black;
-    --color: white;
-    --border-color: 1px solid white;
-    font-size: 18px;
+  --background: black;
+  --color: white;
+  --border-color: 1px solid white;
+  font-size: 18px;
+}
+
+ion-title {
+  font-family: emoji;
+  padding: 5px;
+  color: white;
+  font-size: 2rem;
+  text-align: center;
+}
+
+ion-toolbar {
+  --background: radial-gradient(circle, rgba(2, 0, 36, 1) 0%, rgba(9, 28, 121, 1) 28%, rgba(43, 32, 136, 1) 63%, rgba(3, 9, 10, 1) 100%);
+}
+
+ion-menu::part(backdrop) {
+  background-color: rgba(136, 130, 136, 0.5);
+}
+
+ion-menu {
+  ion-title {
+    text-align: start;
+    font-size: 1.5rem;
   }
+
+  ion-content {
+    --background: radial-gradient(circle, rgba(2, 0, 36, 1) 0%, rgba(9, 28, 121, 1) 28%, rgba(43, 32, 136, 1) 63%, rgba(3, 9, 10, 1) 100%);
+
+    ion-list {
+      border-radius: 15px !important;
+      background: black !important;
+      border: 1px solid white !important;
+      padding: 10% 0 10% !important;
+      button {
+        width: 90%;
+        left: 5%;
+        padding-left: 10px;
+        text-align: initial;
+        margin-bottom: 5%;
+        position: relative;
+        height: 2rem;
+        background: black;
+        color: white;
+        border-radius: 5px;
+        border: 2px solid #7cbcf3;
+
+        ion-icon {
+          margin-right: 10px;
+        }
+
+        &:focus,
+        &:focus-visible {
+          background: #7cbcf3;
+          border: 1px solid black;
+          color: black;
+        }
+      }
+    }
+  }
+}
+
+ion-menu-button {
+  --color: white;
+}

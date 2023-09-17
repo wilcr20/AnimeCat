@@ -3,29 +3,28 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Animes recientes</ion-title>
+    <ion-title>Mis Favoritos</ion-title>
   </ion-toolbar>
 </ion-header>
-
 
 <ion-content [fullscreen]="true">
   <div class="main">
     <br>
-    <div class="cards-container" *ngIf="animeList.length > 0">
-      <ion-card  tabindex="0" *ngFor="let anime of animeList" 
-      (click)="seeChapterAnime(anime.url, anime.website, anime.title, anime.imageUrl)" 
-      (keyup.enter)="seeChapterAnime(anime.url, anime.website, anime.title, anime.imageUrl)" >
+    <div class="noFavorite" *ngIf="favoriteList.length == 0">
+      <!-- <p>No hay favoritos agregados.</p> -->
+      <img src="https://ih1.redbubble.net/image.4870404907.6541/bg,f8f8f8-flat,750x,075,f-pad,750x1000,f8f8f8.jpg" alt="">
+    </div>
+
+    <div class="cards-container" *ngIf="favoriteList.length > 0">
+      <ion-card (keyup.enter)="redirectToAnimeInfo(anime.url)"
+      (click)="redirectToAnimeInfo(anime.url)" tabindex="0" *ngFor="let anime of favoriteList"  >
         <img src={{anime.imageUrl}} onerror="this.src='../../../assets/imgNotFound.jpg'" />
         <ion-card-header>
           <ion-card-title>{{anime.title}}</ion-card-title>
         </ion-card-header>
       </ion-card>
     </div>
-    <br>
-    <br>
-    <div *ngIf="canLoadMore && animeList.length > 0">
-      <button tabindex="0" (click)="loadMore()" (keyup.enter)="loadMore()" class="loadMore">Mostrar más.</button>
-    </div>
+
     <br>
   </div>
 

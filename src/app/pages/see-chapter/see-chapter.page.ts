@@ -31,6 +31,7 @@ export class SeeChapterPage {
     public router: Router,
     private theInAppBrowser: InAppBrowser
   ) {
+    this.data = null;
     let animeData = localStorage.getItem("seeChapterData");
     if (animeData) {
       this.data = JSON.parse(animeData)  //window.history.state;

@@ -9,18 +9,6 @@ ion-content {
 
 
 .main {
-    h1 {
-        font-family: emoji;
-        padding: 5px;
-        text-align: center;
-        color: white;
-        font-size: 2rem;
-    }
-
-    hr {
-        border-bottom: 1px solid gray;
-    }
-
     .info {
         display: flex;
         position: relative;
@@ -32,8 +20,8 @@ ion-content {
             padding: 20px;
             color: white;
             text-align: start;
-            max-height: 500px;
-            overflow: scroll;
+            // max-height: 500px;
+            // overflow: scroll;
             width: 70%;
             font-family: emoji;
             height: -moz-fit-content;
@@ -49,6 +37,30 @@ ion-content {
 
         img {
             width: 25%;
+        }
+    }
+
+    .animeOptions {
+        position: absolute;
+        left: 5%;
+        width: 24%;
+
+        button {
+            border-radius: 10px;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 16px;
+            width: 100%;
+
+            &.add {
+                background: green;
+                color: white;
+            }
+
+            &.remove {
+                background: red;
+                color: white;
+            }
         }
     }
 

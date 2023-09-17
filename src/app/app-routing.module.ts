@@ -2,10 +2,6 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  // {
-  //   path: '',
-  //   loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
-  // },
   {
     path: 'home',
     loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule)
@@ -22,7 +18,12 @@ const routes: Routes = [
   {
     path: 'anime-info/:id',
     loadChildren: () => import('./pages/anime-info/anime-info.module').then( m => m.AnimeInfoPageModule)
-  }
+  },
+  {
+    path: 'favorites',
+    loadChildren: () => import('./pages/favorites/favorites.module').then( m => m.FavoritesPageModule)
+  },
+  
 ];
 
 @NgModule({
