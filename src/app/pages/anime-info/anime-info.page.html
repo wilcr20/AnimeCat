@@ -1,13 +1,13 @@
 <ion-content>
 
   <div class="main">
-    <h1 *ngIf="data">{{data.title}}</h1>
+    <h1 *ngIf="data && data.title">{{data.title}}</h1>
     <hr>
 
     <div tabindex="0"  class="info">
       <img *ngIf="data" src={{data.imageUrl}} alt="" srcset="">
       <div class="description" *ngIf="data && data.description">
-        {{data.description}}
+        <p>{{data.description}}</p>
         <div class="genreList"  *ngIf="data && data.genreList">
           <ion-chip *ngFor="let genre of data.genreList">{{genre.genre}}</ion-chip>
         </div>
@@ -25,7 +25,7 @@
         </tr>
         <tr *ngFor="let chapter of data.chapterList; let i = index">
             <td>{{getChapterNumber(i)}}</td>
-            <td (keyup.enter)="seeChapterAnime(chapter.chapterUrl,data.website, data.title, data.imageUrl)" tabindex="0">{{chapter.chapter}}</td>
+            <td (keyup.enter)="seeChapterAnime(chapter.chapterUrl,data.website, chapter.chapter, data.imageUrl)" tabindex="0">{{chapter.chapter}}</td>
             <td>{{chapter.date}}</td>
             <td></td>
         </tr>

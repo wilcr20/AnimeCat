@@ -49,6 +49,8 @@ export class AnimeInfoPage implements OnInit, OnDestroy {
 
   seeChapterAnime(url: any, website: any, title: any, img: any) {
     let data = { url: url, website: website, title: title, img: img };
+    console.log(data);
+    
     localStorage.setItem("seeChapterData", JSON.stringify(data))
     this.router.navigateByUrl("see-chapter");
   }

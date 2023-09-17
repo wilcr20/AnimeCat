@@ -3,14 +3,14 @@ ion-content {
     background-position: center center;
     background-repeat: no-repeat;
     // background-color: black;
-    background: radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(9,28,121,1) 28%, rgba(43,32,136,1) 63%, rgba(3,9,10,1) 100%);
+    background: radial-gradient(circle, rgba(2, 0, 36, 1) 0%, rgba(9, 28, 121, 1) 28%, rgba(43, 32, 136, 1) 63%, rgba(3, 9, 10, 1) 100%);
 
 }
 
 
 .main {
     h1 {
-        font-family: cursive;
+        font-family: emoji;
         padding: 5px;
         text-align: center;
         color: white;
@@ -46,7 +46,7 @@ ion-content {
 
     .description {
         border: 2px solid gray;
-        margin: 10px 5em;
+        margin: -10px 5em;
         color: white;
         text-align: center;
     }
@@ -55,15 +55,12 @@ ion-content {
         border: 3px solid gray;
         border-radius: 15px;
         padding: 5em 10em;
-        margin: 2em 20%;
-        // background: #000030;
+        margin: 2em 20% 0;
         display: flex;
         justify-content: center;
         align-items: center;
-        background-repeat: initial;
-        background-size: auto;
-        background-attachment: fixed;
-        background-position: center;
+        background-repeat: repeat;
+        background-size: contain;
 
         .fake-player {
             display: flex;

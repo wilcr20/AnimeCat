@@ -32,25 +32,29 @@ export class SeeChapterPage {
     private theInAppBrowser: InAppBrowser
   ) {
     let animeData = localStorage.getItem("seeChapterData");
-    if(animeData){
+    if (animeData) {
       this.data = JSON.parse(animeData)  //window.history.state;
     }
+
   }
 
   ionViewWillEnter() {
-    this.isLoading = true;
-    console.log("see",this.data.url)
-    this.animeService.seeChapterAnime({ animeUrl: this.data.url }).subscribe((resp) => {
-      this.isLoading = false;
-      if (resp) {
-        this.animeData = resp;
-        this.title = this.animeData.title
-        this.setPlayerimg();
-      }
-    }, (err) => {
-      this.isLoading = false;
-      console.log(err);
-    })
+    let animeData = localStorage.getItem("seeChapterData");
+    if (animeData) {
+      this.data = JSON.parse(animeData)  //window.history.state;
+      this.isLoading = true;
+      this.animeService.seeChapterAnime({ animeUrl: this.data.url }).subscribe((resp) => {
+        this.isLoading = false;
+        if (resp) {
+          this.animeData = resp;
+          this.title = this.animeData.title
+          this.setPlayerimg();
+        }
+      }, (err) => {
+        this.isLoading = false;
+        console.log(err);
+      })
+    }
   }
 
   setPlayerimg() {

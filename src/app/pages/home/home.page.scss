@@ -11,7 +11,7 @@ ion-content {
   text-align: center;
 
   h1 {
-    font-family: cursive;
+    font-family: emoji;
     padding: 5px;
     color: white;
     font-size: 2rem;
@@ -24,6 +24,7 @@ ion-content {
   .cards-container {
     grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
     display: grid;
+    margin: 10px;
 
     ion-card {
       border-radius: 15px;
