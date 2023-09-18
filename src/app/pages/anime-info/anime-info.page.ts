@@ -14,6 +14,8 @@ export class AnimeInfoPage implements OnInit, OnDestroy {
   data: any;
   isLoading = false;
   ulrAnime: any;
+  currentFavorite: any;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -42,15 +44,22 @@ export class AnimeInfoPage implements OnInit, OnDestroy {
     });
   }
 
+
+
   verifyFavorite() {
     let favorites = localStorage.getItem("favoritesAnime");
     if (favorites) {
-      let favoriteList = JSON.parse(favorites);
-      this.isFavorite = favoriteList.filter((fav: { title: any; }) => fav.title == this.data.title).length > 0;
+      this.getFavoriteValue(favorites)
     } else {
       this.isFavorite = false;
     }
     this.updateFavoritetext()
+  }
+
+  getFavoriteValue(favorites: any) {
+    let favoriteList = JSON.parse(favorites);
+    this.currentFavorite = favoriteList.filter((fav: { title: any; }) => fav.title == this.data.title)
+    this.isFavorite = this.currentFavorite.length == 0 ? false : true;
   }
 
   favoriteClick() {
@@ -68,7 +77,8 @@ export class AnimeInfoPage implements OnInit, OnDestroy {
         imageUrl: this.data.imageUrl,
         title: this.data.title,
         url: this.ulrAnime,
-        website: this.data.website
+        website: this.data.website,
+        chapters: []
       }
 
       let favorites = localStorage.getItem("favoritesAnime");
@@ -108,6 +118,32 @@ export class AnimeInfoPage implements OnInit, OnDestroy {
     let data = { url: url, website: website, title: title, img: img };
     localStorage.setItem("seeChapterData", JSON.stringify(data))
     this.router.navigateByUrl("see-chapter");
+  }
+
+  updateChapterSeen(chapterUrl: string) {
+    let favorites = localStorage.getItem("favoritesAnime");
+    if (favorites) {
+      let list = JSON.parse(favorites);
+      list = list.filter((fav: any) => fav.url != this.ulrAnime);
+      let needToRemove = this.isChapterSeen(chapterUrl);
+      if (needToRemove) {
+        this.currentFavorite[0].chapters =
+          this.currentFavorite[0].chapters.filter((chapter: { url: string; }) => chapter.url != chapterUrl);
+        list.push(this.currentFavorite[0]);
+        localStorage.setItem("favoritesAnime", JSON.stringify(list));
+        return;
+      } else {
+        this.currentFavorite[0].chapters.push({ url: chapterUrl });
+        list.push(this.currentFavorite[0]);
+        localStorage.setItem("favoritesAnime", JSON.stringify(list));
+      }
+    }
+
+  }
+
+  isChapterSeen(chapterUrl: string) {
+    return this.currentFavorite[0].chapters.filter((chapter: any) =>
+      chapter.url == chapterUrl).length > 0;
   }
 
 }

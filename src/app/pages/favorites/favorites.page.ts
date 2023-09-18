@@ -18,14 +18,28 @@ export class FavoritesPage {
     this.isLoading = true;
     let favorites = localStorage.getItem("favoritesAnime");
     if (favorites) {
-      this.favoriteList = JSON.parse(favorites).reverse();
+      this.favoriteList = this.fixFavoritesObjects(JSON.parse(favorites));
     }
     this.isLoading = false;
   }
 
   redirectToAnimeInfo(url: string) {
     this.router.navigate(['/anime-info', url]);
+  }
 
+  fixFavoritesObjects(list:any){
+    let fixed = false;
+    for (let index = 0; index < list.length; index++) {
+      const fav = list[index];
+      if(!fav.chapters){
+        fixed = true;
+        fav.chapters = [];
+      }
+    }
+    if(fixed){
+      localStorage.setItem("favoritesAnime", JSON.stringify(list))
+    }
+    return list.reverse();
   }
 
 }

@@ -22,14 +22,14 @@
     </div>
     <br>
     <div *ngIf="data" class="animeOptions">
-      <button (click)="favoriteClick()" [ngClass]="{'add': !isFavorite, 'remove': isFavorite}">
+      <button tabindex="0" (click)="favoriteClick()" [ngClass]="{'add': !isFavorite, 'remove': isFavorite}">
         {{textFavorite}}
       </button>
     </div>
     <br>
-    <div class="chapters" *ngIf="data">
+    <div class="chapters" *ngIf="data && data.chapterList.length > 0">
       <h3>Lista de capitulos</h3>
-      <table *ngIf=" data.chapterList.length > 0">
+      <table>
         <tr>
           <th>#</th>
           <th>Nombre del capítulo</th>
@@ -41,7 +41,10 @@
           <td (keyup.enter)="seeChapterAnime(chapter.chapterUrl,data.website, chapter.chapter, data.imageUrl)"
             tabindex="0">{{chapter.chapter}}</td>
           <td>{{chapter.date}}</td>
-          <td *ngIf="isFavorite"></td>
+          <td *ngIf="isFavorite">
+            <input tabindex="0" (keyup.enter)="updateChapterSeen(chapter.chapterUrl)" 
+            class="checkSeenChapter" type="checkbox" [checked]="isChapterSeen(chapter.chapterUrl)" />
+          </td>
         </tr>
       </table>
       <br>

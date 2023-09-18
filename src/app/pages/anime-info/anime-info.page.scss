@@ -90,6 +90,15 @@ ion-content {
                         color: black;
                     }
 
+                    .checkSeenChapter {
+                        width: 25px;
+                        height: 25px;
+                        accent-color: green;
+                        &:focus,
+                        &:focus-visible {
+                            border: 3px solid #7cbcf3;
+                        }
+                    }
                 }
 
                 th {
@@ -98,6 +107,8 @@ ion-content {
                     padding: 10px 0 10px 0;
                 }
             }
+
+
         }
     }
 }

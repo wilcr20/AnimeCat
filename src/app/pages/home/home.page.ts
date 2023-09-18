@@ -27,11 +27,8 @@ export class HomePage {
     this.isLoading = true;
     this.animeService.getHomeAnime().subscribe((resp: any) => {
       this.isLoading = false;
-      if (resp) {
-        console.log(resp);
-        
+      if (resp) {       
         this.animeList = resp.data;
-        
       }
     }, (err) => {
       this.isLoading = false;
@@ -44,7 +41,6 @@ export class HomePage {
     this.animeService.getMoreHomeAnime().subscribe((resp: any) => {
       this.isLoading = false;
       if (resp) {
-        console.log(resp)
         this.canLoadMore = false;
         this.animeList = this.animeList.concat(resp.data);
       }

@@ -25,9 +25,7 @@ export class AppComponent {
     private router: Router
   ) {}
 
-  redirect(url: string){
-    console.log("redirect", url);
-    
+  redirect(url: string){   
     this.router.navigateByUrl(url)
   }
 }
