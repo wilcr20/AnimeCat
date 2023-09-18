@@ -12,16 +12,25 @@
       <blockquote>
         {{animeData.description}}
       </blockquote>
-    </div>   
+    </div>
+
+    <div class="serverList" *ngIf="animeData && animeData.servers.length > 0">
+      <ion-chip tabindex="0" (keyup.enter)="updateServer(server)"
+        *ngFor="let server of animeData.servers"
+        [ngClass]="{'selected': playerServerName === server.server }">
+        {{server.server}}
+      </ion-chip>
+    </div>
+
     <div class="player" id="player">
-      <div tabindex="0" *ngIf="animeData && animeData.defaultPlayer" (click)="openPlayer(animeData.defaultPlayer)"
-        (keyup.enter)="openPlayer(animeData.defaultPlayer)" class="fake-player">
+      <div tabindex="0" *ngIf="animeData && animeData.defaultPlayer" (click)="openPlayer()"
+        (keyup.enter)="openPlayer()" class="fake-player">
         <button tabindex="-1" role="play" class="play"></button>
       </div>
       <!-- <iframe id="mainIframe" width="100%"
       [src]="animeData.defaultPlayer | safe" frameborder="0"></iframe> -->
     </div>
-    
+
   </div>
 
   <ngx-loading [show]="isLoading" [config]="{

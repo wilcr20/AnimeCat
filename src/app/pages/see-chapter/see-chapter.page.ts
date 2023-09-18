@@ -14,6 +14,8 @@ export class SeeChapterPage {
   animeData: any;
   isLoading = false;
   playerImg = "";
+  playerServer = "";
+  playerServerName = "Omega"
 
   options: InAppBrowserOptions = {
     location: 'no',//Or 'no' 
@@ -35,7 +37,6 @@ export class SeeChapterPage {
     let animeData = localStorage.getItem("seeChapterData");
     if (animeData) {
       this.data = JSON.parse(animeData)  //window.history.state;
-      console.log("");
     }
 
   }
@@ -50,6 +51,7 @@ export class SeeChapterPage {
         if (resp) {
           this.animeData = resp;
           this.title = this.animeData.title
+          this.playerServer = this.animeData.defaultPlayer;
           this.setPlayerimg();
         }
       }, (err) => {
@@ -66,10 +68,10 @@ export class SeeChapterPage {
     }
   }
 
-  openPlayer(url: string) {
+  openPlayer() {   
     let target = "_blank";
     let codeToExec = 'var func = (function f() { var iframes = document.getElementsByTagName("iframe");setInterval(() => {for (let index = 0; index < iframes.length; index++) { iframes[index].style.display = "none" }; }, 20); return f; })();document.addEventListener("click", handler, true); function handler(e) { }'
-    let browser = this.theInAppBrowser.create(url, target, this.options);
+    let browser = this.theInAppBrowser.create(this.playerServer, target, this.options);
     browser.on("loadstart").subscribe(() => {
       browser.executeScript({
         code: codeToExec
@@ -85,6 +87,11 @@ export class SeeChapterPage {
 
   redirectToAnimeInfo(url: string) {
     this.router.navigate(['/anime-info', url]);
+  }
+
+  updateServer(server: any){
+    this.playerServer = server.url;
+    this.playerServerName = server.server;    
   }
 
 }

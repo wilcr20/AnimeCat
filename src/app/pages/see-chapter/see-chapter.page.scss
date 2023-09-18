@@ -30,7 +30,8 @@ ion-content {
         border-radius: 10px;
         text-align: start;
         font-size: 20px;
-        border: 3px solid rgb(0, 119, 255);;
+        border: 3px solid rgb(0, 119, 255);
+        ;
 
         &:focus,
         &:focus-visible {
@@ -55,8 +56,29 @@ ion-content {
         // text-align: center;
     }
 
+    .serverList {
+        text-align: center;
+        margin-top: 1rem;
+        margin-bottom: -1rem;
+
+        ion-chip {
+
+            &:focus-visible,
+            &:focus-within,
+            &:focus {
+                border: 3px solid rgb(0, 119, 255);
+            }
+
+            &.selected {
+                --background: rgb(0, 119, 255);
+                --color: white;
+                --border-color: 1px solid white;
+            }
+        }
+    }
+
     .player {
-        border: 3px solid rgb(0, 119, 255);
+        // border: 3px solid rgb(0, 119, 255);
         border-radius: 15px;
         padding: 3em 10em;
         margin: 2em 20% 0;
@@ -70,8 +92,8 @@ ion-content {
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 10rem;
-            height: 10rem;
+            width: 6rem;
+            height: 6rem;
             padding: 2rem;
             border: 0.2rem solid black;
             background: white;
