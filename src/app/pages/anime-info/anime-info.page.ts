@@ -73,7 +73,7 @@ export class AnimeInfoPage implements OnInit, OnDestroy {
         return;
       }
     } else {
-      let favorite = {
+      let newFavorite = {
         imageUrl: this.data.imageUrl,
         title: this.data.title,
         url: this.ulrAnime,
@@ -82,13 +82,14 @@ export class AnimeInfoPage implements OnInit, OnDestroy {
       }
 
       let favorites = localStorage.getItem("favoritesAnime");
+      this.currentFavorite = [newFavorite];
       if (favorites) {
         let list = JSON.parse(favorites);
-        list.push(favorite);
+        list.push(newFavorite);
         localStorage.setItem("favoritesAnime", JSON.stringify(list));
       } else {
         let list = [];
-        list.push(favorite);
+        list.push(newFavorite);
         localStorage.setItem("favoritesAnime", JSON.stringify(list));
       }
     }
@@ -138,11 +139,26 @@ export class AnimeInfoPage implements OnInit, OnDestroy {
         localStorage.setItem("favoritesAnime", JSON.stringify(list));
       }
     }
+
   }
 
   isChapterSeen(chapterUrl: string) {
+    if (!this.currentFavorite) {
+      this.isLoading = true
+      setTimeout(() => {
+        let favorites = localStorage.getItem("favoritesAnime");
+        if (favorites) {
+          let favoriteList = JSON.parse(favorites);
+          this.currentFavorite = favoriteList.filter((fav: { title: any; }) => fav.title == this.data.title)
+        }
+        this.isLoading = false;
+      }, 1000);
+      return false;
+    }
     return this.currentFavorite[0].chapters.filter((chapter: any) =>
       chapter.url == chapterUrl).length > 0;
+
+
   }
 
 }

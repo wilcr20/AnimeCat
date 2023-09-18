@@ -35,6 +35,7 @@ export class SeeChapterPage {
     let animeData = localStorage.getItem("seeChapterData");
     if (animeData) {
       this.data = JSON.parse(animeData)  //window.history.state;
+      console.log("");
     }
 
   }
