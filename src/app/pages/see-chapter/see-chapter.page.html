@@ -4,7 +4,7 @@
     <h1>{{data.title}}</h1>
     <hr>
 
-    <p id="animeName" tabindex="0" (keyup.enter)="redirectToAnimeInfo(animeData.animeUrl)"
+    <p id="animeName" *ngIf="animeData" tabindex="0" (keyup.enter)="redirectToAnimeInfo(animeData.animeUrl)"
       (click)="redirectToAnimeInfo(animeData.animeUrl)">{{title}}</p>
     <p id="datePublish" *ngIf="animeData && animeData.date">Publicado el {{animeData.date}}</p>
     <br>

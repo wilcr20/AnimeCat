@@ -138,7 +138,6 @@ export class AnimeInfoPage implements OnInit, OnDestroy {
         localStorage.setItem("favoritesAnime", JSON.stringify(list));
       }
     }
-
   }
 
   isChapterSeen(chapterUrl: string) {

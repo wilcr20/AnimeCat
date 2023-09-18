@@ -16,27 +16,31 @@ export class FavoritesPage {
 
   ionViewWillEnter() {
     this.isLoading = true;
-    let favorites = localStorage.getItem("favoritesAnime");
-    if (favorites) {
-      this.favoriteList = this.fixFavoritesObjects(JSON.parse(favorites));
-    }
-    this.isLoading = false;
+    this.favoriteList = [];
+    setTimeout(() => {
+      let favorites = localStorage.getItem("favoritesAnime");
+      if (favorites) {
+        this.favoriteList = this.fixFavoritesObjects(JSON.parse(favorites));
+      }
+      this.isLoading = false;
+    }, 500);
+
   }
 
   redirectToAnimeInfo(url: string) {
     this.router.navigate(['/anime-info', url]);
   }
 
-  fixFavoritesObjects(list:any){
+  fixFavoritesObjects(list: any) {
     let fixed = false;
     for (let index = 0; index < list.length; index++) {
       const fav = list[index];
-      if(!fav.chapters){
+      if (!fav.chapters) {
         fixed = true;
         fav.chapters = [];
       }
     }
-    if(fixed){
+    if (fixed) {
       localStorage.setItem("favoritesAnime", JSON.stringify(list))
     }
     return list.reverse();

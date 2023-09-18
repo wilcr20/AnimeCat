@@ -21,6 +21,18 @@ export class HomePage {
   }
 
   ionViewWillEnter() {
+    if(this.animeList.length > 0){
+      let temp = this.animeList;
+      this.animeList = []
+      this.isLoading = true;
+      setTimeout(() => {
+        this.isLoading = false;
+        this.animeList = temp;
+
+      }, 500);
+    }
+    //.scrollToTop();
+
   }
 
   geAnimeForHome() {
