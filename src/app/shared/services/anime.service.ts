@@ -24,4 +24,8 @@ export class AnimeService {
   getAnimeInfo(body:any){
     return this.httpClient.post(environment.apiUrl+ "animeyt/getAnimeInfo", body);
   }
+
+  getRecommendation(){
+    return this.httpClient.get(environment.apiUrl+ "animeyt/recomendation");
+  }
 }

@@ -23,24 +23,47 @@ export class AnimeInfoPage implements OnInit, OnDestroy {
 
   }
 
+  ionViewWillEnter() {
+
+  }
+
   ngOnInit() {
     this.sub = this.activatedRoute.params.subscribe((params: { [x: string]: any; }) => {
       this.ulrAnime = params['id']; // (+) converts string 'id' to a number
-      let json = {
-        animeUrl: this.ulrAnime
-      }
-      this.isLoading = true;
-      this.animeService.getAnimeInfo(json).subscribe((resp) => {
-        this.isLoading = false;
-        if (resp) {
-          this.data = resp;
-          this.verifyFavorite()
-        }
-      }, (err) => {
-        this.isLoading = false;
-        console.log(err);
 
-      })
+      this.isLoading = true;
+      this.data = null;
+
+      if (this.ulrAnime === "recommendation" && !this.data) {
+        this.animeService.getRecommendation().subscribe((resp) => {
+          this.isLoading = false;
+          if (resp) {
+            this.data = resp;
+            this.ulrAnime = this.data.animeUrl;
+            this.verifyFavorite();
+            return;
+          }
+        }, (err) => {
+          this.isLoading = false;
+          console.log(err);
+          return;
+        })
+      } else {
+        let json = {
+          animeUrl: this.ulrAnime
+        }
+        this.animeService.getAnimeInfo(json).subscribe((resp) => {
+          this.isLoading = false;
+          if (resp) {
+            this.data = resp;
+            this.verifyFavorite()
+          }
+        }, (err) => {
+          this.isLoading = false;
+          console.log(err);
+        })
+      }
+
     });
   }
 

@@ -18,6 +18,16 @@ export class AppComponent {
       "url": "/favorites",
       "icon": "star-outline",
       "display": "Favoritos"
+    },
+    {
+      "url": '/anime-info/recommendation',
+      "icon": "calendar-outline",
+      "display": "En emisión"
+    },
+    {
+      "url": '/anime-info/recommendation',
+      "icon": "sparkles-outline",
+      "display": "Recomendación para ver"
     }
   ]
   constructor(
