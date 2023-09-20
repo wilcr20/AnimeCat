@@ -15,6 +15,11 @@ export class AppComponent {
       "display": "Animes recientes"
     },
     {
+      "url": "/directory",
+      "icon": "albums-outline",
+      "display": "Directorio de animes"
+    },
+    {
       "url": "/favorites",
       "icon": "star-outline",
       "display": "Favoritos"

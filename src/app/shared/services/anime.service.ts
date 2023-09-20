@@ -32,4 +32,8 @@ export class AnimeService {
   getAnimeOnGoing(){
     return this.httpClient.get(environment.apiUrl+ "animeyt/ongoing");
   }
+
+  getAnimeDirectory(body:any){
+    return this.httpClient.post(environment.apiUrl+ "animeyt/directory", body);
+  }
 }

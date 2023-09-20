@@ -27,6 +27,10 @@ const routes: Routes = [
     path: 'ongoing',
     loadChildren: () => import('./pages/ongoing/ongoing.module').then( m => m.OngoingPageModule)
   },
+  {
+    path: 'directory',
+    loadChildren: () => import('./pages/directory/directory.module').then( m => m.DirectoryPageModule)
+  },
   
 ];
 

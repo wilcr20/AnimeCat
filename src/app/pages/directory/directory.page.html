@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Directorio de animes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+  <div class="main"  *ngIf="animeData">
+    <br>
+    <div class="cards-container" *ngIf="animeData.data.length > 0">
+      <ion-card  tabindex="0" *ngFor="let anime of animeData.data" 
+      (click)="redirectToAnimeInfo(anime.url)" 
+      (keyup.enter)="redirectToAnimeInfo(anime.url)" >
+        <img src={{anime.imageUrl}} onerror="this.src='../../../assets/imgNotFound.jpg'" />
+        <ion-card-header>
+          <ion-card-title>{{anime.title}}</ion-card-title>
+        </ion-card-header>
+      </ion-card>
+    </div>
+    <br>
+    <div style="display: flow-root;">
+      <button *ngIf="animeData.buttons.prevBtnUrl" tabindex="0" (click)="getDirectoryAnime(animeData.buttons.prevBtnUrl)" (keyup.enter)="getDirectoryAnime(animeData.buttons.prevBtnUrl)" class="loadMore left">Anterior.</button>
+      <button *ngIf="animeData.buttons.nextBtnUrl" tabindex="0" (click)="getDirectoryAnime(animeData.buttons.nextBtnUrl)" (keyup.enter)="getDirectoryAnime(animeData.buttons.nextBtnUrl)" class="loadMore right">Siguiente.</button>
+    </div>
+    <br>
+  </div>
+
+  <ngx-loading [show]="isLoading" [config]="{
+    backdropBorderRadius: '5px', fullScreenBackdrop:true}"></ngx-loading>
+
+    
+</ion-content>
