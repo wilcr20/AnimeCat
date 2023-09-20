@@ -20,7 +20,7 @@ export class AppComponent {
       "display": "Favoritos"
     },
     {
-      "url": '/anime-info/recommendation',
+      "url": '/ongoing',
       "icon": "calendar-outline",
       "display": "En emisión"
     },

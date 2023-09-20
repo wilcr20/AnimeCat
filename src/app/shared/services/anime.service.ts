@@ -28,4 +28,8 @@ export class AnimeService {
   getRecommendation(){
     return this.httpClient.get(environment.apiUrl+ "animeyt/recomendation");
   }
+
+  getAnimeOnGoing(){
+    return this.httpClient.get(environment.apiUrl+ "animeyt/ongoing");
+  }
 }

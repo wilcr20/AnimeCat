@@ -23,6 +23,10 @@ const routes: Routes = [
     path: 'favorites',
     loadChildren: () => import('./pages/favorites/favorites.module').then( m => m.FavoritesPageModule)
   },
+  {
+    path: 'ongoing',
+    loadChildren: () => import('./pages/ongoing/ongoing.module').then( m => m.OngoingPageModule)
+  },
   
 ];
 
