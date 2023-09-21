@@ -15,20 +15,27 @@
     </div>
 
     <div class="serverList" *ngIf="animeData && animeData.servers.length > 0">
-      <ion-chip tabindex="0" (keyup.enter)="updateServer(server)"
-        *ngFor="let server of animeData.servers"
+      <ion-chip tabindex="0" (keyup.enter)="updateServer(server)" *ngFor="let server of animeData.servers"
         [ngClass]="{'selected': playerServerName === server.server }">
         {{server.server}}
       </ion-chip>
     </div>
 
-    <div class="player" id="player">
-      <div tabindex="0" *ngIf="animeData && animeData.defaultPlayer" (click)="openPlayer()"
-        (keyup.enter)="openPlayer()" class="fake-player">
+    <div class="player" [style.background-image]="playerImg"
+      *ngIf="animeData && animeData.defaultPlayer != 'https://animeyt.es/undefined' && playerServerName === 'Omega' || playerServerName === 'Mega'"
+      id="player">
+      <div tabindex="0" (click)="openPlayer()" (keyup.enter)="openPlayer()" class="fake-player">
         <button tabindex="-1" role="play" class="play"></button>
       </div>
-      <!-- <iframe id="mainIframe" width="100%"
-      [src]="animeData.defaultPlayer | safe" frameborder="0"></iframe> -->
+
+    </div>
+
+    <div class="iframePlayer" tabindex="0" style="margin-top: 10px; width: 80%; margin-left: 10%;" *ngIf="playerServerName !== 'Omega' && playerServerName !== 'Mega'">
+      <iframe id="mainIframe" width="100%" tabindex="0" [src]="playerServer | safe" frameborder="0"></iframe>
+    </div>
+
+    <div style="text-align: center;" *ngIf="animeData && animeData.defaultPlayer == 'https://animeyt.es/undefined'">
+      <p style="color: white;font-size: larger;">Próximamente</p>
     </div>
 
   </div>

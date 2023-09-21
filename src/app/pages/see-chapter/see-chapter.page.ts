@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AnimeService } from '../../shared/services/anime.service';
 import { InAppBrowserOptions, InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-see-chapter',
@@ -13,7 +14,7 @@ export class SeeChapterPage {
   title = ""
   animeData: any;
   isLoading = false;
-  playerImg = "";
+  playerImg :any;
   playerServer = "";
   playerServerName = "Omega"
 
@@ -31,7 +32,8 @@ export class SeeChapterPage {
   constructor(
     public animeService: AnimeService,
     public router: Router,
-    private theInAppBrowser: InAppBrowser
+    private theInAppBrowser: InAppBrowser,
+    private sanitizer: DomSanitizer,
   ) {
     this.data = null;
     let animeData = localStorage.getItem("seeChapterData");
@@ -62,10 +64,7 @@ export class SeeChapterPage {
   }
 
   setPlayerimg() {
-    let player = document.getElementById("player");
-    if (player) {
-      player.style.backgroundImage = "url(" + this.data.img + ")";
-    }
+    this.playerImg = this.sanitizer.bypassSecurityTrustStyle('url(' + this.data.img + ')');
   }
 
   openPlayer() {   
