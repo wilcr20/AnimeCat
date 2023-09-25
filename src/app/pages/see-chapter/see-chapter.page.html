@@ -4,8 +4,8 @@
     <h1>{{data.title}}</h1>
     <hr>
 
-    <p id="animeName" *ngIf="animeData" tabindex="0" (keyup.enter)="redirectToAnimeInfo(animeData.animeUrl)"
-      (click)="redirectToAnimeInfo(animeData.animeUrl)">{{title}}</p>
+    <p id="animeName" *ngIf="animeData" tabindex="0" (keyup.enter)="redirectToAnimeInfo(animeData.animeUrl, animeData.website)"
+      (click)="redirectToAnimeInfo(animeData.animeUrl, animeData.website)">{{title}}</p>
     <p id="datePublish" *ngIf="animeData && animeData.date">Publicado el {{animeData.date}}</p>
     <br>
     <div class="description" *ngIf="animeData && animeData.description">
@@ -22,17 +22,17 @@
     </div>
 
     <div class="player" [style.background-image]="playerImg"
-      *ngIf="animeData && animeData.defaultPlayer != 'https://animeyt.es/undefined' && playerServerName === 'Omega' || playerServerName === 'Mega'"
-      id="player">
+      *ngIf="animeData && animeData.defaultPlayer != 'https://animeyt.es/undefined'"
+      id="player">  
       <div tabindex="0" (click)="openPlayer()" (keyup.enter)="openPlayer()" class="fake-player">
         <button tabindex="-1" role="play" class="play"></button>
       </div>
 
     </div>
 
-    <div class="iframePlayer" tabindex="0" style="margin-top: 10px; width: 80%; margin-left: 10%;" *ngIf="playerServerName !== 'Omega' && playerServerName !== 'Mega'">
+    <!-- <div class="iframePlayer" tabindex="0" style="margin-top: 10px; width: 80%; margin-left: 10%;" *ngIf="playerServerName !== 'Omega' && playerServerName !== 'Mega'">
       <iframe id="mainIframe" width="100%" tabindex="0" [src]="playerServer | safe" frameborder="0"></iframe>
-    </div>
+    </div> -->
 
     <div style="text-align: center;" *ngIf="animeData && animeData.defaultPlayer == 'https://animeyt.es/undefined'">
       <p style="color: white;font-size: larger;">Próximamente</p>

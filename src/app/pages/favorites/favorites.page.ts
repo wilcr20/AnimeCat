@@ -27,7 +27,8 @@ export class FavoritesPage {
 
   }
 
-  redirectToAnimeInfo(url: string) {
+  redirectToAnimeInfo(url: string, website: string) {
+    localStorage.setItem("website", website);
     this.router.navigate(['/anime-info', url]);
   }
 

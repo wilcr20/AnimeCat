@@ -52,16 +52,31 @@ export class AnimeInfoPage implements OnInit, OnDestroy {
         let json = {
           animeUrl: this.ulrAnime
         }
-        this.animeService.getAnimeInfo(json).subscribe((resp) => {
-          this.isLoading = false;
-          if (resp) {
-            this.data = resp;
-            this.verifyFavorite()
-          }
-        }, (err) => {
-          this.isLoading = false;
-          console.log(err);
-        })
+        let website = localStorage.getItem("website");
+        if (website == "animeflv") {
+          this.animeService.getAnimeInfo_AnimeFlv(json).subscribe((resp) => {
+            this.isLoading = false;
+            if (resp) {
+              this.data = resp;
+              this.verifyFavorite()
+            }
+          }, (err) => {
+            this.isLoading = false;
+            console.log(err);
+          })
+        } else {
+          this.animeService.getAnimeInfo(json).subscribe((resp) => {
+            this.isLoading = false;
+            if (resp) {
+              this.data = resp;
+              this.verifyFavorite()
+            }
+          }, (err) => {
+            this.isLoading = false;
+            console.log(err);
+          })
+        }
+
       }
 
     });
@@ -139,7 +154,8 @@ export class AnimeInfoPage implements OnInit, OnDestroy {
   }
 
   seeChapterAnime(url: any, website: any, title: any, img: any) {
-    let data = { url: url, website: website, title: title, img: img };
+    let data = { url: url, website: website, title: title, img: img }; 
+    localStorage.setItem("website", website);
     localStorage.setItem("seeChapterData", JSON.stringify(data))
     this.router.navigateByUrl("see-chapter");
   }

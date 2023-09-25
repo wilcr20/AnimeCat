@@ -15,6 +15,11 @@ export class AppComponent {
       "display": "Animes recientes"
     },
     {
+      "url": '/search',
+      "icon": "search-outline",
+      "display": "Buscar"
+    },
+    {
       "url": "/directory",
       "icon": "albums-outline",
       "display": "Directorio de animes"

@@ -13,8 +13,8 @@
     <br>
     <div class="cards-container" *ngIf="animeData.data.length > 0">
       <ion-card  tabindex="0" *ngFor="let anime of animeData.data" 
-      (click)="redirectToAnimeInfo(anime.url)" 
-      (keyup.enter)="redirectToAnimeInfo(anime.url)" >
+      (click)="redirectToAnimeInfo(anime.url, anime.website)" 
+      (keyup.enter)="redirectToAnimeInfo(anime.url, anime.website)" >
         <img src={{anime.imageUrl}} onerror="this.src='../../../assets/imgNotFound.jpg'" />
         <ion-card-header>
           <ion-card-title>{{anime.title}}</ion-card-title>

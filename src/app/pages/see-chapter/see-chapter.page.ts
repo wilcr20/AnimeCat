@@ -48,18 +48,36 @@ export class SeeChapterPage {
     if (animeData) {
       this.data = JSON.parse(animeData)  //window.history.state;
       this.isLoading = true;
-      this.animeService.seeChapterAnime({ animeUrl: this.data.url }).subscribe((resp) => {
-        this.isLoading = false;
-        if (resp) {
-          this.animeData = resp;
-          this.title = this.animeData.title
-          this.playerServer = this.animeData.defaultPlayer;
-          this.setPlayerimg();
-        }
-      }, (err) => {
-        this.isLoading = false;
-        console.log(err);
-      })
+      let website = localStorage.getItem("website");
+      if(website == "animeflv"){
+        this.animeService.seeChapterAnime_AnimeFlv({ animeUrl: this.data.url }).subscribe((resp) => {
+          this.isLoading = false;
+          if (resp) {
+            this.animeData = resp;
+            this.title = this.animeData.title
+            this.playerServer = this.animeData.defaultPlayer;
+            console.log(this)
+            this.setPlayerimg();
+          }
+        }, (err) => {
+          this.isLoading = false;
+          console.log(err);
+        })
+      }else{
+        this.animeService.seeChapterAnime({ animeUrl: this.data.url }).subscribe((resp) => {
+          this.isLoading = false;
+          if (resp) {
+            this.animeData = resp;
+            this.title = this.animeData.title
+            this.playerServer = this.animeData.defaultPlayer;
+            this.setPlayerimg();
+          }
+        }, (err) => {
+          this.isLoading = false;
+          console.log(err);
+        })
+      }
+      
     }
   }
 
@@ -84,7 +102,8 @@ export class SeeChapterPage {
     });
   }
 
-  redirectToAnimeInfo(url: string) {
+  redirectToAnimeInfo(url: string, website: string) {
+    localStorage.setItem("website", website);
     this.router.navigate(['/anime-info', url]);
   }
 

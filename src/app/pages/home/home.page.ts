@@ -64,6 +64,7 @@ export class HomePage {
 
   seeChapterAnime(url: any, website: any, title: any, img: any) {
     let data = { url: url, website: website, title: title, img: img };
+    localStorage.setItem("website", website);
     localStorage.setItem("seeChapterData", JSON.stringify(data))
     this.router.navigateByUrl("see-chapter");
   }
