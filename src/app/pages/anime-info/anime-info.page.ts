@@ -62,6 +62,7 @@ export class AnimeInfoPage implements OnInit, OnDestroy {
             }
           }, (err) => {
             this.isLoading = false;
+            this.router.navigateByUrl("/home")
             console.log(err);
           })
         } else {
@@ -73,6 +74,7 @@ export class AnimeInfoPage implements OnInit, OnDestroy {
             }
           }, (err) => {
             this.isLoading = false;
+            this.router.navigateByUrl("/home")
             console.log(err);
           })
         }

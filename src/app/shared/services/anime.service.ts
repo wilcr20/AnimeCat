@@ -51,4 +51,8 @@ export class AnimeService {
     return this.httpClient.post(environment.apiUrl+ "animeflv/SeeChapter", body);
   }
 
+  filterSearch_AnimeFlv(body: any){
+    return this.httpClient.post(environment.apiUrl+ "animeflv/filterSearch", body);
+  }
+
 }

@@ -1,0 +1,20 @@
+{
+    "data": [
+        {
+            "name": "Anime",
+            "value": "tv"
+        },
+        {
+            "name": "Película",
+            "value": "movie"
+        },
+        {
+            "name": "Especial",
+            "value": "special"
+        },
+        {
+            "name": "OVA",
+            "value": "ova"
+        }
+    ]
+}
