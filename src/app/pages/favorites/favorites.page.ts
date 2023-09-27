@@ -51,4 +51,35 @@ export class FavoritesPage {
     return list.reverse();
   }
 
+
+  move(ev: any, index: number) {
+    switch (ev.code) {
+      case "ArrowDown":
+        let newIndex = index + 4;
+        let element = document.getElementById("anime_" + newIndex);       
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+          element.focus();
+        }
+        break;
+      case "ArrowUp":
+        if (index > 0) {
+          let newIndex = index - 4 < 0 ? 0 : index - 4;
+          let element = document.getElementById("anime_" + newIndex);
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth", block: "start" });
+            element.focus();
+          }
+        }
+        break;
+      case "ArrowRight":
+        break;
+      case "ArrowLeft":
+        break;
+      default:
+        break;
+    }
+
+  }
+
 }

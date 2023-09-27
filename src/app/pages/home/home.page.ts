@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { AnimeService } from 'src/app/shared/services/anime.service';
 
@@ -21,7 +21,7 @@ export class HomePage {
   }
 
   ionViewWillEnter() {
-    if(this.animeList.length > 0){
+    if (this.animeList.length > 0) {
       let temp = this.animeList;
       this.animeList = []
       this.isLoading = true;
@@ -31,15 +31,14 @@ export class HomePage {
 
       }, 500);
     }
-    //.scrollToTop();
-
   }
+
 
   geAnimeForHome() {
     this.isLoading = true;
     this.animeService.getHomeAnime().subscribe((resp: any) => {
       this.isLoading = false;
-      if (resp) {       
+      if (resp) {
         this.animeList = resp.data;
       }
     }, (err) => {
@@ -48,7 +47,7 @@ export class HomePage {
     })
   }
 
-  loadMore(){
+  loadMore() {
     this.isLoading = true;
     this.animeService.getMoreHomeAnime().subscribe((resp: any) => {
       this.isLoading = false;
@@ -67,6 +66,36 @@ export class HomePage {
     localStorage.setItem("website", website);
     localStorage.setItem("seeChapterData", JSON.stringify(data))
     this.router.navigateByUrl("see-chapter");
+  }
+
+  move(ev: any, index: number) {
+    switch (ev.code) {
+      case "ArrowDown":
+        let newIndex = index + 4;
+        let element = document.getElementById("anime_" + newIndex);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+          element.focus();
+        }
+        break;
+      case "ArrowUp":
+        if (index > 0) {
+          let newIndex = index - 4 < 0 ? 0 : index - 4;
+          let element = document.getElementById("anime_" + newIndex);
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth", block: "start" });
+            element.focus();
+          }
+        }
+        break;
+      case "ArrowRight":
+        break;
+      case "ArrowLeft":
+        break;
+      default:
+        break;
+    }
+
   }
 
 }

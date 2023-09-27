@@ -17,8 +17,8 @@
     </div>
 
     <div class="cards-container" *ngIf="favoriteList.length > 0">
-      <ion-card (keyup.enter)="redirectToAnimeInfo(anime.url, anime.website)"
-        (click)="redirectToAnimeInfo(anime.url, anime.website)" tabindex="0" *ngFor="let anime of favoriteList">
+      <ion-card id="anime_{{i}}" (keydown)="move($event, i)" (keyup.enter)="redirectToAnimeInfo(anime.url, anime.website)"
+        (click)="redirectToAnimeInfo(anime.url, anime.website)" tabindex="0" *ngFor="let anime of favoriteList; let i = index">
         <img src={{anime.imageUrl}} onerror="this.src='../../../assets/imgNotFound.jpg'" />
         <ion-card-header>
           <ion-card-title>{{anime.title}}</ion-card-title>

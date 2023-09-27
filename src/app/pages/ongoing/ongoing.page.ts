@@ -15,14 +15,14 @@ export class OngoingPage implements OnInit {
   constructor(
     public animeService: AnimeService,
     public router: Router
-  ) { 
-    
+  ) {
+
   }
 
   ngOnInit() {
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.ongoingData = null;
     this.geAnimeOngoing();
   }
@@ -34,7 +34,7 @@ export class OngoingPage implements OnInit {
       if (resp) {
         this.ongoingData = resp;
         console.log(this.ongoingData);
-        
+
         this.title = this.ongoingData.title;
       }
     }, (err) => {
@@ -46,6 +46,22 @@ export class OngoingPage implements OnInit {
   redirectToAnimeInfo(url: string, website: string) {
     localStorage.setItem("website", website);
     this.router.navigate(['/anime-info', url]);
+  }
+
+  move(ev: any, index: number) {
+    switch (ev.code) {
+      case "ArrowDown":
+        break;
+      case "ArrowUp":
+        break;
+      case "ArrowRight":
+        break;
+      case "ArrowLeft":
+        break;
+      default:
+        break;
+    }
+
   }
 
 

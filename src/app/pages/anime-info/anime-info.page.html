@@ -10,7 +10,7 @@
 <ion-content>
   <div class="main">
     <br>
-    <div tabindex="0" class="info">
+    <div tabindex="0" class="info" id="infoSection" (keydown)="move($event, 0, false, false)" >
       <img *ngIf="data" src={{data.imageUrl}} alt="" srcset="">
       <div class="description" *ngIf="data && data.description">
         {{data.description}}
@@ -22,7 +22,8 @@
     </div>
     <br>
     <div *ngIf="data && data.title" class="animeOptions">
-      <button tabindex="1" class="favoriteBtn" (click)="favoriteClick()" [ngClass]="{'add': !isFavorite, 'remove': isFavorite}">
+      <button id="favBtn" (keydown)="move($event, 0, false, true)" tabindex="0" class="favoriteBtn" (click)="favoriteClick()"
+        [ngClass]="{'add': !isFavorite, 'remove': isFavorite}">
         {{textFavorite}}
       </button>
     </div>
@@ -38,13 +39,14 @@
         </tr>
         <tr *ngFor="let chapter of data.chapterList; let i = index">
           <td>{{getChapterNumber(i)}}</td>
-          <td (keyup.enter)="seeChapterAnime(chapter.chapterUrl,data.website, chapter.chapter, data.imageUrl)"
+          <td id="animeChapter_{{i}}" (keydown)="move($event, i, true, false)"
+            (keyup.enter)="seeChapterAnime(chapter.chapterUrl,data.website, chapter.chapter, data.imageUrl)"
             tabindex="0">{{chapter.chapter}}</td>
           <td *ngIf="chapter.date">{{chapter.date}}</td>
           <td *ngIf="!chapter.date">-</td>
           <td *ngIf="isFavorite">
-            <input tabindex="0" (click)="updateChapterSeen(chapter.chapterUrl)" 
-            class="checkSeenChapter" type="checkbox" [checked]="isChapterSeen(chapter.chapterUrl)" />
+            <input tabindex="0" (click)="updateChapterSeen(chapter.chapterUrl)" class="checkSeenChapter" type="checkbox"
+              [checked]="isChapterSeen(chapter.chapterUrl)" />
           </td>
         </tr>
       </table>

@@ -84,8 +84,6 @@ export class AnimeInfoPage implements OnInit, OnDestroy {
     });
   }
 
-
-
   verifyFavorite() {
     let favorites = localStorage.getItem("favoritesAnime");
     if (favorites) {
@@ -156,7 +154,7 @@ export class AnimeInfoPage implements OnInit, OnDestroy {
   }
 
   seeChapterAnime(url: any, website: any, title: any, img: any) {
-    let data = { url: url, website: website, title: title, img: img }; 
+    let data = { url: url, website: website, title: title, img: img };
     localStorage.setItem("website", website);
     localStorage.setItem("seeChapterData", JSON.stringify(data))
     this.router.navigateByUrl("see-chapter");
@@ -199,6 +197,61 @@ export class AnimeInfoPage implements OnInit, OnDestroy {
     return this.currentFavorite[0].chapters.filter((chapter: any) =>
       chapter.url == chapterUrl).length > 0;
 
+
+  }
+
+
+  move(ev: any, index: number, isChapter: boolean, isFavButton: boolean) {
+    let newIndex = 0;
+    let element = null;
+    switch (ev.code) {
+      case "ArrowDown":
+
+
+        if (!isChapter && !isFavButton) {
+          element = document.getElementById("favBtn");
+        }
+
+        if (!isChapter && isFavButton) {
+          element = document.getElementById("animeChapter_0");
+        }
+
+        if (isChapter && !isFavButton) {
+          newIndex = index + 1;
+          element = document.getElementById("animeChapter_" + newIndex);
+        }
+
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+          element.focus();
+        }
+        break;
+      case "ArrowUp":
+        if (!isChapter && isFavButton) {
+          element = document.getElementById("infoSection");
+        }
+
+        if (isChapter && !isFavButton) {
+          if (index == 0) {
+            element = document.getElementById("favBtn");
+          } else {
+            newIndex = index - 1;
+            element = document.getElementById("animeChapter_" + newIndex);
+          }
+        }
+
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+          element.focus();
+        }
+        break;
+      case "ArrowRight":
+        break;
+      case "ArrowLeft":
+        break;
+      default:
+        break;
+    }
 
   }
 
