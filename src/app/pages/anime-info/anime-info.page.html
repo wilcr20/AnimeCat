@@ -21,8 +21,8 @@
       <br>
     </div>
     <br>
-    <div *ngIf="data" class="animeOptions">
-      <button tabindex="0" (click)="favoriteClick()" [ngClass]="{'add': !isFavorite, 'remove': isFavorite}">
+    <div *ngIf="data && data.title" class="animeOptions">
+      <button tabindex="1" class="favoriteBtn" (click)="favoriteClick()" [ngClass]="{'add': !isFavorite, 'remove': isFavorite}">
         {{textFavorite}}
       </button>
     </div>

@@ -8,13 +8,13 @@
       (click)="redirectToAnimeInfo(animeData.animeUrl, animeData.website)">{{title}}</p>
     <p id="datePublish" *ngIf="animeData && animeData.date">Publicado el {{animeData.date}}</p>
     <br>
-    <div class="description" *ngIf="animeData && animeData.description">
+    <div class="description" *ngIf="animeData && animeData.description && !isLoading">
       <blockquote>
         {{animeData.description}}
       </blockquote>
     </div>
 
-    <div class="serverList" *ngIf="animeData && animeData.servers.length > 0">
+    <div class="serverList" *ngIf="animeData && animeData.servers && animeData.servers.length > 0">
       <ion-chip tabindex="0" (keyup.enter)="updateServer(server)" *ngFor="let server of animeData.servers"
         [ngClass]="{'selected': playerServerName === server.server }">
         {{server.server}}

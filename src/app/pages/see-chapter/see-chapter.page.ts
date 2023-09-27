@@ -14,7 +14,7 @@ export class SeeChapterPage {
   title = ""
   animeData: any;
   isLoading = false;
-  playerImg :any;
+  playerImg: any;
   playerServer = "";
   playerServerName = "Omega"
 
@@ -49,21 +49,29 @@ export class SeeChapterPage {
       this.data = JSON.parse(animeData)  //window.history.state;
       this.isLoading = true;
       let website = localStorage.getItem("website");
-      if(website == "animeflv"){
+      if (website == "animeflv") {
         this.animeService.seeChapterAnime_AnimeFlv({ animeUrl: this.data.url }).subscribe((resp) => {
           this.isLoading = false;
           if (resp) {
             this.animeData = resp;
             this.title = this.animeData.title
-            this.playerServer = this.animeData.defaultPlayer;
-            console.log(this)
+            if (this.animeData.servers) {
+              let SW_Server = this.animeData.servers.filter((server: any) => server.server === "SW")[0];         
+              if ( SW_Server) {      
+                this.playerServer = SW_Server.url;
+                this.playerServerName = SW_Server.server;     
+              }else{
+                this.playerServer = this.animeData.defaultPlayer;
+                this.playerServerName = this.animeData.servers[0].server;
+              }
+            }
             this.setPlayerimg();
           }
         }, (err) => {
           this.isLoading = false;
           console.log(err);
         })
-      }else{
+      } else {
         this.animeService.seeChapterAnime({ animeUrl: this.data.url }).subscribe((resp) => {
           this.isLoading = false;
           if (resp) {
@@ -77,7 +85,7 @@ export class SeeChapterPage {
           console.log(err);
         })
       }
-      
+
     }
   }
 
@@ -85,7 +93,7 @@ export class SeeChapterPage {
     this.playerImg = this.sanitizer.bypassSecurityTrustStyle('url(' + this.data.img + ')');
   }
 
-  openPlayer() {   
+  openPlayer() {
     let target = "_blank";
     let codeToExec = 'var func = (function f() { var iframes = document.getElementsByTagName("iframe");setInterval(() => {for (let index = 0; index < iframes.length; index++) { iframes[index].style.display = "none" }; }, 20); return f; })();document.addEventListener("click", handler, true); function handler(e) { }'
     let browser = this.theInAppBrowser.create(this.playerServer, target, this.options);
@@ -107,9 +115,9 @@ export class SeeChapterPage {
     this.router.navigate(['/anime-info', url]);
   }
 
-  updateServer(server: any){
+  updateServer(server: any) {
     this.playerServer = server.url;
-    this.playerServerName = server.server;    
+    this.playerServerName = server.server;
   }
 
 }

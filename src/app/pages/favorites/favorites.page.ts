@@ -24,18 +24,22 @@ export class FavoritesPage {
       }
       this.isLoading = false;
     }, 500);
-
   }
+
 
   redirectToAnimeInfo(url: string, website: string) {
     localStorage.setItem("website", website);
     this.router.navigate(['/anime-info', url]);
   }
 
+  // temporal fixes
   fixFavoritesObjects(list: any) {
     let fixed = false;
     for (let index = 0; index < list.length; index++) {
       const fav = list[index];
+      if (fav.website === "animeyt") {
+        fav.url = fav.url.replace("https://animeyt.es/anime/", "https://animeyt.es/tv/");
+      }
       if (!fav.chapters) {
         fixed = true;
         fav.chapters = [];

@@ -19,11 +19,11 @@ export class AppComponent {
       "icon": "search-outline",
       "display": "Buscar"
     },
-    {
-      "url": "/directory",
-      "icon": "albums-outline",
-      "display": "Directorio de animes"
-    },
+    // {
+    //   "url": "/directory",
+    //   "icon": "albums-outline",
+    //   "display": "Directorio de animes"
+    // },
     {
       "url": "/favorites",
       "icon": "star-outline",
@@ -34,11 +34,11 @@ export class AppComponent {
       "icon": "calendar-outline",
       "display": "En emisión"
     },
-    {
-      "url": '/anime-info/recommendation',
-      "icon": "sparkles-outline",
-      "display": "Recomendación para ver"
-    }
+    // {
+    //   "url": '/anime-info/recommendation',
+    //   "icon": "sparkles-outline",
+    //   "display": "Recomendación para ver"
+    // }
   ]
   constructor(
     public menu: MenuController,
