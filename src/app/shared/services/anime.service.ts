@@ -37,6 +37,10 @@ export class AnimeService {
     return this.httpClient.post(environment.apiUrl+ "animeyt/directory", body);
   }
 
+  getAnimeLatinDirectory(body:any){
+    return this.httpClient.post(environment.apiUrl+ "animeyt/directoryLatin", body);
+  }
+
 
   // AnimeFlv
   searchAnime(body:any){

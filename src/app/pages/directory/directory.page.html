@@ -11,10 +11,11 @@
 <ion-content [fullscreen]="true">
   <div class="main"  *ngIf="animeData">
     <br>
-    <div class="cards-container" *ngIf="animeData.data.length > 0">
-      <ion-card  tabindex="0" *ngFor="let anime of animeData.data" 
+    <div class="cards-container" *ngIf="animeData.data && animeData.data.length > 0">
+      <ion-card  tabindex="0" id="anime_{{i}}" *ngFor="let anime of animeData.data; let i = index" 
       (click)="redirectToAnimeInfo(anime.url, anime.website)" 
-      (keyup.enter)="redirectToAnimeInfo(anime.url, anime.website)" >
+      (keyup.enter)="redirectToAnimeInfo(anime.url, anime.website)"
+      (keydown)="move($event, i)" >
         <img src={{anime.imageUrl}} onerror="this.src='../../../assets/imgNotFound.jpg'" />
         <ion-card-header>
           <ion-card-title>{{anime.title}}</ion-card-title>

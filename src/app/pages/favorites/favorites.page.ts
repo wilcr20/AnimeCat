@@ -53,10 +53,14 @@ export class FavoritesPage {
 
 
   move(ev: any, index: number) {
+    console.log(ev.code);
+
     switch (ev.code) {
       case "ArrowDown":
         let newIndex = index + 4;
-        let element = document.getElementById("anime_" + newIndex);       
+        let element = document.getElementById("anime_" + newIndex);
+        console.log(element);
+
         if (element) {
           element.scrollIntoView({ behavior: "smooth", block: "start" });
           element.focus();
@@ -66,10 +70,16 @@ export class FavoritesPage {
         if (index > 0) {
           let newIndex = index - 4 < 0 ? 0 : index - 4;
           let element = document.getElementById("anime_" + newIndex);
+          console.log(element);
+
           if (element) {
             element.scrollIntoView({ behavior: "smooth", block: "start" });
             element.focus();
+          }else{
+            alert("element no existe " + "anime_" + newIndex )
           }
+        }else{
+          alert("Menor q cero  " + index)
         }
         break;
       case "ArrowRight":
@@ -79,7 +89,6 @@ export class FavoritesPage {
       default:
         break;
     }
-
   }
 
 }

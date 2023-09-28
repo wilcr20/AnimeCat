@@ -8,7 +8,7 @@ import { MenuController } from '@ionic/angular';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  pageList= [
+  pageList = [
     {
       "url": "/home",
       "icon": "home-outline",
@@ -19,11 +19,11 @@ export class AppComponent {
       "icon": "search-outline",
       "display": "Buscar"
     },
-    // {
-    //   "url": "/directory",
-    //   "icon": "albums-outline",
-    //   "display": "Directorio de animes"
-    // },
+    {
+      "url": "/directory",
+      "icon": "albums-outline",
+      "display": "Animes en Latino"
+    },
     {
       "url": "/favorites",
       "icon": "star-outline",
@@ -43,9 +43,9 @@ export class AppComponent {
   constructor(
     public menu: MenuController,
     private router: Router
-  ) {}
+  ) { }
 
-  redirect(url: string){   
+  redirect(url: string) {
     this.router.navigateByUrl(url)
   }
 }

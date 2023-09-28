@@ -21,6 +21,7 @@ export class SearchPage implements OnInit {
   yearList: any = [];
   genreSelected = "";
   yearSelected = "";
+  currentPage = 1;
 
   constructor(
     public animeService: AnimeService,
@@ -33,12 +34,12 @@ export class SearchPage implements OnInit {
   ionViewWillEnter() {
     this.genresList = genres.data;
     this.isSearchDone = false;
-    this.searchResult = [];
-    this.searchValue = "";
-    this.buttons = [];
-    this.paginationData = [];
-    this.genreSelected = "";
-    this.yearSelected = "";
+    // this.searchResult = [];
+    // this.searchValue = "";
+    // this.buttons = [];
+    // this.paginationData = [];
+    // this.genreSelected = "";
+    // this.yearSelected = "";
     this.fillyearList();
     this.defaultSearchUrl = "https://www3.animeflv.net/browse?q=";
   }
@@ -55,12 +56,15 @@ export class SearchPage implements OnInit {
       this.searchResult = [];
       this.buttons = [];
     } else if (this.searchValue.trim() != "" && this.searchValue.length > 2) {
+      this.currentPage = 1;
       this.genreSelected = "";
       this.yearSelected = "";
       this.animeService.searchAnime({ "term": this.defaultSearchUrl + this.searchValue })?.subscribe((data: any) => {
         this.isSearchDone = true;
         this.searchResult = data.data;
-        this.buttons = data.buttons;
+        if (data.buttons) {
+          this.buttons = data.buttons.filter((btn: { display: string; }) => btn.display != "");
+        }
       })
     }
   }
@@ -76,11 +80,14 @@ export class SearchPage implements OnInit {
     this.buttons = [];
     this.animeService.searchAnime({ "term": url }).subscribe((data: any) => {
       this.searchResult = [];
+      this.currentPage = Number(url.split("page=")[1]);
       this.buttons = [];
       this.isLoading = false;
       this.isSearchDone = true;
       this.searchResult = data.data;
-      this.buttons = data.buttons;
+      if (data.buttons) {
+        this.buttons = data.buttons.filter((btn: { display: string; }) => btn.display != "" && btn.display);
+      }
     }, (err) => {
       this.isLoading = false;
       console.log(err);
@@ -88,6 +95,7 @@ export class SearchPage implements OnInit {
   }
 
   onChangeGenre(ev: any) {
+    this.currentPage = 1;
     let url = this.defaultFilterSearchUrl + "genre=" + this.genreSelected;
     if (this.yearSelected != "") {
       url = url + "&year=" + this.yearSelected
@@ -96,6 +104,7 @@ export class SearchPage implements OnInit {
   }
 
   onChangeYear(ev: any) {
+    this.currentPage = 1;
     let url = this.defaultFilterSearchUrl + "year=" + this.yearSelected;
     if (this.genreSelected != "") {
       url = url + "&genre=" + this.genreSelected
@@ -132,6 +141,42 @@ export class SearchPage implements OnInit {
     this.searchValue = "";
     this.buttons = [];
     this.paginationData = [];
+    this.currentPage = 1;
+  }
+
+  move(ev: any, index: number) {
+    console.log(ev.code);
+
+    switch (ev.code) {
+      case "ArrowDown":
+        let newIndex = index + 4;
+        let element = document.getElementById("anime_" + newIndex);
+        console.log(element);
+
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+          element.focus();
+        }
+        break;
+      case "ArrowUp":
+        if (index > 0) {
+          let newIndex = index - 4 < 0 ? 0 : index - 4;
+          let element = document.getElementById("anime_" + newIndex);
+          console.log(element);
+
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth", block: "start" });
+            element.focus();
+          }
+        }
+        break;
+      case "ArrowRight":
+        break;
+      case "ArrowLeft":
+        break;
+      default:
+        break;
+    }
   }
 
 }

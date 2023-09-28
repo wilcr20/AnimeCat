@@ -10,28 +10,24 @@ import { AnimeService } from 'src/app/shared/services/anime.service';
 export class DirectoryPage implements OnInit {
   isLoading = false;
   animeData: any;
-  rootURl = "https://animeyt.es/anime/anime/";
+  rootURl = "https://animeyt.es/tv/?page=1&status=&type=&sub=dub&order=update";
   defaultPrefix = "?page=1";
   constructor(
     public animeService: AnimeService,
     public router: Router
   ) { 
-    this.defaultPrefix = "?page=1";
-    this.getDirectoryAnime(this.defaultPrefix);
+    this.getDirectoryAnime(this.rootURl);
   }
 
   ngOnInit() {
   }
 
-  getDirectoryAnime(prefix: string) {
+  getDirectoryAnime(url:string) {
     this.animeData = null;
-    let url = this.rootURl + prefix;
     this.isLoading = true;
-    this.animeService.getAnimeDirectory({ "url": url }).subscribe((resp) => {
+    this.animeService.getAnimeLatinDirectory({ "url": url }).subscribe((resp) => {
       this.isLoading = false;
-      this.animeData = resp;
-      console.log(this.animeData);
-      
+      this.animeData = resp;     
     }, (err) => {
       this.isLoading = false;
       console.log(err);
@@ -42,6 +38,36 @@ export class DirectoryPage implements OnInit {
   redirectToAnimeInfo(url: string, website: string) {
     localStorage.setItem("website", website);
     this.router.navigate(['/anime-info', url]);
+  }
+
+  move(ev: any, index: number) {
+    switch (ev.code) {
+      case "ArrowDown":
+        let newIndex = index + 4;
+        let element = document.getElementById("anime_" + newIndex);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+          element.focus();
+        }
+        break;
+      case "ArrowUp":
+        if (index > 0) {
+          let newIndex = index - 4 < 0 ? 0 : index - 4;
+          let element = document.getElementById("anime_" + newIndex);
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth", block: "start" });
+            element.focus();
+          }
+        }
+        break;
+      case "ArrowRight":
+        break;
+      case "ArrowLeft":
+        break;
+      default:
+        break;
+    }
+
   }
 
 }
