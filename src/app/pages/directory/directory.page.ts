@@ -41,6 +41,7 @@ export class DirectoryPage implements OnInit {
   }
 
   move(ev: any, index: number) {
+    console.log(ev.code);
     switch (ev.code) {
       case "ArrowDown":
         let newIndex = index + 4;

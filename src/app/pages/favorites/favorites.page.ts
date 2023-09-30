@@ -59,27 +59,28 @@ export class FavoritesPage {
       case "ArrowDown":
         let newIndex = index + 4;
         let element = document.getElementById("anime_" + newIndex);
-        console.log(element);
 
         if (element) {
-          element.scrollIntoView({ behavior: "smooth", block: "start" });
-          element.focus();
+          console.log(element);
+          setTimeout(() => {
+            element?.scrollIntoView({ behavior: "smooth", block: "start" });
+            element?.focus();
+          }, 100);
+
         }
         break;
       case "ArrowUp":
         if (index > 0) {
           let newIndex = index - 4 < 0 ? 0 : index - 4;
           let element = document.getElementById("anime_" + newIndex);
-          console.log(element);
-
           if (element) {
-            element.scrollIntoView({ behavior: "smooth", block: "start" });
-            element.focus();
-          }else{
-            alert("element no existe " + "anime_" + newIndex )
+            element.scrollTop = element.scrollTop - 250;
+            console.log(element);
+            setTimeout(() => {
+              element?.scrollIntoView({ behavior: "smooth", block: "start" });
+              element?.focus();
+            }, 100);
           }
-        }else{
-          alert("Menor q cero  " + index)
         }
         break;
       case "ArrowRight":
