@@ -34,21 +34,17 @@ export class FavoritesPage {
 
   // temporal fixes
   fixFavoritesObjects(list: any) {
-    let fixed = false;
+    let fixedList: any = [];
     for (let index = 0; index < list.length; index++) {
       const fav = list[index];
-      if (fav.website === "animeyt") {
-        fav.url = fav.url.replace("https://animeyt.es/anime/", "https://animeyt.es/tv/");
-      }
-      if (!fav.chapters) {
-        fixed = true;
-        fav.chapters = [];
+
+      let existAnime = fixedList.filter((anime: { url: any; }) => anime.url == fav.url).length > 0;
+      if (!existAnime) {
+        fixedList.push(fav);
       }
     }
-    if (fixed) {
-      localStorage.setItem("favoritesAnime", JSON.stringify(list))
-    }
-    return list.reverse();
+    localStorage.setItem("favoritesAnime", JSON.stringify(fixedList))
+    return fixedList.reverse();
   }
 
 
