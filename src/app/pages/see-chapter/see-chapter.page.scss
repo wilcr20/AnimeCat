@@ -53,12 +53,107 @@ ion-content {
         margin: 1em 3.5em 0em;
     }
 
-    .description {
-        border: 1px solid white;
-        margin: -10px 5em;
-        color: white;
-        background: black;
+    .mainSection {
+        // border: 2px solid gray;
+        margin-top: 15px;
+        width: 80%;
+        margin-left: 10%;
+        height: 270px;
+
+        &.border {
+            border: 2px solid orange;
+            border-radius: 15px;
+        }
+
+        .description {
+            // border: 1px solid white;
+            height: -webkit-fill-available;
+            color: white;
+            width: 35%;
+            float: right;
+            background: black;
+            display: flex;
+            align-items: center;
+            border-top-right-radius: 15px;
+            border-bottom-right-radius: 15px;
+
+            p {
+                padding: 5px 15px 20px;
+                display: -webkit-box;
+                -webkit-line-clamp: 10;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+        }
+
+
+        .player {
+            // border: 3px solid rgb(0, 119, 255);
+            // border-radius: 15px;
+            // padding: 3.5em 10em;
+            // margin: 2em 20% 0;
+            border-top-left-radius: 15px;
+            border-bottom-left-radius: 15px;
+            height: -webkit-fill-available;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            border-right: 2px solid orange;
+
+            &.border {
+                border-top-right-radius: 15px;
+                border-bottom-right-radius: 15px;
+            }
+
+            .fake-player {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 6rem;
+                height: 6rem;
+                padding: 2rem;
+                border: 0.2rem solid black;
+                background: white;
+                border-radius: 50%;
+                filter: drop-shadow(0 0 3.1rem rgba(255, 255, 255, 0.8));
+
+                button {
+                    &.play {
+                        height: 0;
+                        width: 0;
+                        margin-left: calc(2 * 0.14 * 2rem);
+                        background: none;
+                        border: none;
+                        border-top: 2rem solid transparent;
+                        border-bottom: 2rem solid transparent;
+                        border-left: calc(2rem * 2 * 0.86) solid black;
+
+                    }
+                }
+
+                &:focus {
+                    border: 10px solid orange;
+
+                    button {
+                        &.play {
+                            border-left: calc(2rem * 2 * 0.86) solid orange;
+                        }
+                    }
+                }
+
+                &:focus-visible {
+                    outline: 4px solid orange;
+                }
+            }
+
+        }
     }
+
+
 
     .serverList {
         text-align: center;
@@ -84,57 +179,4 @@ ion-content {
         }
     }
 
-    .player {
-        // border: 3px solid rgb(0, 119, 255);
-        border-radius: 15px;
-        padding: 3.5em 10em;
-        margin: 2em 20% 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-
-        .fake-player {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 6rem;
-            height: 6rem;
-            padding: 2rem;
-            border: 0.2rem solid black;
-            background: white;
-            border-radius: 50%;
-            filter: drop-shadow(0 0 3.1rem rgba(255, 255, 255, 0.8));
-
-            button {
-                &.play {
-                    height: 0;
-                    width: 0;
-                    margin-left: calc(2 * 0.14 * 2rem);
-                    background: none;
-                    border: none;
-                    border-top: 2rem solid transparent;
-                    border-bottom: 2rem solid transparent;
-                    border-left: calc(2rem * 2 * 0.86) solid black;
-
-                }
-            }
-
-            &:focus {
-                border: 10px solid orange;
-
-                button {
-                    &.play {
-                        border-left: calc(2rem * 2 * 0.86) solid orange;
-                    }
-                }
-            }
-
-            &:focus-visible {
-                outline: 4px solid orange;
-            }
-        }
-
-    }
 }

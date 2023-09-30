@@ -40,6 +40,9 @@ export class FavoritesPage {
 
       let existAnime = fixedList.filter((anime: { url: any; }) => anime.url == fav.url).length > 0;
       if (!existAnime) {
+        if(fav.website == "animeyt"){
+          fav.url = fav.url.replace("https://animeyt.es/anime/", "https://animeyt.es/tv/");
+        }
         fixedList.push(fav);
       }
     }
