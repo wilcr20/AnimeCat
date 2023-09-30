@@ -1,10 +1,9 @@
 ion-content {
-    --background: none;
-    background-position: center center;
-    background-repeat: no-repeat;
-    // background-color: black;
-    background: radial-gradient(circle, rgba(2, 0, 36, 1) 0%, rgba(9, 28, 121, 1) 28%, rgba(43, 32, 136, 1) 63%, rgba(3, 9, 10, 1) 100%);
-
+    // --background: none;
+    // background-position: center center;
+    // background-repeat: no-repeat;
+    // background: radial-gradient(circle, rgba(2, 0, 36, 1) 0%, rgba(9, 28, 121, 1) 28%, rgba(43, 32, 136, 1) 63%, rgba(3, 9, 10, 1) 100%);
+    --background: #000000d1;
 }
 
 
@@ -20,13 +19,11 @@ ion-content {
             padding: 20px;
             color: white;
             text-align: start;
-            // max-height: 500px;
-            // overflow: scroll;
             width: 70%;
             font-family: emoji;
             height: -moz-fit-content;
             height: fit-content;
-            font-size: 19px;
+            font-size: 18px;
         }
 
         .genreList {
@@ -43,7 +40,8 @@ ion-content {
     .animeOptions {
         position: absolute;
         left: 5%;
-        width: 24%;
+        width: 22.5%;
+        padding-top: 5px;
 
         button.favoriteBtn {
             border-radius: 10px;
@@ -52,12 +50,9 @@ ion-content {
             font-size: 16px;
             width: 100%;
 
-            &:focus,
-            &:focus-within,
-            &:focus-visible {
-                border: 2px solid #7cbcf3 !important;
+            &:focus {
+                border: 2px solid orange;
             }
-
 
             &.add {
                 background: green;
@@ -73,8 +68,19 @@ ion-content {
 
     .chapters {
         color: white;
+        background: black;
+        width: 80%;
+        margin-left: 10%;
+        border-top-right-radius: 15px;
+        border-top-left-radius: 15px;
         font-family: emoji;
         text-align: center;
+        margin-top: 3%;
+        border: 1px solid orange;
+
+        h3{
+            padding-top: 5px;
+        }
 
         table {
             border-collapse: collapse;
@@ -91,26 +97,32 @@ ion-content {
                     padding: 12px 0 10px 0;
                     font-size: 15px;
 
-                    &:focus,
-                    &:focus-visible {
-                        background: #7cbcf3;
+                    &:focus {
+                        background: orange;
                         color: black;
+                        font-size: 17px;
+                    }
+
+                    &:focus-visible {
+                        outline: none;
                     }
 
                     .checkSeenChapter {
                         width: 25px;
                         height: 25px;
-                        accent-color: green;
+                        // accent-color: green;
+                        filter: hue-rotate(180deg);
 
                         &:focus,
-                        &:focus-visible {
-                            border: 3px solid #7cbcf3;
+                        &:focus-within {
+                            outline-style: solid;
+                            outline-color: orange;
                         }
                     }
                 }
 
                 th {
-                    color: white;
+                    color: orange;
                     font-family: sans-serif;
                     padding: 10px 0 10px 0;
                 }

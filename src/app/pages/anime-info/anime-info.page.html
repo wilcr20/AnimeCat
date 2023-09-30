@@ -20,7 +20,6 @@
       </div>
       <br>
     </div>
-    <br>
     <div *ngIf="data && data.title" class="animeOptions">
       <button id="favBtn" (keydown)="move($event, 0, false, true)" tabindex="0" class="favoriteBtn" (click)="favoriteClick()"
         [ngClass]="{'add': !isFavorite, 'remove': isFavorite}">

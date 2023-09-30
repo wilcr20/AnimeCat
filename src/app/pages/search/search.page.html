@@ -44,7 +44,7 @@
         </ion-card-header>
       </ion-card>
     </div>
-    <div *ngIf="searchResult.length == 0 && isSearchDone" class="noResults">
+    <div *ngIf="searchResult.length == 0 && isSearchDone && !isLoading" class="noResults">
       <p>No se encontraron resultados para esa búsqueda.</p>
     </div>
     <br>
