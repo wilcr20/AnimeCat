@@ -41,6 +41,10 @@ export class AnimeService {
     return this.httpClient.post(environment.apiUrl+ "animeyt/directoryLatin", body);
   }
 
+  getAnimeComingSoon(body:any){
+    return this.httpClient.post(environment.apiUrl+ "animeyt/animesComingSoon", body);
+  }
+
 
   // AnimeFlv
   searchAnime(body:any){

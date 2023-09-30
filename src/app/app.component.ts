@@ -34,6 +34,13 @@ export class AppComponent {
       "icon": "calendar-outline",
       "display": "En emisión"
     },
+    {
+      "url": '/coming-soon',
+      "icon": "rocket-outline",
+      "display": "Próximamente"
+    },
+
+    
     // {
     //   "url": '/anime-info/recommendation',
     //   "icon": "sparkles-outline",
