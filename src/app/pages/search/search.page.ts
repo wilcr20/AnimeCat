@@ -145,28 +145,29 @@ export class SearchPage implements OnInit {
   }
 
   move(ev: any, index: number) {
-    console.log(ev.code);
-
     switch (ev.code) {
       case "ArrowDown":
         let newIndex = index + 4;
-        let element = document.getElementById("anime_" + newIndex);
-        console.log(element);
-
+        let element = document.getElementById("searchAnime_" + newIndex);
         if (element) {
-          element.scrollIntoView({ behavior: "smooth", block: "start" });
-          element.focus();
+          setTimeout(() => {
+            element?.scrollIntoView({ behavior: "smooth", block: "start" });
+            element?.focus();
+          }, 100);
+
         }
         break;
       case "ArrowUp":
         if (index > 0) {
           let newIndex = index - 4 < 0 ? 0 : index - 4;
-          let element = document.getElementById("anime_" + newIndex);
-          console.log(element);
+          let element = document.getElementById("searchAnime_" + newIndex);
 
           if (element) {
-            element.scrollIntoView({ behavior: "smooth", block: "start" });
-            element.focus();
+            setTimeout(() => {
+              element?.scrollIntoView({ behavior: "smooth", block: "start" });
+              element?.focus();
+            }, 100);
+
           }
         }
         break;

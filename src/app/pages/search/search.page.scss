@@ -26,6 +26,13 @@ ion-content {
         margin-top: 10px;
         height: 39px;
         padding: 5px;
+        &:focus-visible{
+          outline: none;
+        }
+        &:focus,
+        &:focus-within{
+          border: 3px solid orange;
+        }
       }
     }
 

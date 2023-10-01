@@ -15,19 +15,19 @@ export class DirectoryPage implements OnInit {
   constructor(
     public animeService: AnimeService,
     public router: Router
-  ) { 
+  ) {
     this.getDirectoryAnime(this.rootURl);
   }
 
   ngOnInit() {
   }
 
-  getDirectoryAnime(url:string) {
+  getDirectoryAnime(url: string) {
     this.animeData = null;
     this.isLoading = true;
     this.animeService.getAnimeLatinDirectory({ "url": url }).subscribe((resp) => {
       this.isLoading = false;
-      this.animeData = resp;     
+      this.animeData = resp;
     }, (err) => {
       this.isLoading = false;
       console.log(err);
@@ -45,19 +45,25 @@ export class DirectoryPage implements OnInit {
     switch (ev.code) {
       case "ArrowDown":
         let newIndex = index + 4;
-        let element = document.getElementById("anime_" + newIndex);
+        let element = document.getElementById("latinAnime_" + newIndex);
         if (element) {
-          element.scrollIntoView({ behavior: "smooth", block: "start" });
-          element.focus();
+          setTimeout(() => {
+            element?.scrollIntoView({ behavior: "smooth", block: "start" });
+            element?.focus();
+          }, 100);
+
         }
         break;
       case "ArrowUp":
         if (index > 0) {
           let newIndex = index - 4 < 0 ? 0 : index - 4;
-          let element = document.getElementById("anime_" + newIndex);
+          let element = document.getElementById("latinAnime_" + newIndex);
           if (element) {
-            element.scrollIntoView({ behavior: "smooth", block: "start" });
-            element.focus();
+            setTimeout(() => {
+              element?.scrollIntoView({ behavior: "smooth", block: "start" });
+              element?.focus();
+            }, 100);
+
           }
         }
         break;

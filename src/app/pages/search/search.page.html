@@ -16,7 +16,7 @@
         placeholder="Ingrese el texto a buscar ..."></ion-searchbar>
       <div class="selectFilter" *ngIf="genresList.length > 0">
         <label for="">Género: </label>
-        <select (change)="onChangeGenre($event)" [(ngModel)]="genreSelected" tabindex="0">
+        <select (change)="onChangeGenre($event)" [(ngModel)]="genreSelected" tabindex="1">
           <option value="" selected disabled hidden>Género a filtrar</option>
           <option *ngFor="let genre of genresList" value={{genre.value}}>{{genre.name}}</option>
         </select>
@@ -34,7 +34,7 @@
     </div>
 
     <div class="cards-container" *ngIf="searchResult.length > 0">
-      <ion-card id="anime_{{i}}"  tabindex="0"
+      <ion-card id="searchAnime_{{i}}"  tabindex="0"
         *ngFor="let anime of searchResult; let i = index" (click)="redirectToAnimeInfo(anime.url, anime.website)"
         (keyup.enter)="redirectToAnimeInfo(anime.url, anime.website)"
         (keydown)="move($event, i)">

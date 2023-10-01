@@ -44,7 +44,7 @@ export class ComingSoonPage implements OnInit {
       this.animeData = resp;
       this.animeList = this.animeData.data;
       console.log(this.animeData);
-      
+
     }, (err) => {
       this.isLoading = false;
       console.log(err);
@@ -58,24 +58,28 @@ export class ComingSoonPage implements OnInit {
   }
 
   move(ev: any, index: number) {
-    console.log(ev.code);
-
     switch (ev.code) {
       case "ArrowDown":
         let newIndex = index + 4;
-        let element = document.getElementById("anime_" + newIndex);
+        let element = document.getElementById("soonAnime_" + newIndex);
         if (element) {
-          element.scrollIntoView({ behavior: "smooth", block: "start" });
-          element.focus();
+          setTimeout(() => {
+            element?.scrollIntoView({ behavior: "smooth", block: "start" });
+            element?.focus();
+          }, 100);
+
         }
         break;
       case "ArrowUp":
         if (index > 0) {
           let newIndex = index - 4 < 0 ? 0 : index - 4;
-          let element = document.getElementById("anime_" + newIndex);
+          let element = document.getElementById("soonAnime_" + newIndex);
           if (element) {
-            element.scrollIntoView({ behavior: "smooth", block: "start" });
-            element.focus();
+            setTimeout(() => {
+              element?.scrollIntoView({ behavior: "smooth", block: "start" });
+              element?.focus();
+            }, 100);
+
           }
         }
         break;

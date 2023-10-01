@@ -52,15 +52,12 @@ export class FavoritesPage {
 
 
   move(ev: any, index: number) {
-    console.log(ev.code);
-
     switch (ev.code) {
       case "ArrowDown":
         let newIndex = index + 4;
-        let element = document.getElementById("anime_" + newIndex);
+        let element = document.getElementById("favAnime_" + newIndex);
 
         if (element) {
-          console.log(element);
           setTimeout(() => {
             element?.scrollIntoView({ behavior: "smooth", block: "start" });
             element?.focus();
@@ -71,10 +68,9 @@ export class FavoritesPage {
       case "ArrowUp":
         if (index > 0) {
           let newIndex = index - 4 < 0 ? 0 : index - 4;
-          let element = document.getElementById("anime_" + newIndex);
+          let element = document.getElementById("favAnime_" + newIndex);
           if (element) {
             element.scrollTop = element.scrollTop - 250;
-            console.log(element);
             setTimeout(() => {
               element?.scrollIntoView({ behavior: "smooth", block: "start" });
               element?.focus();

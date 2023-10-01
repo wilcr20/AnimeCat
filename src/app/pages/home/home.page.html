@@ -12,7 +12,7 @@
   <div class="main">
     <br>
     <div class="cards-container" *ngIf="animeList.length > 0">
-      <ion-card id="anime_{{i}}"  tabindex="0" *ngFor="let anime of animeList; let i = index" 
+      <ion-card id="homeAnime_{{i}}"  tabindex="0" *ngFor="let anime of animeList; let i = index" 
       (click)="seeChapterAnime(anime.url, anime.website, anime.title, anime.imageUrl)" 
       (keyup.enter)="seeChapterAnime(anime.url, anime.website, anime.title, anime.imageUrl)" 
       (keydown)="move($event, i)"
@@ -23,7 +23,6 @@
         </ion-card-header>
       </ion-card>
     </div>
-    <br>
     <br>
     <div *ngIf="canLoadMore && animeList.length > 0">
       <button tabindex="0" (click)="loadMore()" (keyup.enter)="loadMore()" class="loadMore">Mostrar más.</button>

@@ -58,7 +58,7 @@ ion-content {
         margin-top: 15px;
         width: 80%;
         margin-left: 10%;
-        height: 270px;
+        height: 260px;
 
         &.border {
             border: 2px solid orange;
@@ -100,8 +100,9 @@ ion-content {
             display: flex;
             justify-content: center;
             align-items: center;
-            background-repeat: no-repeat;
-            background-size: cover;
+            // background-repeat: no-repeat;
+            // background-size: cover;
+            background: no-repeat center;
             border-right: 2px solid orange;
 
             &.border {

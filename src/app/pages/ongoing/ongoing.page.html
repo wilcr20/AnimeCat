@@ -15,7 +15,7 @@
       <hr>
       <h3>{{section.day}}</h3>
       <div class="cards-container" *ngIf="ongoingData">
-        <ion-card tabindex="0" id="anime_{{i}}" (keydown)="move($event, i)"
+        <ion-card tabindex="0" id="ongoingAnime_{{i}}" (keydown)="move($event, i)"
           *ngFor="let anime of section.animeList; let i = index" (click)="redirectToAnimeInfo(anime.url, anime.website)"
           (keyup.enter)="redirectToAnimeInfo(anime.url, anime.website)">
           <img src={{anime.imageUrl}} onerror="this.src='../../../assets/imgNotFound.jpg'" />
