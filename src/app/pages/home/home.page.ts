@@ -21,6 +21,7 @@ export class HomePage {
   }
 
   ionViewWillEnter() {
+    /*
     if (this.animeList.length > 0) {
       let temp = this.animeList;
       this.animeList = []
@@ -30,7 +31,7 @@ export class HomePage {
         this.animeList = temp;
 
       }, 300);
-    }
+    }*/
   }
 
 
@@ -74,11 +75,8 @@ export class HomePage {
         let newIndex = index + 4;
         let element = document.getElementById("homeAnime_" + newIndex);
         if (element) {
-          setTimeout(() => {
-            element?.scrollIntoView({ behavior: "smooth", block: "start" });
-            element?.focus();
-          }, 100);
-
+          element?.scrollIntoView({ behavior: "smooth", block: "start" });
+          element?.focus();
         }
         break;
       case "ArrowUp":
@@ -86,11 +84,8 @@ export class HomePage {
           let newIndex = index - 4 < 0 ? 0 : index - 4;
           let element = document.getElementById("homeAnime_" + newIndex);
           if (element) {
-            setTimeout(() => {
-              element?.scrollIntoView({ behavior: "smooth", block: "start" });
-              element?.focus();
-            }, 100);
-
+            element?.scrollIntoView({ behavior: "smooth", block: "start" });
+            element?.focus();
           }
         }
         break;

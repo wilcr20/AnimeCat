@@ -95,7 +95,13 @@ export class SeeChapterPage {
 
   openPlayer() {
     let target = "_blank";
-    let codeToExec = 'var func = (function f() { var iframes = document.getElementsByTagName("iframe");setInterval(() => {for (let index = 0; index < iframes.length; index++) { iframes[index].style.display = "none" }; }, 20); return f; })();document.addEventListener("click", handler, true); function handler(e) { }'
+    let codeToExec = ""
+    if(this.playerServerName == "Send"){     
+      codeToExec = 'var func = (function f() { var banner = document.getElementsByClassName("vjs-poster");setInterval(() => {for (let index = 0; index < banner.length; index++) {document.getElementById("vjs-logobrand").style.visibility = "hidden";document.getElementById("vjs-logo-top-bar").style.visibility = "hidden";banner[index].style.visibility = "hidden"; }; }, 20); return f; })();document.addEventListener("click", handler, true); function handler(e) { }'
+    }else{
+      codeToExec = 'var func = (function f() { var iframes = document.getElementsByTagName("iframe");setInterval(() => {for (let index = 0; index < iframes.length; index++) { iframes[index].style.display = "none" }; }, 20); return f; })();document.addEventListener("keydown", handler, true); function handler(e) {  }'
+    }
+
     let browser = this.theInAppBrowser.create(this.playerServer, target, this.options);
     browser.on("loadstart").subscribe(() => {
       browser.executeScript({

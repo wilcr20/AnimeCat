@@ -47,11 +47,8 @@ export class DirectoryPage implements OnInit {
         let newIndex = index + 4;
         let element = document.getElementById("latinAnime_" + newIndex);
         if (element) {
-          setTimeout(() => {
-            element?.scrollIntoView({ behavior: "smooth", block: "start" });
-            element?.focus();
-          }, 100);
-
+          element?.scrollIntoView({ behavior: "smooth", block: "start" });
+          element?.focus();
         }
         break;
       case "ArrowUp":
@@ -59,11 +56,8 @@ export class DirectoryPage implements OnInit {
           let newIndex = index - 4 < 0 ? 0 : index - 4;
           let element = document.getElementById("latinAnime_" + newIndex);
           if (element) {
-            setTimeout(() => {
-              element?.scrollIntoView({ behavior: "smooth", block: "start" });
-              element?.focus();
-            }, 100);
-
+            element?.scrollIntoView({ behavior: "smooth", block: "start" });
+            element?.focus();
           }
         }
         break;

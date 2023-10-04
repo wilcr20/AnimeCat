@@ -12,7 +12,7 @@ export class ComingSoonPage implements OnInit {
   isLoading = false;
   canLoadMore = true;
   animeData: any;
-  rootURl = "https://animeyt.es/tv/?status=upcoming&type=&sub=&order=";
+  rootURl = "https://animeyt.es/tv/?status=upcoming&order=latest";
 
   constructor(
     private router: Router,
@@ -63,11 +63,8 @@ export class ComingSoonPage implements OnInit {
         let newIndex = index + 4;
         let element = document.getElementById("soonAnime_" + newIndex);
         if (element) {
-          setTimeout(() => {
-            element?.scrollIntoView({ behavior: "smooth", block: "start" });
-            element?.focus();
-          }, 100);
-
+          element?.scrollIntoView({ behavior: "smooth", block: "start" });
+          element?.focus();
         }
         break;
       case "ArrowUp":
@@ -75,11 +72,8 @@ export class ComingSoonPage implements OnInit {
           let newIndex = index - 4 < 0 ? 0 : index - 4;
           let element = document.getElementById("soonAnime_" + newIndex);
           if (element) {
-            setTimeout(() => {
-              element?.scrollIntoView({ behavior: "smooth", block: "start" });
-              element?.focus();
-            }, 100);
-
+            element?.scrollIntoView({ behavior: "smooth", block: "start" });
+            element?.focus();
           }
         }
         break;

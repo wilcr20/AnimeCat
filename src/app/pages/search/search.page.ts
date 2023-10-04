@@ -150,11 +150,8 @@ export class SearchPage implements OnInit {
         let newIndex = index + 4;
         let element = document.getElementById("searchAnime_" + newIndex);
         if (element) {
-          setTimeout(() => {
-            element?.scrollIntoView({ behavior: "smooth", block: "start" });
-            element?.focus();
-          }, 100);
-
+          element?.scrollIntoView({ behavior: "smooth", block: "start" });
+          element?.focus();
         }
         break;
       case "ArrowUp":
@@ -163,11 +160,8 @@ export class SearchPage implements OnInit {
           let element = document.getElementById("searchAnime_" + newIndex);
 
           if (element) {
-            setTimeout(() => {
-              element?.scrollIntoView({ behavior: "smooth", block: "start" });
-              element?.focus();
-            }, 100);
-
+            element?.scrollIntoView({ behavior: "smooth", block: "start" });
+            element?.focus();
           }
         }
         break;

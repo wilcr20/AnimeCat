@@ -58,11 +58,8 @@ export class FavoritesPage {
         let element = document.getElementById("favAnime_" + newIndex);
 
         if (element) {
-          setTimeout(() => {
             element?.scrollIntoView({ behavior: "smooth", block: "start" });
             element?.focus();
-          }, 100);
-
         }
         break;
       case "ArrowUp":
@@ -71,10 +68,8 @@ export class FavoritesPage {
           let element = document.getElementById("favAnime_" + newIndex);
           if (element) {
             element.scrollTop = element.scrollTop - 250;
-            setTimeout(() => {
               element?.scrollIntoView({ behavior: "smooth", block: "start" });
               element?.focus();
-            }, 100);
           }
         }
         break;
