@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 export class FavoritesPage {
   isLoading = false;
   favoriteList: any = [];
+  favoriteCount = 0;
 
   constructor(
     private router: Router
@@ -21,9 +22,20 @@ export class FavoritesPage {
       let favorites = localStorage.getItem("favoritesAnime");
       if (favorites) {
         this.favoriteList = this.fixFavoritesObjects(JSON.parse(favorites));
+        this.favoriteCount = this.favoriteList.length;
       }
       this.isLoading = false;
     }, 500);
+  }
+
+  getFavoriteCountText() {
+    if (this.favoriteCount == 1) {
+      return "Tiene 1 anime en favorito.";
+    } else if (this.favoriteCount > 1) {
+      return "Tiene " + this.favoriteCount + " animes en favorito."
+    } else {
+      return "";
+    }
   }
 
 
@@ -40,7 +52,7 @@ export class FavoritesPage {
 
       let existAnime = fixedList.filter((anime: { url: any; }) => anime.url == fav.url).length > 0;
       if (!existAnime) {
-        if(fav.website == "animeyt"){
+        if (fav.website == "animeyt") {
           fav.url = fav.url.replace("https://animeyt.es/anime/", "https://animeyt.es/tv/");
         }
         fixedList.push(fav);
@@ -58,8 +70,8 @@ export class FavoritesPage {
         let element = document.getElementById("favAnime_" + newIndex);
 
         if (element) {
-            element?.scrollIntoView({ behavior: "smooth", block: "start" });
-            element?.focus();
+          element?.scrollIntoView({ behavior: "smooth", block: "start" });
+          element?.focus();
         }
         break;
       case "ArrowUp":
@@ -68,8 +80,8 @@ export class FavoritesPage {
           let element = document.getElementById("favAnime_" + newIndex);
           if (element) {
             element.scrollTop = element.scrollTop - 250;
-              element?.scrollIntoView({ behavior: "smooth", block: "start" });
-              element?.focus();
+            element?.scrollIntoView({ behavior: "smooth", block: "start" });
+            element?.focus();
           }
         }
         break;

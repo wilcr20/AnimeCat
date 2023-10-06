@@ -25,10 +25,6 @@ export class AnimeService {
     return this.httpClient.post(environment.apiUrl+ "animeyt/getAnimeInfo", body);
   }
 
-  getRecommendation(){
-    return this.httpClient.get(environment.apiUrl+ "animeyt/recomendation");
-  }
-
   getAnimeOnGoing(){
     return this.httpClient.get(environment.apiUrl+ "animeyt/ongoing");
   }

@@ -13,10 +13,15 @@ ion-content {
         position: relative;
         left: 5%;
         width: 90%;
+        border: 3px solid orange;
+        border-bottom-right-radius: 15px;
+        border-top-right-radius: 15px;
+        min-height: 345px;
+        max-height: 345px;
 
         .description {
             display: block;
-            padding: 20px;
+            padding: 20px 20px 0;
             color: white;
             text-align: start;
             width: 70%;
@@ -24,12 +29,21 @@ ion-content {
             height: -moz-fit-content;
             height: fit-content;
             font-size: 18px;
+            display: -webkit-box;
+            -webkit-line-clamp: 10;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.25;
         }
 
         .genreList {
             width: fit-content;
-            margin-top: 3%;
+            // margin-top: 3%;
+            bottom: 0;
+            position: absolute;
             height: fit-content;
+            padding-bottom: 5px;
         }
 
         img {
@@ -71,14 +85,16 @@ ion-content {
         background: black;
         width: 80%;
         margin-left: 10%;
-        border-top-right-radius: 15px;
-        border-top-left-radius: 15px;
+        // border-top-right-radius: 15px;
+        // border-top-left-radius: 15px;
+        border-radius: 15px;
         font-family: emoji;
         text-align: center;
         margin-top: 3%;
         border: 1px solid orange;
+        padding-bottom: 2%;
 
-        h3{
+        h3 {
             padding-top: 5px;
         }
 

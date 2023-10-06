@@ -39,13 +39,6 @@ export class AppComponent {
       "icon": "rocket-outline",
       "display": "Próximamente"
     },
-
-    
-    // {
-    //   "url": '/anime-info/recommendation',
-    //   "icon": "sparkles-outline",
-    //   "display": "Recomendación para ver"
-    // }
   ]
   constructor(
     public menu: MenuController,

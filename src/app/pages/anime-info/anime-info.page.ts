@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AnimeService } from 'src/app/shared/services/anime.service';
 import Swal from 'sweetalert2';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-anime-info',
@@ -36,64 +36,47 @@ export class AnimeInfoPage implements OnInit, OnDestroy {
 
       this.isLoading = true;
       this.data = null;
-
-      if (this.ulrAnime === "recommendation" && !this.data) {
-        this.animeService.getRecommendation().subscribe((resp) => {
+      let json = {
+        animeUrl: this.ulrAnime
+      }
+      let website = localStorage.getItem("website");
+      if (website == "animeflv") {
+        this.animeService.getAnimeInfo_AnimeFlv(json).subscribe((resp: any) => {
           this.isLoading = false;
-          if (resp) {
+          if (resp.error) {
+            this.isLoading = false;
+            Swal.fire("", "Ocurrió un error al obtener la info del anime. Intente de nuevo.", "error");
+            this._location.back();
+          }
+          if (resp && !resp.error) {
             this.data = resp;
-            this.ulrAnime = this.data.animeUrl;
-            this.verifyFavorite();
-            return;
+            this.verifyFavorite()
           }
         }, (err) => {
           this.isLoading = false;
+          Swal.fire("", "Ocurrió un error al obtener la info del anime. Intente de nuevo.", "error");
+          this.router.navigateByUrl("/home")
           console.log(err);
-          return;
         })
       } else {
-        let json = {
-          animeUrl: this.ulrAnime
-        }
-        let website = localStorage.getItem("website");
-        if (website == "animeflv") {
-          this.animeService.getAnimeInfo_AnimeFlv(json).subscribe((resp: any) => {
+        this.animeService.getAnimeInfo(json).subscribe((resp: any) => {
+          this.isLoading = false;
+          if (resp.error) {
             this.isLoading = false;
-            if(resp.error){
-              this.isLoading = false;
-              Swal.fire("", "Ocurrió un error al obtener la info del anime. Intente de nuevo.", "error");
-              this._location.back();
-            }
-            if (resp && !resp.error) {
-              this.data = resp;
-              this.verifyFavorite()
-            }
-          }, (err) => {
-            this.isLoading = false;
-            this.router.navigateByUrl("/home")
-            console.log(err);
-          })
-        } else {
-          this.animeService.getAnimeInfo(json).subscribe((resp:any) => {
-            this.isLoading = false;
-            if(resp.error){
-              this.isLoading = false;
-              Swal.fire("", "Ocurrió un error al obtener la info del anime. Intente de nuevo.", "error");
-              this._location.back();
-              return;
-            }
-            if (resp && !resp.error) {
-              this.data = resp;
-              this.verifyFavorite()
-            }
-          }, (err) => {
-            this.isLoading = false;
-            this.router.navigateByUrl("/home")
-          })
-        }
-
+            Swal.fire("", "Ocurrió un error al obtener la info del anime. Intente de nuevo.", "error");
+            this._location.back();
+            return;
+          }
+          if (resp && !resp.error) {
+            this.data = resp;
+            this.verifyFavorite()
+          }
+        }, (err) => {
+          this.isLoading = false;
+          Swal.fire("", "Ocurrió un error al obtener la info del anime. Intente de nuevo.", "error");
+          this.router.navigateByUrl("/home")
+        })
       }
-
     });
   }
 

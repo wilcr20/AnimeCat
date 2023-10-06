@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { AnimeService } from '../../shared/services/anime.service';
 import { InAppBrowserOptions, InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 import { DomSanitizer } from '@angular/platform-browser';
+import Swal from 'sweetalert2';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-see-chapter',
@@ -33,6 +35,7 @@ export class SeeChapterPage {
     public animeService: AnimeService,
     public router: Router,
     private theInAppBrowser: InAppBrowser,
+    private _location: Location,
     private sanitizer: DomSanitizer,
   ) {
     this.data = null;
@@ -50,17 +53,22 @@ export class SeeChapterPage {
       this.isLoading = true;
       let website = localStorage.getItem("website");
       if (website == "animeflv") {
-        this.animeService.seeChapterAnime_AnimeFlv({ animeUrl: this.data.url }).subscribe((resp) => {
+        this.animeService.seeChapterAnime_AnimeFlv({ animeUrl: this.data.url }).subscribe((resp: any) => {
           this.isLoading = false;
-          if (resp) {
+          if (resp.error) {
+            this.isLoading = false;
+            Swal.fire("", "Ocurrió un error al obtener la info del capítulo. Intente de nuevo.", "error");
+            this._location.back();
+          }
+          if (resp && !resp.error) {
             this.animeData = resp;
             this.title = this.animeData.title
             if (this.animeData.servers) {
-              let SW_Server = this.animeData.servers.filter((server: any) => server.server === "SW")[0];         
-              if ( SW_Server) {      
+              let SW_Server = this.animeData.servers.filter((server: any) => server.server === "SW")[0];
+              if (SW_Server) {
                 this.playerServer = SW_Server.url;
-                this.playerServerName = SW_Server.server;     
-              }else{
+                this.playerServerName = SW_Server.server;
+              } else {
                 this.playerServer = this.animeData.defaultPlayer;
                 this.playerServerName = this.animeData.servers[0].server;
               }
@@ -69,12 +77,19 @@ export class SeeChapterPage {
           }
         }, (err) => {
           this.isLoading = false;
+          Swal.fire("", "Ocurrió un error al obtener la info del capítulo. Intente de nuevo.", "error");
+          this._location.back();
           console.log(err);
         })
       } else {
-        this.animeService.seeChapterAnime({ animeUrl: this.data.url }).subscribe((resp) => {
+        this.animeService.seeChapterAnime({ animeUrl: this.data.url }).subscribe((resp: any) => {
           this.isLoading = false;
-          if (resp) {
+          if (resp.error) {
+            this.isLoading = false;
+            Swal.fire("", "Ocurrió un error al obtener la info del capítulo. Intente de nuevo.", "error");
+            this._location.back();
+          }
+          if (resp && !resp.error) {
             this.animeData = resp;
             this.title = this.animeData.title
             this.playerServer = this.animeData.defaultPlayer;
@@ -82,6 +97,8 @@ export class SeeChapterPage {
           }
         }, (err) => {
           this.isLoading = false;
+          Swal.fire("", "Ocurrió un error al obtener la info del capítulo. Intente de nuevo.", "error");
+          this._location.back();
           console.log(err);
         })
       }
@@ -96,24 +113,24 @@ export class SeeChapterPage {
   openPlayer() {
     let target = "_blank";
     let codeToExec = ""
-    if(this.playerServerName.includes("Send")){     
+    if (this.playerServerName.includes("Send")) {
       codeToExec = 'var func = (function f() { var banner = document.getElementsByClassName("vjs-poster");setInterval(() => {for (let index = 0; index < banner.length; index++) {document.getElementById("vjs-logobrand").style.visibility = "hidden";document.getElementById("vjs-logo-top-bar").style.visibility = "hidden";banner[index].style.visibility = "hidden"; }; }, 20); return f; })();document.addEventListener("click", handler, true); function handler(e) { }'
-    }else if (this.playerServerName == "Omega" || this.playerServerName.includes("Moon")){
+    } else if (this.playerServerName == "Omega" || this.playerServerName.includes("Moon")) {
       codeToExec = 'var func = (function f() { var iframes = document.getElementsByTagName("iframe"); setInterval(() => { if(document.getElementsByClassName("jw-video")[0]){document.getElementsByClassName("jw-video")[0].volume = 1;};for (let index = 0; index < iframes.length; index++) { iframes[index].style.display = "none" }; }, 20); return f; })(); document.addEventListener("keydown", handler, true); function handler(e) { if (e.key == "ArrowUp") { if (document.getElementsByClassName("jw-video")[0]) { document.getElementsByClassName("jw-video")[0].volume = 1; if(document.getElementsByClassName("jw-video")[0].playbackRate < 2) {document.getElementsByClassName("jw-video")[0].playbackRate = document.getElementsByClassName("jw-video")[0].playbackRate + 0.25;} } } else if (e.key == "ArrowDown") { if (document.getElementsByClassName("jw-video")[0]) { document.getElementsByClassName("jw-video")[0].volume = 1; if(document.getElementsByClassName("jw-video")[0].playbackRate > 1){document.getElementsByClassName("jw-video")[0].playbackRate = document.getElementsByClassName("jw-video")[0].playbackRate - 0.25;}  } } }'
     }
-    else if (this.playerServerName.includes("OK")){
+    else if (this.playerServerName.includes("OK")) {
       codeToExec = 'var func = (function f() { var iframes = document.getElementsByTagName("iframe"); setInterval(() => { if (document.getElementsByClassName("html5-vpl_vid_display")[0]){ document.getElementsByClassName("html5-vpl_vid_display")[0].volume = 1;}; if(!document.getElementsByClassName("html5-vpl __dash __embed")[0]){document.getElementsByClassName("vid_play")[0].click();}; for (let index = 0; index < iframes.length; index++) { iframes[index].style.display = "none" }; }, 20); return f; })(); document.addEventListener("keydown", handler, true); function handler(e) { if(e.key == "Enter"){ if(document.getElementsByClassName("html5-vpl_vid_display")[0]){if(document.getElementsByClassName("html5-vpl_vid_display")[0].paused){document.getElementsByClassName("html5-vpl_vid_display")[0].play();}else{document.getElementsByClassName("html5-vpl_vid_display")[0].pause();}  } }; if (e.key == "ArrowUp") { if (document.getElementsByClassName("html5-vpl_vid_display")[0]) { document.getElementsByClassName("html5-vpl_vid_display")[0].volume = 1; if(document.getElementsByClassName("html5-vpl_vid_display")[0].playbackRate < 2) {document.getElementsByClassName("html5-vpl_vid_display")[0].playbackRate = document.getElementsByClassName("html5-vpl_vid_display")[0].playbackRate + 0.25;} } } else if (e.key == "ArrowDown") { if (document.getElementsByClassName("html5-vpl_vid_display")[0]) { document.getElementsByClassName("html5-vpl_vid_display")[0].volume = 1; if(document.getElementsByClassName("html5-vpl_vid_display")[0].playbackRate > 1){document.getElementsByClassName("html5-vpl_vid_display")[0].playbackRate = document.getElementsByClassName("html5-vpl_vid_display")[0].playbackRate - 0.25;}  } } }'
     }
-    else if (this.playerServerName.includes("Lions")){
+    else if (this.playerServerName.includes("Lions")) {
       codeToExec = 'var func = (function f() { var iframes = document.getElementsByTagName("iframe"); setInterval(() => { if(document.getElementsByClassName("afs_ads")[0]){document.getElementsByClassName("afs_ads")[0].style.pointerEvents = "none";}; if (document.getElementsByClassName("jw-video")[0]){ if(document.getElementsByClassName("jw-video")[0].paused){document.getElementsByClassName("jw-video")[0].play()} }; if(document.getElementsByClassName("jw-video")[0]){document.getElementsByClassName("jw-video")[0].volume = 1;}; for (let index = 0; index < iframes.length; index++) { iframes[index].style.display = "none" }; }, 20); return f; })(); document.addEventListener("keydown", handler, true); function handler(e) { if(e.key == "Enter"){ if(document.getElementsByClassName("jw-video")[0]){ if(document.getElementsByClassName("jw-video")[0].paused){ document.getElementsByClassName("jw-video")[0].play();}else{ document.getElementsByClassName("jw-video")[0].pause();}; }}; if (e.key == "ArrowUp") { if (document.getElementsByClassName("jw-video")[0]) { document.getElementsByClassName("jw-video")[0].volume = 1; if(document.getElementsByClassName("jw-video")[0].playbackRate < 2) { document.getElementsByClassName("jw-video")[0].playbackRate = document.getElementsByClassName("jw-video")[0].playbackRate + 0.25;} } } else if (e.key == "ArrowDown") { if (document.getElementsByClassName("jw-video")[0]) { document.getElementsByClassName("jw-video")[0].volume = 1; if(document.getElementsByClassName("jw-video")[0].playbackRate > 1){ document.getElementsByClassName("jw-video")[0].playbackRate = document.getElementsByClassName("jw-video")[0].playbackRate - 0.25;}  } } }'
     }
-    else if (this.playerServerName.includes("Mp4")){
+    else if (this.playerServerName.includes("Mp4")) {
       codeToExec = 'var func = (function f() { var iframes = document.getElementsByTagName("iframe"); setInterval(() => { if(document.getElementById("player_html5_api")){ document.getElementById("player_html5_api").volume = 1;}; for (let index = 0; index < iframes.length; index++) { iframes[index].style.display = "none" }; }, 20); return f; })(); document.addEventListener("keydown", handler, true); function handler(e) { if(e.key == "Enter"){ if(document.getElementById("player_html5_api")){ if(document.getElementById("player_html5_api").paused){ document.getElementById("player_html5_api").play();}else{ document.getElementById("player_html5_api").pause();}; }} if (e.key == "ArrowUp") { if (document.getElementById("player_html5_api")) { document.getElementById("player_html5_api").volume = 1; if(document.getElementById("player_html5_api").playbackRate < 2) {document.getElementById("player_html5_api").playbackRate = document.getElementById("player_html5_api").playbackRate + 0.25;} } } else if (e.key == "ArrowDown") { if (document.getElementById("player_html5_api")) { document.getElementById("player_html5_api").volume = 1; if(document.getElementById("player_html5_api").playbackRate > 1){document.getElementById("player_html5_api").playbackRate = document.getElementById("player_html5_api").playbackRate - 0.25;}  } } }'
     }
-    else if(this.playerServerName.includes("Kraken")){
+    else if (this.playerServerName.includes("Kraken")) {
       codeToExec = 'var func = (function f() { var iframes = document.getElementsByTagName("iframe"); setInterval(() => { if(document.getElementById("my-video")){ document.getElementById("my-video").volume = 1;}; for (let index = 0; index < iframes.length; index++) { iframes[index].style.display = "none" }; }, 20); return f; })(); document.addEventListener("keydown", handler, true); function handler(e) { if(e.key == "Enter"){ if(document.getElementById("my-video")){ if(document.getElementById("my-video").paused){ document.getElementById("my-video").play();}else{ document.getElementById("my-video").pause();}; }} if (e.key == "ArrowUp") { if (document.getElementById("my-video")) { document.getElementById("my-video").volume = 1; if(document.getElementById("my-video").playbackRate < 2) {document.getElementById("my-video").playbackRate = document.getElementById("my-video").playbackRate + 0.25;} } } else if (e.key == "ArrowDown") { if (document.getElementById("my-video")) { document.getElementById("my-video").volume = 1; if(document.getElementById("my-video").playbackRate > 1){document.getElementById("my-video").playbackRate = document.getElementById("my-video").playbackRate - 0.25;}  } } }'
     }
-    else{
+    else {
       codeToExec = 'var func = (function f() { var iframes = document.getElementsByTagName("iframe");setInterval(() => {for (let index = 0; index < iframes.length; index++) { iframes[index].style.display = "none" }; }, 20); return f; })();document.addEventListener("keydown", handler, true); function handler(e) {  }'
     }
 

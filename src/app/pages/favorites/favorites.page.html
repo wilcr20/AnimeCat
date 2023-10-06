@@ -9,12 +9,14 @@
 
 <ion-content [fullscreen]="true">
   <div class="main">
-    <br>
     <div class="noFavorite" *ngIf="favoriteList.length == 0">
       <!-- <p>No hay favoritos agregados.</p> -->
       <img src="https://ih1.redbubble.net/image.4870404907.6541/bg,f8f8f8-flat,750x,075,f-pad,750x1000,f8f8f8.jpg"
         alt="">
     </div>
+    <p style="color: white;" *ngIf="favoriteCount > 0" >
+      {{getFavoriteCountText()}}
+    </p>
 
     <div class="cards-container" *ngIf="favoriteList.length > 0">
       <ion-card id="favAnime_{{i}}" tabindex="0" *ngFor="let anime of favoriteList; let i = index"

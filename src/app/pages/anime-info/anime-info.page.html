@@ -8,9 +8,9 @@
 </ion-header>
 
 <ion-content>
-  <div class="main">
+  <div class="main" *ngIf="data">
     <br>
-    <div tabindex="0" class="info" id="infoSection" (keydown)="move($event, 0, false, false)" >
+    <div tabindex="0" class="info" id="infoSection" (keydown)="move($event, 0, false, false)">
       <img *ngIf="data" src={{data.imageUrl}} alt="" srcset="">
       <div class="description" *ngIf="data && data.description">
         {{data.description}}
@@ -21,8 +21,8 @@
       <br>
     </div>
     <div *ngIf="data && data.title" class="animeOptions">
-      <button id="favBtn" (keydown)="move($event, 0, false, true)" tabindex="0" class="favoriteBtn" (click)="favoriteClick()"
-        [ngClass]="{'add': !isFavorite, 'remove': isFavorite}">
+      <button id="favBtn" (keydown)="move($event, 0, false, true)" tabindex="0" class="favoriteBtn"
+        (click)="favoriteClick()" [ngClass]="{'add': !isFavorite, 'remove': isFavorite}">
         {{textFavorite}}
       </button>
     </div>
@@ -49,11 +49,10 @@
           </td>
         </tr>
       </table>
-      <br>
-      <br>
+
     </div>
-
-
+    <br>
+    <div tabindex="0"></div>
   </div>
   <ngx-loading [show]="isLoading" [config]="{
     backdropBorderRadius: '5px', fullScreenBackdrop:true}"></ngx-loading>
