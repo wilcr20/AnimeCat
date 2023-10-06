@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AnimeService } from 'src/app/shared/services/anime.service';
+import Swal from 'sweetalert2';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-anime-info',
@@ -19,6 +21,7 @@ export class AnimeInfoPage implements OnInit, OnDestroy {
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
+    private _location: Location,
     public animeService: AnimeService) {
 
   }
@@ -54,9 +57,14 @@ export class AnimeInfoPage implements OnInit, OnDestroy {
         }
         let website = localStorage.getItem("website");
         if (website == "animeflv") {
-          this.animeService.getAnimeInfo_AnimeFlv(json).subscribe((resp) => {
+          this.animeService.getAnimeInfo_AnimeFlv(json).subscribe((resp: any) => {
             this.isLoading = false;
-            if (resp) {
+            if(resp.error){
+              this.isLoading = false;
+              Swal.fire("", "Ocurrió un error al obtener la info del anime. Intente de nuevo.", "error");
+              this._location.back();
+            }
+            if (resp && !resp.error) {
               this.data = resp;
               this.verifyFavorite()
             }
@@ -66,16 +74,21 @@ export class AnimeInfoPage implements OnInit, OnDestroy {
             console.log(err);
           })
         } else {
-          this.animeService.getAnimeInfo(json).subscribe((resp) => {
+          this.animeService.getAnimeInfo(json).subscribe((resp:any) => {
             this.isLoading = false;
-            if (resp) {
+            if(resp.error){
+              this.isLoading = false;
+              Swal.fire("", "Ocurrió un error al obtener la info del anime. Intente de nuevo.", "error");
+              this._location.back();
+              return;
+            }
+            if (resp && !resp.error) {
               this.data = resp;
               this.verifyFavorite()
             }
           }, (err) => {
             this.isLoading = false;
             this.router.navigateByUrl("/home")
-            console.log(err);
           })
         }
 
