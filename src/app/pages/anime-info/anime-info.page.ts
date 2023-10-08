@@ -45,16 +45,36 @@ export class AnimeInfoPage implements OnInit, OnDestroy {
           this.isLoading = false;
           if (resp.error) {
             this.isLoading = false;
-            Swal.fire("", "Ocurrió un error al obtener la info del anime. Intente de nuevo.", "error");
+            Swal.fire({
+              title: "",
+              titleText: "Ocurrió un error al obtener la info del anime. Intente de nuevo.",
+              heightAuto: false,
+              icon: "error"
+            });
             this._location.back();
           }
           if (resp && !resp.error) {
-            this.data = resp;
-            this.verifyFavorite()
+            if (resp.imageUrl != "" && resp.title != "") {
+              this.data = resp;
+              this.verifyFavorite()
+            } else {
+              Swal.fire({
+                title: "",
+                titleText: "Ocurrió un error al obtener la info del anime. Intente de nuevo.",
+                heightAuto: false,
+                icon: "error"
+              });
+              this._location.back();
+            }
           }
         }, (err) => {
           this.isLoading = false;
-          Swal.fire("", "Ocurrió un error al obtener la info del anime. Intente de nuevo.", "error");
+          Swal.fire({
+            title: "",
+            titleText: "Ocurrió un error al obtener la info del anime. Intente de nuevo.",
+            heightAuto: false,
+            icon: "error"
+          });
           this.router.navigateByUrl("/home")
           console.log(err);
         })
@@ -63,17 +83,38 @@ export class AnimeInfoPage implements OnInit, OnDestroy {
           this.isLoading = false;
           if (resp.error) {
             this.isLoading = false;
-            Swal.fire("", "Ocurrió un error al obtener la info del anime. Intente de nuevo.", "error");
+            Swal.fire({
+              title: "",
+              titleText: "Ocurrió un error al obtener la info del anime. Intente de nuevo.",
+              heightAuto: false,
+              icon: "error"
+            });
             this._location.back();
             return;
           }
           if (resp && !resp.error) {
-            this.data = resp;
-            this.verifyFavorite()
+            if (resp.imageUrl != "" && resp.title != "") {
+              this.data = resp;
+              this.verifyFavorite()
+            } else {
+              Swal.fire({
+                title: "",
+                titleText: "Ocurrió un error al obtener la info del anime. Intente de nuevo.",
+                heightAuto: false,
+                icon: "error"
+              });
+              this._location.back();
+            }
+
           }
         }, (err) => {
           this.isLoading = false;
-          Swal.fire("", "Ocurrió un error al obtener la info del anime. Intente de nuevo.", "error");
+          Swal.fire({
+            title: "",
+            titleText: "Ocurrió un error al obtener la info del anime. Intente de nuevo.",
+            heightAuto: false,
+            icon: "error"
+          });
           this.router.navigateByUrl("/home")
         })
       }

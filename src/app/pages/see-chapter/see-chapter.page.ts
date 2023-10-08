@@ -57,7 +57,12 @@ export class SeeChapterPage {
           this.isLoading = false;
           if (resp.error) {
             this.isLoading = false;
-            Swal.fire("", "Ocurrió un error al obtener la info del capítulo. Intente de nuevo.", "error");
+            Swal.fire({
+              title: "",
+              titleText: "Ocurrió un error al obtener la info del capítulo. Intente de nuevo.",
+              heightAuto: false,
+              icon: "error"
+            });
             this._location.back();
           }
           if (resp && !resp.error) {
@@ -77,7 +82,12 @@ export class SeeChapterPage {
           }
         }, (err) => {
           this.isLoading = false;
-          Swal.fire("", "Ocurrió un error al obtener la info del capítulo. Intente de nuevo.", "error");
+          Swal.fire({
+            title: "",
+            titleText: "Ocurrió un error al obtener la info del capítulo. Intente de nuevo.",
+            heightAuto: false,
+            icon: "error"
+          })
           this._location.back();
           console.log(err);
         })
@@ -86,7 +96,12 @@ export class SeeChapterPage {
           this.isLoading = false;
           if (resp.error) {
             this.isLoading = false;
-            Swal.fire("", "Ocurrió un error al obtener la info del capítulo. Intente de nuevo.", "error");
+            Swal.fire({
+              title: "",
+              titleText: "Ocurrió un error al obtener la info del capítulo. Intente de nuevo.",
+              heightAuto: false,
+              icon: "error"
+            });
             this._location.back();
           }
           if (resp && !resp.error) {
@@ -97,7 +112,12 @@ export class SeeChapterPage {
           }
         }, (err) => {
           this.isLoading = false;
-          Swal.fire("", "Ocurrió un error al obtener la info del capítulo. Intente de nuevo.", "error");
+          Swal.fire({
+            title: "",
+            titleText: "Ocurrió un error al obtener la info del capítulo. Intente de nuevo.",
+            heightAuto: false,
+            icon: "error"
+          });
           this._location.back();
           console.log(err);
         })

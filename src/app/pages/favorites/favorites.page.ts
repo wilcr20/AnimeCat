@@ -17,6 +17,7 @@ export class FavoritesPage {
 
   ionViewWillEnter() {
     this.isLoading = true;
+    this.favoriteCount = 0;
     this.favoriteList = [];
     setTimeout(() => {
       let favorites = localStorage.getItem("favoritesAnime");
