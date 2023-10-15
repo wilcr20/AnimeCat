@@ -48,7 +48,7 @@
       <p>No se encontraron resultados para esa búsqueda.</p>
     </div>
     <br>
-    <div *ngIf="buttons.length > 0" class="pagination">
+    <div *ngIf="buttons.length > 0 && searchResult.length > 0" class="pagination">
       <button [disabled] = "currentPage == btn.display" tabindex="0" *ngFor="let btn of buttons" (click)="redirectToPage(btn.url)"
         [ngClass]="{'disabled': currentPage == btn.display }" (keyup.enter)="redirectToPage(btn.url)"
         class="loadMore">

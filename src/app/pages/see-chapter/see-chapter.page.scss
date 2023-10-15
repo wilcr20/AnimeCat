@@ -132,8 +132,12 @@ ion-content {
                         border-top: 2rem solid transparent;
                         border-bottom: 2rem solid transparent;
                         border-left: calc(2rem * 2 * 0.86) solid black;
-
+                        &:focus-visible {
+                            outline: none;
+                            border-left: calc(2rem * 2 * 0.86) solid orange;
+                        }
                     }
+                   
                 }
 
                 &:focus {

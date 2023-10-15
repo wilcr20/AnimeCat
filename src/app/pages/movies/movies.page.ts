@@ -10,8 +10,6 @@ import { AnimeService } from 'src/app/shared/services/anime.service';
 export class MoviesPage implements OnInit {
   isLoading = false;
   defaultUrl = "https://www3.animeflv.net/browse?type%5B%5D=movie&order=added";
-  // defaultSearchUrl = "https://www3.animeflv.net/browse?q=";
-  // defaultFilterSearchUrl = "https://www3.animeflv.net/browse?";
   searchResult: any = [];
   paginationData: any = [];
   buttons: any = [];
@@ -23,11 +21,10 @@ export class MoviesPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.redirectToPage(this.defaultUrl);
   }
 
   ionViewWillEnter() {
-    this.redirectToPage(this.defaultUrl);
-    // this.defaultUrl = "https://www3.animeflv.net/browse?q=";
   }
 
   redirectToPage(url: string) {
@@ -36,7 +33,9 @@ export class MoviesPage implements OnInit {
     this.buttons = [];
     this.animeService.getMovies({ "url": url }).subscribe((data: any) => {
       this.searchResult = [];
-      this.currentPage = Number(url.split("page=")[1]);
+      if (Number(url.split("page=")[1])) {
+        this.currentPage = Number(url.split("page=")[1]);
+      }
       this.buttons = [];
       this.isLoading = false;
       this.searchResult = data.data;
@@ -49,7 +48,7 @@ export class MoviesPage implements OnInit {
     })
   }
 
-  
+
   redirectToAnimeInfo(animeUrl: string, website: string) {
     localStorage.setItem("website", website);
     this.router.navigate(['/anime-info', animeUrl]);
@@ -67,8 +66,8 @@ export class MoviesPage implements OnInit {
         break;
       case "ArrowUp":
         if (index > 0) {
-          let newIndex =  index - 4;
-          if(newIndex < 0){
+          let newIndex = index - 4;
+          if (newIndex < 0) {
             return;
           }
           let element = document.getElementById("searchAnime_" + newIndex);
