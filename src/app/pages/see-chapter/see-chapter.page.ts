@@ -176,6 +176,7 @@ export class SeeChapterPage {
   updateServer(server: any) {
     this.playerServer = server.url;
     this.playerServerName = server.server;
+    document.getElementById("playerBtn")?.focus();
   }
 
 }

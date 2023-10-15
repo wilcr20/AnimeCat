@@ -1,13 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{data.title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+
 <ion-content>
 
   <div class="main">
-    <h1>{{data.title}}</h1>
-    <hr>
+    <!-- <h1>{{data.title}}</h1> -->
+    <!-- <hr> -->
 
     <p id="animeName" *ngIf="animeData" tabindex="0"
       (keyup.enter)="redirectToAnimeInfo(animeData.animeUrl, animeData.website)"
       (click)="redirectToAnimeInfo(animeData.animeUrl, animeData.website)">{{title}}</p>
-    <p id="datePublish" *ngIf="animeData && animeData.date">Publicado el {{animeData.date}}</p>
+    <p id="datePublish"  *ngIf="animeData && animeData.date">Publicado el {{animeData.date}}</p>
 
     <div class="serverList" *ngIf="animeData && animeData.servers && animeData.servers.length > 0">
       <ion-chip tabindex="0" (keyup.enter)="updateServer(server)" *ngFor="let server of animeData.servers"
@@ -25,7 +36,7 @@
 
       <div class="player"  [ngClass]="{'border': animeData && !animeData.description && !isLoading}" [style.background-image]="playerImg"
         *ngIf="animeData && animeData.defaultPlayer != 'https://animeyt.es/undefined'" id="player">
-        <div tabindex="1" (click)="openPlayer()" (keyup.enter)="openPlayer()" class="fake-player">
+        <div tabindex="1" (click)="openPlayer()" (keyup.enter)="openPlayer()" id="playerBtn" class="fake-player">
           <button tabindex="0" role="play" class="play"></button>
         </div>
       </div>

@@ -77,7 +77,10 @@ export class FavoritesPage {
         break;
       case "ArrowUp":
         if (index > 0) {
-          let newIndex = index - 4 < 0 ? 0 : index - 4;
+          let newIndex =  index - 4;
+          if(newIndex < 0){
+            return;
+          }
           let element = document.getElementById("favAnime_" + newIndex);
           if (element) {
             element.scrollTop = element.scrollTop - 250;
