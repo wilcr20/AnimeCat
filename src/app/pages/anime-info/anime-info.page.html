@@ -12,8 +12,8 @@
     <br>
     <div tabindex="0" class="info" id="infoSection" (keydown)="move($event, 0, false, false)">
       <img *ngIf="data" src={{data.imageUrl}} alt="" srcset="">
-      <div class="description" *ngIf="data && data.description">
-        {{data.description}}
+      <div class="description" *ngIf="data && (data.description  || data.genreList )">
+        {{getDescription()}}
         <div class="genreList" *ngIf="data && data.genreList">
           <ion-chip *ngFor="let genre of data.genreList">{{genre.genre}}</ion-chip>
         </div>

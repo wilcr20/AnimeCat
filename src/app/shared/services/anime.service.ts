@@ -59,4 +59,9 @@ export class AnimeService {
     return this.httpClient.post(environment.apiUrl+ "animeflv/filterSearch", body);
   }
 
+  getMovies(body: any){
+    return this.httpClient.post(environment.apiUrl+ "animeflv/movies", body);
+
+  }
+
 }

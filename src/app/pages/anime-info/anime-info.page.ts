@@ -233,8 +233,13 @@ export class AnimeInfoPage implements OnInit, OnDestroy {
     }
     return this.currentFavorite[0].chapters.filter((chapter: any) =>
       chapter.url == chapterUrl).length > 0;
+  }
 
-
+  getDescription() {
+    if (this.data.description) {
+      return this.data.description;
+    }
+    return "Sin descripción disponible."
   }
 
 

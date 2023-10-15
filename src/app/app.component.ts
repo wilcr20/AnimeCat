@@ -35,6 +35,11 @@ export class AppComponent {
       "display": "En emisión"
     },
     {
+      "url": '/movies',
+      "icon": "videocam-outline",
+      "display": "Peliculas"
+    },
+    {
       "url": '/coming-soon',
       "icon": "rocket-outline",
       "display": "Próximamente"
