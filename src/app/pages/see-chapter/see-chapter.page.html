@@ -14,6 +14,7 @@
   <div class="main">
     <!-- <h1>{{data.title}}</h1> -->
     <!-- <hr> -->
+    <div *ngIf="isLoading" id="blockBackground"></div>
 
     <p id="animeName" *ngIf="animeData" tabindex="0"
       (keyup.enter)="redirectToAnimeInfo(animeData.animeUrl, animeData.website)"

@@ -21,6 +21,15 @@ ion-content {
         border-bottom: 1px solid gray;
     }
 
+    #blockBackground {
+        background: black;
+        width: 100%;
+        margin-top: -20%;
+        position: fixed;
+        z-index: 999;
+        height: -webkit-fill-available;
+    }
+
     #animeName {
         width: fit-content;
         background: black;
@@ -132,12 +141,13 @@ ion-content {
                         border-top: 2rem solid transparent;
                         border-bottom: 2rem solid transparent;
                         border-left: calc(2rem * 2 * 0.86) solid black;
+
                         &:focus-visible {
                             outline: none;
                             border-left: calc(2rem * 2 * 0.86) solid orange;
                         }
                     }
-                   
+
                 }
 
                 &:focus {
