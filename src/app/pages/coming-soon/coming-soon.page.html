@@ -11,7 +11,7 @@
 <ion-content [fullscreen]="true">
   <div class="main">
     <br>
-    <div class="cards-container" *ngIf="animeList.length > 0">
+    <div class="cards-container" *ngIf="animeList && animeList.length > 0">
       <ion-card id="soonAnime_{{i}}"  tabindex="0" *ngFor="let anime of animeList; let i = index" 
       (click)="redirectToAnimeInfo(anime.url, anime.website)"
       (keyup.enter)="redirectToAnimeInfo(anime.url, anime.website)" 
@@ -22,6 +22,9 @@
           <ion-card-title>{{anime.title}}</ion-card-title>
         </ion-card-header>
       </ion-card>
+    </div>
+    <div *ngIf=" !isLoading && animeList && animeList.length == 0">
+      <p style="color: white;">No hay próximos animes por el momento.</p>
     </div>
     <br>
     <br>

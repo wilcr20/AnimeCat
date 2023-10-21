@@ -33,7 +33,7 @@
         <tr>
           <th>#</th>
           <th>Nombre del capítulo</th>
-          <th *ngIf="data">Fecha</th>
+          <th *ngIf="data && data.chapterList[0].date">Fecha</th>
           <th *ngIf="isFavorite">Visto</th>
         </tr>
         <tr *ngFor="let chapter of data.chapterList; let i = index">
@@ -42,7 +42,7 @@
             (keyup.enter)="seeChapterAnime(chapter.chapterUrl,data.website, chapter.chapter, data.imageUrl)"
             tabindex="0">{{chapter.chapter}}</td>
           <td *ngIf="chapter.date">{{chapter.date}}</td>
-          <td *ngIf="!chapter.date">-</td>
+          <!-- <td *ngIf="!chapter.date">-</td> -->
           <td *ngIf="isFavorite">
             <input tabindex="0" (click)="updateChapterSeen(chapter.chapterUrl)" class="checkSeenChapter" type="checkbox"
               [checked]="isChapterSeen(chapter.chapterUrl)" />

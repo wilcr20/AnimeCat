@@ -22,6 +22,9 @@
         </ion-card-header>
       </ion-card>
     </div>
+    <div *ngIf="animeData.data && animeData.data.length == 0">
+      <p style="color: white;">No hay animes para mostrar.</p>
+    </div>
     <br>
     <div style="display: flow-root;">
       <button *ngIf="animeData.buttons.prevBtnUrl" tabindex="0" (click)="getDirectoryAnime(animeData.buttons.prevBtnUrl)" (keyup.enter)="getDirectoryAnime(animeData.buttons.prevBtnUrl)" class="loadMore left">Anterior.</button>

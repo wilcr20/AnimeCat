@@ -11,7 +11,7 @@
 <ion-content [fullscreen]="true">
   <div class="main">
     <br>
-    <div class="cards-container" *ngIf="animeList.length > 0">
+    <div class="cards-container" *ngIf="animeList && animeList.length > 0">
       <ion-card id="homeAnime_{{i}}"  tabindex="0" *ngFor="let anime of animeList; let i = index" 
       (click)="seeChapterAnime(anime.url, anime.website, anime.title, anime.imageUrl)" 
       (keyup.enter)="seeChapterAnime(anime.url, anime.website, anime.title, anime.imageUrl)" 

@@ -87,7 +87,7 @@ ion-content {
             border-bottom-right-radius: 15px;
 
             p {
-                padding: 5px 15px 20px;
+                padding: 0 15px 0;
                 display: -webkit-box;
                 -webkit-line-clamp: 10;
                 -webkit-box-orient: vertical;
@@ -99,18 +99,12 @@ ion-content {
 
 
         .player {
-            // border: 3px solid rgb(0, 119, 255);
-            // border-radius: 15px;
-            // padding: 3.5em 10em;
-            // margin: 2em 20% 0;
             border-top-left-radius: 15px;
             border-bottom-left-radius: 15px;
             height: -webkit-fill-available;
             display: flex;
             justify-content: center;
             align-items: center;
-            // background-repeat: no-repeat;
-            // background-size: cover;
             background: no-repeat center;
             border-right: 2px solid orange;
 
@@ -189,7 +183,7 @@ ion-content {
             &.selected {
                 --background: orange;
                 --color: black;
-                --border-color: 1px solid white;
+                border: 2px solid gray;
             }
         }
     }
