@@ -27,6 +27,12 @@
       </button>
     </div>
     <br>
+
+    <div class="animeRelated" *ngIf="data && data.related && data.related.length > 0">
+      <p>Animes relacionados</p>
+      <ion-chip tabindex="0" (keyup.enter)="redirectToAnimeInfo(related.url, 'animeflv')"
+      (click)="redirectToAnimeInfo(related.url, 'animeflv')" *ngFor="let related of data.related">{{related.name}}</ion-chip><br>
+    </div>
     <div class="chapters" *ngIf="data && data.chapterList.length > 0">
       <h3>Lista de capitulos</h3>
       <table>

@@ -81,6 +81,34 @@ ion-content {
         }
     }
 
+    .animeRelated {
+        left: 5%;
+        width: 90%;
+        padding: 10px;
+        margin-top: 5%;
+        border: solid 2px orange;
+        position: relative;
+        border-radius: 10px;
+
+        p {
+            color: white;
+            font-size: 18px;
+            margin-left: 10px;
+        }
+
+        ion-chip{
+            &:focus {
+                background: orange;
+                color: black;
+                font-size: 17px;
+            }
+
+            &:focus-visible {
+                outline: none;
+            }
+        }
+    }
+
     .chapters {
         color: white;
         background: black;

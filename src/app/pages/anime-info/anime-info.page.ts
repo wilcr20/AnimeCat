@@ -297,4 +297,9 @@ export class AnimeInfoPage implements OnInit, OnDestroy {
 
   }
 
+  redirectToAnimeInfo(url: string, website: string){
+    localStorage.setItem("website", website);
+    this.router.navigate(['/anime-info', url]);
+  }
+
 }
