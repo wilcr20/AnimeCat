@@ -248,14 +248,16 @@ export class AnimeInfoPage implements OnInit, OnDestroy {
     let element = null;
     switch (ev.code) {
       case "ArrowDown":
-
-
         if (!isChapter && !isFavButton) {
           element = document.getElementById("favBtn");
         }
 
         if (!isChapter && isFavButton) {
-          element = document.getElementById("animeChapter_0");
+          if (this.data.related && this.data.related.length > 0) {
+            element = document.getElementById("animeRelated_0");
+          } else {
+            element = document.getElementById("animeChapter_0");
+          }
         }
 
         if (isChapter && !isFavButton) {
@@ -275,7 +277,11 @@ export class AnimeInfoPage implements OnInit, OnDestroy {
 
         if (isChapter && !isFavButton) {
           if (index == 0) {
-            element = document.getElementById("favBtn");
+            if (this.data.related && this.data.related.length > 0) {
+              element = document.getElementById("animeRelated_0");
+            } else {
+              element = document.getElementById("favBtn");
+            }
           } else {
             newIndex = index - 1;
             element = document.getElementById("animeChapter_" + newIndex);
@@ -297,7 +303,7 @@ export class AnimeInfoPage implements OnInit, OnDestroy {
 
   }
 
-  redirectToAnimeInfo(url: string, website: string){
+  redirectToAnimeInfo(url: string, website: string) {
     localStorage.setItem("website", website);
     this.router.navigate(['/anime-info', url]);
   }

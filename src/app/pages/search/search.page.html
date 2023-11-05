@@ -12,7 +12,7 @@
   <div class="main">
     <br>
     <div class="search">
-      <ion-searchbar tabindex="0" (ionChange)="setValue()" [(ngModel)]="searchValue"
+      <ion-searchbar (ionChange)="setValue()" [(ngModel)]="searchValue"
         placeholder="Ingrese el texto a buscar ..."></ion-searchbar>
       <div class="selectFilter"  *ngIf="genresList.length > 0">
         <label for="">Género: </label>
