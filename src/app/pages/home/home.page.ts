@@ -21,6 +21,7 @@ export class HomePage {
   }
 
   ionViewWillEnter() {
+    sessionStorage.clear();
     /*
     if (this.animeList.length > 0) {
       let temp = this.animeList;

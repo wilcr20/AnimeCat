@@ -7,7 +7,9 @@ import { MenuController } from '@ionic/angular';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
+
 export class AppComponent {
+
   pageList = [
     {
       "url": "/home",
@@ -44,13 +46,26 @@ export class AppComponent {
       "icon": "rocket-outline",
       "display": "Próximamente"
     },
+    // {
+    //   "url": '/closeApp',
+    //   "icon": "close-circle-outline",
+    //   "display": "CERRAR APP"
+    // },
   ]
+
+
   constructor(
     public menu: MenuController,
-    private router: Router
+    private router: Router,
   ) { }
 
   redirect(url: string) {
-    this.router.navigateByUrl(url)
+    if (url == "/closeApp") {
+      let nav = navigator as any;
+      nav.app.exitApp();
+    } else {
+      this.router.navigateByUrl(url)
+
+    }
   }
 }

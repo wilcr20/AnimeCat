@@ -27,10 +27,25 @@ export class AnimeInfoPage implements OnInit, OnDestroy {
   }
 
   ionViewWillEnter() {
-
+    let temporalDataForAnimeInfo = sessionStorage.getItem("animeTemp");
+    if (temporalDataForAnimeInfo) {
+      let tempData = JSON.parse(temporalDataForAnimeInfo);
+      this.activatedRoute.params.subscribe((params: any)=>{
+        this.ulrAnime = params['id'];        
+        if(this.ulrAnime == tempData.url){
+          this.data = tempData.data;
+          console.log(this.data);
+          
+        }else{
+          this.getAnimeData();
+        }
+      })
+    } else {
+      this.getAnimeData();
+    }
   }
 
-  ngOnInit() {
+  getAnimeData() {
     this.sub = this.activatedRoute.params.subscribe((params: { [x: string]: any; }) => {
       this.ulrAnime = params['id']; // (+) converts string 'id' to a number
 
@@ -56,6 +71,7 @@ export class AnimeInfoPage implements OnInit, OnDestroy {
           if (resp && !resp.error) {
             if (resp.imageUrl != "" && resp.title != "") {
               this.data = resp;
+              sessionStorage.setItem("animeTemp", JSON.stringify({ "data": this.data, "url": this.ulrAnime }));
               this.verifyFavorite()
             } else {
               Swal.fire({
@@ -95,6 +111,7 @@ export class AnimeInfoPage implements OnInit, OnDestroy {
           if (resp && !resp.error) {
             if (resp.imageUrl != "" && resp.title != "") {
               this.data = resp;
+              sessionStorage.setItem("animeTemp", JSON.stringify({ "data": this.data, "url": this.ulrAnime }));
               this.verifyFavorite()
             } else {
               Swal.fire({
@@ -119,6 +136,10 @@ export class AnimeInfoPage implements OnInit, OnDestroy {
         })
       }
     });
+  }
+
+  ngOnInit() {
+
   }
 
   verifyFavorite() {
@@ -178,7 +199,7 @@ export class AnimeInfoPage implements OnInit, OnDestroy {
     if (!this.isFavorite) {
       this.textFavorite = "Añadir a favoritos";
     } else {
-      this.textFavorite = "Remover de favoritos";
+      this.textFavorite = "Remover favorito";
     }
   }
 
@@ -191,6 +212,7 @@ export class AnimeInfoPage implements OnInit, OnDestroy {
   }
 
   seeChapterAnime(url: any, website: any, title: any, img: any) {
+    // this.sub.unsubscribe();
     let data = { url: url, website: website, title: title, img: img };
     localStorage.setItem("website", website);
     localStorage.setItem("seeChapterData", JSON.stringify(data))
