@@ -23,19 +23,17 @@ export class AnimeInfoPage implements OnInit, OnDestroy {
     private router: Router,
     private _location: Location,
     public animeService: AnimeService) {
-
   }
 
   ionViewWillEnter() {
+    this.isLoading= false;
     let temporalDataForAnimeInfo = sessionStorage.getItem("animeTemp");
     if (temporalDataForAnimeInfo) {
       let tempData = JSON.parse(temporalDataForAnimeInfo);
       this.activatedRoute.params.subscribe((params: any)=>{
         this.ulrAnime = params['id'];        
         if(this.ulrAnime == tempData.url){
-          this.data = tempData.data;
-          console.log(this.data);
-          
+          this.data = tempData.data;         
         }else{
           this.getAnimeData();
         }

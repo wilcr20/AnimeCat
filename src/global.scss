@@ -27,10 +27,15 @@
 
 
 ion-chip {
-  --background: orange;
-  --color: black;
+  --background: black;
+  --color: white;
   --border-color: 1px solid white;
   font-size: 18px;
+
+  &.genreChip {
+    --background: orange;
+    --color: black;
+  }
 }
 
 ion-title {

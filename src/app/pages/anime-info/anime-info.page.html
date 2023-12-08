@@ -15,7 +15,7 @@
       <div class="description" *ngIf="data && (data.description  || data.genreList )">
         {{getDescription()}}
         <div class="genreList" *ngIf="data && data.genreList">
-          <ion-chip *ngFor="let genre of data.genreList">{{genre.genre}}</ion-chip>
+          <ion-chip class="genreChip" *ngFor="let genre of data.genreList">{{genre.genre}}</ion-chip>
         </div>
       </div>
       <br>
