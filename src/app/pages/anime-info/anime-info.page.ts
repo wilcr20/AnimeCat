@@ -9,7 +9,7 @@ import { Location } from '@angular/common';
   templateUrl: './anime-info.page.html',
   styleUrls: ['./anime-info.page.scss'],
 })
-export class AnimeInfoPage implements OnInit, OnDestroy {
+export class AnimeInfoPage implements OnInit {
   private sub: any;
   isFavorite = false;
   textFavorite = "Añadir a favoritos";
@@ -33,7 +33,8 @@ export class AnimeInfoPage implements OnInit, OnDestroy {
       this.activatedRoute.params.subscribe((params: any)=>{
         this.ulrAnime = params['id'];        
         if(this.ulrAnime == tempData.url){
-          this.data = tempData.data;         
+          this.data = tempData.data;   
+          this.verifyFavorite();      
         }else{
           this.getAnimeData();
         }
@@ -201,16 +202,11 @@ export class AnimeInfoPage implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy() {
-    this.sub.unsubscribe();
-  }
-
   getChapterNumber(idx: number) {
     return this.data.chapterList.length - idx;
   }
 
   seeChapterAnime(url: any, website: any, title: any, img: any) {
-    // this.sub.unsubscribe();
     let data = { url: url, website: website, title: title, img: img };
     localStorage.setItem("website", website);
     localStorage.setItem("seeChapterData", JSON.stringify(data))
