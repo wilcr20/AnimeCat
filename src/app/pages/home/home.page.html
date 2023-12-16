@@ -24,7 +24,7 @@
       </ion-card>
     </div>
     <br>
-    <div *ngIf="canLoadMore && animeList.length > 0">
+    <div *ngIf="canLoadMore && animeList &&  animeList.length > 0">
       <button tabindex="0" (click)="loadMore()" (keyup.enter)="loadMore()" class="loadMore">Mostrar más.</button>
     </div>
     <br>

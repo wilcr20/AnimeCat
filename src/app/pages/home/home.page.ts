@@ -21,25 +21,25 @@ export class HomePage {
   }
 
   ionViewWillEnter() {
+    this.isLoading = false;
     sessionStorage.clear();
-    /*
-    if (this.animeList.length > 0) {
-      let temp = this.animeList;
-      this.animeList = []
-      this.isLoading = true;
-      setTimeout(() => {
-        this.isLoading = false;
-        this.animeList = temp;
-
-      }, 300);
-    }*/
+    let lastFetch = localStorage.getItem("lastFetchDate");
+    if (lastFetch) {
+      let now = new Date().getTime();
+      let lastFetchDate = JSON.parse(lastFetch) + 300000 // update home after 5 mins
+      if (now > lastFetchDate) {
+        this.geAnimeForHome();
+      }
+    } else {
+      localStorage.setItem("lastFetchDate", JSON.stringify(new Date().getTime()))
+    }
   }
-
 
   geAnimeForHome() {
     this.isLoading = true;
     this.animeService.getHomeAnime().subscribe((resp: any) => {
       this.isLoading = false;
+      localStorage.setItem("lastFetchDate", JSON.stringify(new Date().getTime()));
       if (resp) {
         this.animeList = resp.data;
       }
@@ -82,8 +82,8 @@ export class HomePage {
         break;
       case "ArrowUp":
         if (index > 0) {
-          let newIndex =  index - 4;
-          if(newIndex < 0){
+          let newIndex = index - 4;
+          if (newIndex < 0) {
             return;
           }
           let element = document.getElementById("homeAnime_" + newIndex);
