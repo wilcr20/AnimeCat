@@ -14,14 +14,14 @@ export class HomePage {
   isLoading = false;
   canLoadMore = true
 
-  websiteSelected = Websites.ANIMEFLV;
-
+  websiteSelected = localStorage.getItem("website");
 
   constructor(
     public animeytService: AnimeytService,
     public animeflvService: AnimeflvService,
     public router: Router
   ) {
+    localStorage.setItem("lastWebsiteSelected", this.websiteSelected!);
     this.geAnimeForHome();
   }
 
@@ -44,9 +44,9 @@ export class HomePage {
     this.isLoading = true;
     let susbcriber = null;
 
-    if (this.websiteSelected == Websites.ANIMEFLV) {
+    if (this.websiteSelected == "animeflv") {
       susbcriber = this.animeflvService.getHomeAnime();
-    } else if (this.websiteSelected == Websites.ANIMEYT) {
+    } else if (this.websiteSelected == "animeyt") {
       susbcriber = this.animeytService.getHomeAnime();
     }
     if(susbcriber){
@@ -58,7 +58,7 @@ export class HomePage {
         }
       }, (err) => {
         this.isLoading = false;
-        console.log(err)
+        this.geAnimeForHome();
       })
     }
   

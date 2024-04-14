@@ -19,7 +19,7 @@ export class SeeChapterPage {
   isLoading = false;
   playerImg: any;
   playerServer = "";
-  playerServerName = "Omega"
+  playerServerName = ""
 
   options: InAppBrowserOptions = {
     location: 'no',//Or 'no' 
@@ -31,6 +31,9 @@ export class SeeChapterPage {
     mediaPlaybackRequiresUserAction: 'no',
     shouldPauseOnSuspend: 'no', //Android only   
   };
+
+  websiteSelected = localStorage.getItem("website");
+
 
   constructor(
     public animeytService: AnimeytService,
@@ -49,14 +52,22 @@ export class SeeChapterPage {
   }
 
   ionViewWillEnter() {
-    this.playerServerName = "Omega";
     let animeData = localStorage.getItem("seeChapterData");
     if (animeData) {
       this.data = JSON.parse(animeData)  //window.history.state;
       this.isLoading = true;
-      let website = localStorage.getItem("website");
-      if (website == "animeflv") {
-        this.animeytService.seeChapterAnime({ animeUrl: this.data.url }).subscribe((resp: any) => {
+      let susbcriber = null;
+      
+      if (this.websiteSelected == "animeflv") {
+        susbcriber = this.animeflvService.seeChapterAnime({ animeUrl: this.data.url });
+        
+      } else if (this.websiteSelected == "animeyt") {
+        susbcriber = this.animeytService.seeChapterAnime({ animeUrl: this.data.url });
+     
+      }
+
+      if (susbcriber) {
+        susbcriber.subscribe((resp: any) => {
           this.isLoading = false;
           if (resp.error) {
             this.isLoading = false;
@@ -69,18 +80,12 @@ export class SeeChapterPage {
             this._location.back();
           }
           if (resp && !resp.error) {
+            console.log(animeData);
+            
             this.animeData = resp;
             this.title = this.animeData.title
-            if (this.animeData.servers) {
-              let SW_Server = this.animeData.servers.filter((server: any) => server.server === "SW")[0];
-              if (SW_Server) {
-                this.playerServer = SW_Server.url;
-                this.playerServerName = SW_Server.server;
-              } else {
-                this.playerServer = this.animeData.defaultPlayer;
-                this.playerServerName = this.animeData.servers[0].server;
-              }
-            }
+            this.playerServer = this.animeData.servers[0].url;
+            this.playerServerName = this.animeData.servers[0].server;
             this.setPlayerimg();
           }
         }, (err: any) => {
@@ -91,36 +96,6 @@ export class SeeChapterPage {
             heightAuto: false,
             icon: "error"
           })
-          this._location.back();
-          console.log(err);
-        })
-      } else {
-        this.animeytService.seeChapterAnime({ animeUrl: this.data.url }).subscribe((resp: any) => {
-          this.isLoading = false;
-          if (resp.error) {
-            this.isLoading = false;
-            Swal.fire({
-              title: "",
-              titleText: "Ocurrió un error al obtener la info del capítulo. Intente de nuevo.",
-              heightAuto: false,
-              icon: "error"
-            });
-            this._location.back();
-          } 
-          if (resp && !resp.error) {
-            this.animeData = resp;
-            this.title = this.animeData.title
-            this.playerServer = this.animeData.defaultPlayer;
-            this.setPlayerimg();
-          }
-        }, (err: any) => {
-          this.isLoading = false;
-          Swal.fire({
-            title: "",
-            titleText: "Ocurrió un error al obtener la info del capítulo. Intente de nuevo.",
-            heightAuto: false,
-            icon: "error"
-          });
           this._location.back();
           console.log(err);
         })
@@ -153,7 +128,7 @@ export class SeeChapterPage {
     else if (this.playerServerName.includes("Kraken")) {
       codeToExec = 'var func = (function f() { var iframes = document.getElementsByTagName("iframe"); setInterval(() => { if(document.getElementById("my-video")){ document.getElementById("my-video").volume = 1;}; for (let index = 0; index < iframes.length; index++) { iframes[index].style.display = "none" }; }, 20); return f; })(); document.addEventListener("keydown", handler, true); function handler(e) { if(e.key == "Enter"){ if(document.getElementById("my-video")){ if(document.getElementById("my-video").paused){ document.getElementById("my-video").play();}else{ document.getElementById("my-video").pause();}; }} if (e.key == "ArrowUp") { if (document.getElementById("my-video")) { document.getElementById("my-video").volume = 1; if(document.getElementById("my-video").playbackRate < 2) {document.getElementById("my-video").playbackRate = document.getElementById("my-video").playbackRate + 0.25;} } } else if (e.key == "ArrowDown") { if (document.getElementById("my-video")) { document.getElementById("my-video").volume = 1; if(document.getElementById("my-video").playbackRate > 1){document.getElementById("my-video").playbackRate = document.getElementById("my-video").playbackRate - 0.25;}  } } }'
     }
-    else if (this.playerServerName.includes("Your") || this.playerServerName.includes("Cloud") ) {
+    else if (this.playerServerName.includes("Your") || this.playerServerName.includes("Cloud")) {
       codeToExec = 'var func = (function f() { var iframes = document.getElementsByTagName("iframe"); setInterval(() => { if(document.getElementsByClassName("jw-video jw-reset")[0]){document.getElementsByClassName("jw-video jw-reset")[0].volume=1;}; for (let index = 0; index < iframes.length; index++) { iframes[index].style.display = "none" }; }, 20); return f; })(); document.addEventListener("keydown", handler, true); function handler(e) { if(e.key == "Enter"){ if(document.getElementsByClassName("jw-video jw-reset")[0]){if(document.getElementsByClassName("jw-video jw-reset")[0].paused){document.getElementsByClassName("jw-video jw-reset")[0].play();}else{document.getElementsByClassName("jw-video jw-reset")[0].pause();}  } }; if (e.key == "ArrowUp") { if (document.getElementsByClassName("jw-video jw-reset")[0]) { document.getElementsByClassName("jw-video jw-reset")[0].volume = 1; if(document.getElementsByClassName("jw-video jw-reset")[0].playbackRate < 2) {document.getElementsByClassName("jw-video jw-reset")[0].playbackRate = document.getElementsByClassName("jw-video jw-reset")[0].playbackRate + 0.25;} } } else if (e.key == "ArrowDown") { if (document.getElementsByClassName("jw-video jw-reset")[0]) { document.getElementsByClassName("jw-video jw-reset")[0].volume = 1; if(document.getElementsByClassName("jw-video jw-reset")[0].playbackRate > 1){document.getElementsByClassName("jw-video jw-reset")[0].playbackRate = document.getElementsByClassName("jw-video jw-reset")[0].playbackRate - 0.25;}  } } }'
     }
     else if (this.playerServerName.includes("SW")) {
