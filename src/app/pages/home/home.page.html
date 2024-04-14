@@ -12,14 +12,16 @@
   <div class="main">
     <br>
     <div class="cards-container" *ngIf="animeList && animeList.length > 0">
-      <ion-card id="homeAnime_{{i}}"  tabindex="0" *ngFor="let anime of animeList; let i = index" 
-      (click)="seeChapterAnime(anime.url, anime.website, anime.title, anime.imageUrl)" 
-      (keyup.enter)="seeChapterAnime(anime.url, anime.website, anime.title, anime.imageUrl)" 
-      (keydown)="move($event, i)"
-      >
-        <img src={{anime.imageUrl}} onerror="this.src='../../../assets/imgNotFound.jpg'" />
+      <ion-card id="homeAnime_{{i}}" tabindex="0" *ngFor="let anime of animeList; let i = index"
+        (click)="seeChapterAnime(anime.url, anime.website, anime.title, anime.imageUrl)"
+        (keyup.enter)="seeChapterAnime(anime.url, anime.website, anime.title, anime.imageUrl)"
+        (keydown)="move($event, i)">
+        <img src={{anime.imageUrl}} [ngClass]="{'animeyt': websiteSelected == 'animeyt'}"
+          onerror="this.src='../../../assets/imgNotFound.jpg'" />
         <ion-card-header>
-          <ion-card-title>{{anime.title}}</ion-card-title>
+          <ion-card-title [ngClass]="{'animeyt': websiteSelected == 'animeyt', 'animeflv': websiteSelected == 'animeflv'}">
+            {{anime.title}}
+          </ion-card-title>
         </ion-card-header>
       </ion-card>
     </div>
@@ -33,5 +35,5 @@
   <ngx-loading [show]="isLoading" [config]="{
     backdropBorderRadius: '5px', fullScreenBackdrop:true}"></ngx-loading>
 
-    
+
 </ion-content>

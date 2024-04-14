@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Location } from '@angular/common';
@@ -10,7 +10,7 @@ import { AnimeytService } from 'src/app/shared/services/animeyt.service';
   templateUrl: './anime-info.page.html',
   styleUrls: ['./anime-info.page.scss'],
 })
-export class AnimeInfoPage implements OnInit {
+export class AnimeInfoPage {
   private sub: any;
   isFavorite = false;
   textFavorite = "Añadir a favoritos";
@@ -18,6 +18,8 @@ export class AnimeInfoPage implements OnInit {
   isLoading = false;
   ulrAnime: any;
   currentFavorite: any;
+  websiteSelected = localStorage.getItem("website");
+
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -29,16 +31,18 @@ export class AnimeInfoPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.isLoading= false;
+    this.isLoading = false;
+    this.websiteSelected = localStorage.getItem("website");
+
     let temporalDataForAnimeInfo = sessionStorage.getItem("animeTemp");
     if (temporalDataForAnimeInfo) {
       let tempData = JSON.parse(temporalDataForAnimeInfo);
-      this.activatedRoute.params.subscribe((params: any)=>{
-        this.ulrAnime = params['id'];        
-        if(this.ulrAnime == tempData.url){
-          this.data = tempData.data;   
-          this.verifyFavorite();      
-        }else{
+      this.activatedRoute.params.subscribe((params: any) => {
+        this.ulrAnime = params['id'];
+        if (this.ulrAnime == tempData.url) {
+          this.data = tempData.data;
+          this.verifyFavorite();
+        } else {
           this.getAnimeData();
         }
       })
@@ -56,48 +60,17 @@ export class AnimeInfoPage implements OnInit {
       let json = {
         animeUrl: this.ulrAnime
       }
-      let website = localStorage.getItem("website");
-      if (website == "animeflv") {
-        this.animeflvService.getAnimeInfo(json).subscribe((resp: any) => {
-          this.isLoading = false;
-          if (resp.error) {
-            this.isLoading = false;
-            Swal.fire({
-              title: "",
-              titleText: "Ocurrió un error al obtener la info del anime. Intente de nuevo.",
-              heightAuto: false,
-              icon: "error"
-            });
-            this._location.back();
-          }
-          if (resp && !resp.error) {
-            if (resp.imageUrl != "" && resp.title != "") {
-              this.data = resp;
-              sessionStorage.setItem("animeTemp", JSON.stringify({ "data": this.data, "url": this.ulrAnime }));
-              this.verifyFavorite()
-            } else {
-              Swal.fire({
-                title: "",
-                titleText: "Ocurrió un error al obtener la info del anime. Intente de nuevo.",
-                heightAuto: false,
-                icon: "error"
-              });
-              this._location.back();
-            }
-          }
-        }, (err: any) => {
-          this.isLoading = false;
-          Swal.fire({
-            title: "",
-            titleText: "Ocurrió un error al obtener la info del anime. Intente de nuevo.",
-            heightAuto: false,
-            icon: "error"
-          });
-          this.router.navigateByUrl("/home")
-          console.log(err);
-        })
-      } else {
-        this.animeytService.getAnimeInfo(json).subscribe((resp: any) => {
+
+      let subscriber = null;
+      if (this.websiteSelected == "animeflv") {
+        subscriber = this.animeflvService.getAnimeInfo(json);
+      } else if (this.websiteSelected == "animeyt") {
+        subscriber = this.animeytService.getAnimeInfo(json);
+      }
+
+
+      if (subscriber != null) {
+        subscriber.subscribe((resp: any) => {
           this.isLoading = false;
           if (resp.error) {
             this.isLoading = false;
@@ -124,7 +97,6 @@ export class AnimeInfoPage implements OnInit {
               });
               this._location.back();
             }
-
           }
         }, (err: any) => {
           this.isLoading = false;
@@ -137,12 +109,10 @@ export class AnimeInfoPage implements OnInit {
           this.router.navigateByUrl("/home")
         })
       }
+
     });
   }
 
-  ngOnInit() {
-
-  }
 
   verifyFavorite() {
     let favorites = localStorage.getItem("favoritesAnime");

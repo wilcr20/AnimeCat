@@ -21,18 +21,18 @@ export class HomePage {
     public animeflvService: AnimeflvService,
     public router: Router
   ) {
-    localStorage.setItem("lastWebsiteSelected", this.websiteSelected!);
     this.geAnimeForHome();
   }
 
   ionViewWillEnter() {
+    this.websiteSelected = localStorage.getItem("website");
     this.isLoading = false;
     sessionStorage.clear();
     let lastFetch = localStorage.getItem("lastFetchDate");
     if (lastFetch) {
       let now = new Date().getTime();
-      let lastFetchDate = JSON.parse(lastFetch) + 300000 // update home after 5 mins
-      if (now > lastFetchDate) {
+      let lastFetchDate = JSON.parse(lastFetch) + 1 // 300000 // update home after 5 mins
+      if (true) {
         this.geAnimeForHome();
       }
     } else {
