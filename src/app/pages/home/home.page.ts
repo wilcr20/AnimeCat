@@ -1,6 +1,8 @@
 import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
-import { AnimeService } from 'src/app/shared/services/anime.service';
+import { Websites } from 'src/app/shared/data/websites.enum';
+import { AnimeflvService } from 'src/app/shared/services/animeflv.service';
+import { AnimeytService } from 'src/app/shared/services/animeyt.service';
 
 @Component({
   selector: 'app-home',
@@ -12,9 +14,12 @@ export class HomePage {
   isLoading = false;
   canLoadMore = true
 
+  websiteSelected = Websites.ANIMEFLV;
+
 
   constructor(
-    public animeService: AnimeService,
+    public animeytService: AnimeytService,
+    public animeflvService: AnimeflvService,
     public router: Router
   ) {
     this.geAnimeForHome();
@@ -37,18 +42,29 @@ export class HomePage {
 
   geAnimeForHome() {
     this.isLoading = true;
-    this.animeService.getHomeAnime().subscribe((resp: any) => {
-      this.isLoading = false;
-      localStorage.setItem("lastFetchDate", JSON.stringify(new Date().getTime()));
-      if (resp) {
-        this.animeList = resp.data;
-      }
-    }, (err) => {
-      this.isLoading = false;
-      console.log(err)
-    })
+    let susbcriber = null;
+
+    if (this.websiteSelected == Websites.ANIMEFLV) {
+      susbcriber = this.animeflvService.getHomeAnime();
+    } else if (this.websiteSelected == Websites.ANIMEYT) {
+      susbcriber = this.animeytService.getHomeAnime();
+    }
+    if(susbcriber){
+      susbcriber.subscribe((resp: any) => {
+        this.isLoading = false;
+        localStorage.setItem("lastFetchDate", JSON.stringify(new Date().getTime()));
+        if (resp) {
+          this.animeList = resp.data;
+        }
+      }, (err) => {
+        this.isLoading = false;
+        console.log(err)
+      })
+    }
+  
   }
 
+  /*
   loadMore() {
     this.isLoading = true;
     this.animeService.getMoreHomeAnime().subscribe((resp: any) => {
@@ -62,6 +78,7 @@ export class HomePage {
       console.log(err)
     })
   }
+  */
 
   seeChapterAnime(url: any, website: any, title: any, img: any) {
     let data = { url: url, website: website, title: title, img: img };

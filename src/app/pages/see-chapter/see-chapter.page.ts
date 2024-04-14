@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AnimeService } from '../../shared/services/anime.service';
 import { InAppBrowserOptions, InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 import { DomSanitizer } from '@angular/platform-browser';
 import Swal from 'sweetalert2';
 import { Location } from '@angular/common';
+import { AnimeflvService } from 'src/app/shared/services/animeflv.service';
+import { AnimeytService } from 'src/app/shared/services/animeyt.service';
 
 @Component({
   selector: 'app-see-chapter',
@@ -32,7 +33,8 @@ export class SeeChapterPage {
   };
 
   constructor(
-    public animeService: AnimeService,
+    public animeytService: AnimeytService,
+    public animeflvService: AnimeflvService,
     public router: Router,
     private theInAppBrowser: InAppBrowser,
     private _location: Location,
@@ -54,7 +56,7 @@ export class SeeChapterPage {
       this.isLoading = true;
       let website = localStorage.getItem("website");
       if (website == "animeflv") {
-        this.animeService.seeChapterAnime_AnimeFlv({ animeUrl: this.data.url }).subscribe((resp: any) => {
+        this.animeytService.seeChapterAnime({ animeUrl: this.data.url }).subscribe((resp: any) => {
           this.isLoading = false;
           if (resp.error) {
             this.isLoading = false;
@@ -81,7 +83,7 @@ export class SeeChapterPage {
             }
             this.setPlayerimg();
           }
-        }, (err) => {
+        }, (err: any) => {
           this.isLoading = false;
           Swal.fire({
             title: "",
@@ -93,7 +95,7 @@ export class SeeChapterPage {
           console.log(err);
         })
       } else {
-        this.animeService.seeChapterAnime({ animeUrl: this.data.url }).subscribe((resp: any) => {
+        this.animeytService.seeChapterAnime({ animeUrl: this.data.url }).subscribe((resp: any) => {
           this.isLoading = false;
           if (resp.error) {
             this.isLoading = false;
@@ -104,14 +106,14 @@ export class SeeChapterPage {
               icon: "error"
             });
             this._location.back();
-          }
+          } 
           if (resp && !resp.error) {
             this.animeData = resp;
             this.title = this.animeData.title
             this.playerServer = this.animeData.defaultPlayer;
             this.setPlayerimg();
           }
-        }, (err) => {
+        }, (err: any) => {
           this.isLoading = false;
           Swal.fire({
             title: "",
@@ -140,7 +142,7 @@ export class SeeChapterPage {
       codeToExec = 'var func = (function f() { var iframes = document.getElementsByTagName("iframe"); setInterval(() => { if(document.getElementsByClassName("jw-video")[0]){document.getElementsByClassName("jw-video")[0].volume = 1;};for (let index = 0; index < iframes.length; index++) { iframes[index].style.display = "none" }; }, 20); return f; })(); document.addEventListener("keydown", handler, true); function handler(e) { if (e.key == "ArrowUp") { if (document.getElementsByClassName("jw-video")[0]) { document.getElementsByClassName("jw-video")[0].volume = 1; if(document.getElementsByClassName("jw-video")[0].playbackRate < 2) {document.getElementsByClassName("jw-video")[0].playbackRate = document.getElementsByClassName("jw-video")[0].playbackRate + 0.25;} } } else if (e.key == "ArrowDown") { if (document.getElementsByClassName("jw-video")[0]) { document.getElementsByClassName("jw-video")[0].volume = 1; if(document.getElementsByClassName("jw-video")[0].playbackRate > 1){document.getElementsByClassName("jw-video")[0].playbackRate = document.getElementsByClassName("jw-video")[0].playbackRate - 0.25;}  } } }'
     }
     else if (this.playerServerName.includes("OK")) {
-      codeToExec = 'var func = (function f() { var iframes = document.getElementsByTagName("iframe"); setInterval(() => { if(document.getElementsByClassName("vid_play")[0] && !document.getElementsByTagName("video")[0]){ document.getElementsByClassName("vid_play")[0].click();}; for (let index = 0; index < iframes.length; index++) { iframes[index].style.display = "none" }; }, 20); return f; })(); document.addEventListener("keydown", handler, true); function handler(e) {if(e.key == "Enter"){ if(document.getElementsByClassName("html5-vpl_vid_display")[0]){if(document.getElementsByClassName("html5-vpl_vid_display")[0].paused){document.getElementsByClassName("html5-vpl_vid_display")[0].play();}else{document.getElementsByClassName("html5-vpl_vid_display")[0].pause();}  } }; if (e.key == "ArrowUp") { if (document.getElementsByClassName("html5-html5-vpl_vid_display")[0]) { document.getElementsByClassName("html5-html5-vpl_vid_display")[0].volume = 1; if(document.getElementsByClassName("html5-vpl_vid_display")[0].playbackRate < 2) {document.getElementsByClassName("html5-vpl_vid_display")[0].playbackRate = document.getElementsByClassName("html5-vpl_vid_display")[0].playbackRate + 0.25;} } } else if (e.key == "ArrowDown") { if (document.getElementsByClassName("html5-vpl_vid_display")[0]) { document.getElementsByClassName("html5-vpl_vid_display")[0].volume = 1; if(document.getElementsByClassName("html5-vpl_vid_display")[0].playbackRate > 1){document.getElementsByClassName("html5-vpl_vid_display")[0].playbackRate = document.getElementsByClassName("html5-vpl_vid_display")[0].playbackRate - 0.25;}  } } }';
+      codeToExec = 'var func = (function f() { var iframes = document.getElementsByTagName("iframe"); setInterval(() => { if(document.getElementsByClassName("html5-vpl_vid_display")[0]){document.getElementsByClassName("html5-vpl_vid_display")[0].focus();}; if(document.getElementsByClassName("vid_play")[0] && !document.getElementsByTagName("video")[0]){ document.getElementsByClassName("vid_play")[0].click();}; for (let index = 0; index < iframes.length; index++) { iframes[index].style.display = "none" }; }, 20); return f; })(); document.addEventListener("keydown", handler, true); function handler(e) {if(e.key == "Enter"){ if(document.getElementsByClassName("html5-vpl_vid_display")[0]){if(document.getElementsByClassName("html5-vpl_vid_display")[0].paused){document.getElementsByClassName("html5-vpl_vid_display")[0].play();}else{document.getElementsByClassName("html5-vpl_vid_display")[0].pause();}  } }; if (e.key == "ArrowUp") { if (document.getElementsByClassName("html5-html5-vpl_vid_display")[0]) { document.getElementsByClassName("html5-html5-vpl_vid_display")[0].volume = 1; if(document.getElementsByClassName("html5-vpl_vid_display")[0].playbackRate < 2) {document.getElementsByClassName("html5-vpl_vid_display")[0].playbackRate = document.getElementsByClassName("html5-vpl_vid_display")[0].playbackRate + 0.25;} } } else if (e.key == "ArrowDown") { if (document.getElementsByClassName("html5-vpl_vid_display")[0]) { document.getElementsByClassName("html5-vpl_vid_display")[0].volume = 1; if(document.getElementsByClassName("html5-vpl_vid_display")[0].playbackRate > 1){document.getElementsByClassName("html5-vpl_vid_display")[0].playbackRate = document.getElementsByClassName("html5-vpl_vid_display")[0].playbackRate - 0.25;}  } } }';
     }
     else if (this.playerServerName.includes("Lions")) {
       codeToExec = 'var func = (function f() { var iframes = document.getElementsByTagName("iframe"); setInterval(() => { if(document.getElementsByClassName("afs_ads")[0]){document.getElementsByClassName("afs_ads")[0].style.pointerEvents = "none";}; if (document.getElementsByClassName("jw-video")[0]){ if(document.getElementsByClassName("jw-video")[0].paused){document.getElementsByClassName("jw-video")[0].play()} }; if(document.getElementsByClassName("jw-video")[0]){document.getElementsByClassName("jw-video")[0].volume = 1;}; for (let index = 0; index < iframes.length; index++) { iframes[index].style.display = "none" }; }, 20); return f; })(); document.addEventListener("keydown", handler, true); function handler(e) { if(e.key == "Enter"){ if(document.getElementsByClassName("jw-video")[0]){ if(document.getElementsByClassName("jw-video")[0].paused){ document.getElementsByClassName("jw-video")[0].play();}else{ document.getElementsByClassName("jw-video")[0].pause();}; }}; if (e.key == "ArrowUp") { if (document.getElementsByClassName("jw-video")[0]) { document.getElementsByClassName("jw-video")[0].volume = 1; if(document.getElementsByClassName("jw-video")[0].playbackRate < 2) { document.getElementsByClassName("jw-video")[0].playbackRate = document.getElementsByClassName("jw-video")[0].playbackRate + 0.25;} } } else if (e.key == "ArrowDown") { if (document.getElementsByClassName("jw-video")[0]) { document.getElementsByClassName("jw-video")[0].volume = 1; if(document.getElementsByClassName("jw-video")[0].playbackRate > 1){ document.getElementsByClassName("jw-video")[0].playbackRate = document.getElementsByClassName("jw-video")[0].playbackRate - 0.25;}  } } }'

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AnimeService } from 'src/app/shared/services/anime.service';
 import genres from '../../shared/data/genres.json';
+import { AnimeflvService } from 'src/app/shared/services/animeflv.service';
 
 @Component({
   selector: 'app-search',
@@ -24,7 +24,8 @@ export class SearchPage implements OnInit {
   currentPage = 1;
 
   constructor(
-    public animeService: AnimeService,
+    // public animeytService: AnimeytService,
+    public animeflvService: AnimeflvService,
     public router: Router
   ) { }
 
@@ -59,7 +60,7 @@ export class SearchPage implements OnInit {
       this.currentPage = 1;
       this.genreSelected = "";
       this.yearSelected = "";
-      this.animeService.searchAnime({ "term": this.defaultSearchUrl + this.searchValue })?.subscribe((data: any) => {
+      this.animeflvService.searchAnime({ "term": this.defaultSearchUrl + this.searchValue })?.subscribe((data: any) => {
         this.isSearchDone = true;
         this.searchResult = data.data;
         if (data.buttons) {
@@ -78,7 +79,7 @@ export class SearchPage implements OnInit {
     this.isLoading = true;
     this.searchResult = [];
     this.buttons = [];
-    this.animeService.searchAnime({ "term": url }).subscribe((data: any) => {
+    this.animeflvService.searchAnime({ "term": url }).subscribe((data: any) => {
       this.searchResult = [];
       this.currentPage = Number(url.split("page=")[1]);
       this.buttons = [];
@@ -118,7 +119,7 @@ export class SearchPage implements OnInit {
     this.isLoading = true;
     this.searchResult = [];
     this.buttons = [];
-    this.animeService.filterSearch_AnimeFlv({ "url": url }).subscribe((data: any) => {
+    this.animeflvService.filterSearch({ "url": url }).subscribe((data: any) => {
       this.searchResult = [];
       this.buttons = [];
       this.isLoading = false;

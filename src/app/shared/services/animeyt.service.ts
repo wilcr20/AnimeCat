@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class AnimeService {
+export class AnimeytService {
 
   constructor(public httpClient: HttpClient) { }
 
@@ -39,29 +39,6 @@ export class AnimeService {
 
   getAnimeComingSoon(body:any){
     return this.httpClient.post(environment.apiUrl+ "animeyt/animesComingSoon", body);
-  }
-
-
-  // AnimeFlv
-  searchAnime(body:any){
-    return this.httpClient.post(environment.apiUrl+ "animeflv/search", body);
-  }
-
-  getAnimeInfo_AnimeFlv(body:any){
-    return this.httpClient.post(environment.apiUrl+ "animeflv/getAnimeInfo", body);
-  }
-
-  seeChapterAnime_AnimeFlv(body: any){
-    return this.httpClient.post(environment.apiUrl+ "animeflv/SeeChapter", body);
-  }
-
-  filterSearch_AnimeFlv(body: any){
-    return this.httpClient.post(environment.apiUrl+ "animeflv/filterSearch", body);
-  }
-
-  getMovies(body: any){
-    return this.httpClient.post(environment.apiUrl+ "animeflv/movies", body);
-
   }
 
 }

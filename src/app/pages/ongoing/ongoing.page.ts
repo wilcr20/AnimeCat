@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AnimeService } from 'src/app/shared/services/anime.service';
+import { AnimeytService } from 'src/app/shared/services/animeyt.service';
 
 @Component({
   selector: 'app-ongoing',
@@ -13,7 +13,7 @@ export class OngoingPage implements OnInit {
   ongoingData: any;
 
   constructor(
-    public animeService: AnimeService,
+    public animeytService: AnimeytService,
     public router: Router
   ) {
 
@@ -29,7 +29,7 @@ export class OngoingPage implements OnInit {
 
   geAnimeOngoing() {
     this.isLoading = true;
-    this.animeService.getAnimeOnGoing().subscribe((resp: any) => {
+    this.animeytService.getAnimeOnGoing().subscribe((resp: any) => {
       this.isLoading = false;
       if (resp) {
         this.ongoingData = resp;
@@ -37,7 +37,7 @@ export class OngoingPage implements OnInit {
 
         this.title = this.ongoingData.title;
       }
-    }, (err) => {
+    }, (err: any) => {
       this.isLoading = false;
       console.log(err)
     })

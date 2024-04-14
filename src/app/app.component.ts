@@ -21,31 +21,31 @@ export class AppComponent {
       "icon": "search-outline",
       "display": "Buscar"
     },
-    {
-      "url": "/directory",
-      "icon": "albums-outline",
-      "display": "Animes en Latino"
-    },
+    // {
+    //   "url": "/directory",
+    //   "icon": "albums-outline",
+    //   "display": "Animes en Latino"
+    // },
     {
       "url": "/favorites",
       "icon": "star-outline",
       "display": "Favoritos"
     },
-    {
-      "url": '/ongoing',
-      "icon": "calendar-outline",
-      "display": "En emisión"
-    },
+    // {
+    //   "url": '/ongoing',
+    //   "icon": "calendar-outline",
+    //   "display": "En emisión"
+    // },
     {
       "url": '/movies',
       "icon": "videocam-outline",
       "display": "Peliculas"
     },
-    {
-      "url": '/coming-soon',
-      "icon": "rocket-outline",
-      "display": "Próximamente"
-    },
+    // {
+    //   "url": '/coming-soon',
+    //   "icon": "rocket-outline",
+    //   "display": "Próximamente"
+    // },
     // {
     //   "url": '/closeApp',
     //   "icon": "close-circle-outline",

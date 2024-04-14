@@ -1,6 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
-import { AnimeService } from 'src/app/shared/services/anime.service';
+import { AnimeytService } from 'src/app/shared/services/animeyt.service';
 
 @Component({
   selector: 'app-coming-soon',
@@ -16,7 +16,7 @@ export class ComingSoonPage implements OnInit {
 
   constructor(
     private router: Router,
-    public animeService: AnimeService,
+    public animeytService: AnimeytService,
   ) {
     this.getDirectoryAnime();
   }
@@ -39,13 +39,13 @@ export class ComingSoonPage implements OnInit {
   getDirectoryAnime() {
     this.animeData = null;
     this.isLoading = true;
-    this.animeService.getAnimeComingSoon({ "url": this.rootURl }).subscribe((resp) => {
+    this.animeytService.getAnimeComingSoon({ "url": this.rootURl }).subscribe((resp) => {
       this.isLoading = false;
       this.animeData = resp;
       this.animeList = this.animeData.data;
       console.log(this.animeData);
 
-    }, (err) => {
+    }, (err: any) => {
       this.isLoading = false;
       console.log(err);
 

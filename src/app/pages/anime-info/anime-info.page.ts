@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AnimeService } from 'src/app/shared/services/anime.service';
 import Swal from 'sweetalert2';
 import { Location } from '@angular/common';
+import { AnimeflvService } from 'src/app/shared/services/animeflv.service';
+import { AnimeytService } from 'src/app/shared/services/animeyt.service';
 
 @Component({
   selector: 'app-anime-info',
@@ -22,7 +23,9 @@ export class AnimeInfoPage implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private _location: Location,
-    public animeService: AnimeService) {
+    public animeytService: AnimeytService,
+    public animeflvService: AnimeflvService
+  ) {
   }
 
   ionViewWillEnter() {
@@ -55,7 +58,7 @@ export class AnimeInfoPage implements OnInit {
       }
       let website = localStorage.getItem("website");
       if (website == "animeflv") {
-        this.animeService.getAnimeInfo_AnimeFlv(json).subscribe((resp: any) => {
+        this.animeflvService.getAnimeInfo(json).subscribe((resp: any) => {
           this.isLoading = false;
           if (resp.error) {
             this.isLoading = false;
@@ -82,7 +85,7 @@ export class AnimeInfoPage implements OnInit {
               this._location.back();
             }
           }
-        }, (err) => {
+        }, (err: any) => {
           this.isLoading = false;
           Swal.fire({
             title: "",
@@ -94,7 +97,7 @@ export class AnimeInfoPage implements OnInit {
           console.log(err);
         })
       } else {
-        this.animeService.getAnimeInfo(json).subscribe((resp: any) => {
+        this.animeytService.getAnimeInfo(json).subscribe((resp: any) => {
           this.isLoading = false;
           if (resp.error) {
             this.isLoading = false;
@@ -123,7 +126,7 @@ export class AnimeInfoPage implements OnInit {
             }
 
           }
-        }, (err) => {
+        }, (err: any) => {
           this.isLoading = false;
           Swal.fire({
             title: "",

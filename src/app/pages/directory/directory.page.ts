@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AnimeService } from 'src/app/shared/services/anime.service';
+import { AnimeytService } from 'src/app/shared/services/animeyt.service';
 
 @Component({
   selector: 'app-directory',
@@ -13,7 +13,7 @@ export class DirectoryPage implements OnInit {
   rootURl = "https://animeyt.es/tv/?page=1&status=&type=&sub=dub&order=update";
   defaultPrefix = "?page=1";
   constructor(
-    public animeService: AnimeService,
+    public animeytService: AnimeytService,
     public router: Router
   ) {
     this.getDirectoryAnime(this.rootURl);
@@ -25,10 +25,10 @@ export class DirectoryPage implements OnInit {
   getDirectoryAnime(url: string) {
     this.animeData = null;
     this.isLoading = true;
-    this.animeService.getAnimeLatinDirectory({ "url": url }).subscribe((resp) => {
+    this.animeytService.getAnimeLatinDirectory({ "url": url }).subscribe((resp: any) => {
       this.isLoading = false;
       this.animeData = resp;
-    }, (err) => {
+    }, (err: any) => {
       this.isLoading = false;
       console.log(err);
 

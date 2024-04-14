@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AnimeService } from 'src/app/shared/services/anime.service';
+import { AnimeflvService } from 'src/app/shared/services/animeflv.service';
 
 @Component({
   selector: 'app-movies',
@@ -16,7 +16,7 @@ export class MoviesPage implements OnInit {
   currentPage = 1;
 
   constructor(
-    public animeService: AnimeService,
+    public animeflvService: AnimeflvService,
     public router: Router
   ) { }
 
@@ -31,7 +31,7 @@ export class MoviesPage implements OnInit {
     this.isLoading = true;
     this.searchResult = [];
     this.buttons = [];
-    this.animeService.getMovies({ "url": url }).subscribe((data: any) => {
+    this.animeflvService.getMovies({ "url": url }).subscribe((data: any) => {
       this.searchResult = [];
       if (Number(url.split("page=")[1])) {
         this.currentPage = Number(url.split("page=")[1]);

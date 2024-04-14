@@ -34,8 +34,8 @@ ion-content {
       }
 
       img {
-        width: 65%;
-        font-size: 1.10rem;
+        // width: 65%;
+        // font-size: 1.10rem;
       }
 
       ion-card-title {
@@ -44,7 +44,8 @@ ion-content {
         font-size: 1.10rem;
         margin-top: -0.5em;
         display: -webkit-box;
-        -webkit-line-clamp: 3;
+        // -webkit-line-clamp: 3;
+        -webkit-line-clamp: 4;
         -webkit-box-orient: vertical;
         overflow: hidden;
         text-overflow: ellipsis;
