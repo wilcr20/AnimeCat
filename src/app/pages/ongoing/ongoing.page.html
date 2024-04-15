@@ -11,19 +11,51 @@
 <ion-content [fullscreen]="true">
   <div class="main" *ngIf="ongoingData">
     <br>
-    <div *ngFor="let section of ongoingData.sections">
-      <hr>
-      <h3>{{section.day}}</h3>
-      <div class="cards-container" *ngIf="ongoingData">
-        <ion-card tabindex="0" id="ongoingAnime_{{i}}" (keydown)="move($event, i)"
-          *ngFor="let anime of section.animeList; let i = index" (click)="redirectToAnimeInfo(anime.url, anime.website)"
-          (keyup.enter)="redirectToAnimeInfo(anime.url, anime.website)">
+
+    <!-- For AnimeYT -->
+    <div *ngIf="websiteSelected == 'animeyt'">
+      <div *ngFor="let section of ongoingData.sections">
+        <hr>
+        <h3>{{section.day}}</h3>
+        <div class="cards-container" *ngIf="ongoingData">
+          <ion-card tabindex="0" id="ongoingAnime_{{i}}" (keydown)="move($event, i)"
+            *ngFor="let anime of section.animeList; let i = index"
+            (click)="redirectToAnimeInfo(anime.url, anime.website)"
+            (keyup.enter)="redirectToAnimeInfo(anime.url, anime.website)">
+            <img src={{anime.imageUrl}} onerror="this.src='../../../assets/imgNotFound.jpg'" />
+            <ion-card-header>
+              <ion-card-title>{{anime.title}}</ion-card-title>
+            </ion-card-header>
+          </ion-card>
+        </div>
+      </div>
+    </div>
+
+    <!-- For AnimeFlv -->
+    <div *ngIf="websiteSelected == 'animeflv'">
+      <div class="cards-container" *ngIf="ongoingData.data && ongoingData.data.length > 0">
+        <ion-card id="searchAnime_{{i}}" tabindex="0" *ngFor="let anime of ongoingData.data; let i = index"
+          (click)="redirectToAnimeInfo(anime.url, anime.website)"
+          (keyup.enter)="redirectToAnimeInfo(anime.url, anime.website)" (keydown)="move($event, i)">
           <img src={{anime.imageUrl}} onerror="this.src='../../../assets/imgNotFound.jpg'" />
           <ion-card-header>
             <ion-card-title>{{anime.title}}</ion-card-title>
           </ion-card-header>
         </ion-card>
       </div>
+      <div *ngIf="ongoingData.data.length == 0 && !isLoading" class="noResults">
+        <p>No se encontraron resultados. Vuelve a intentarlo.</p>
+      </div>
+      <br>
+      <!-- FALTA AGREGAR BOTONES DE PAGINACION -->
+      <div *ngIf="ongoingData.buttons.length > 0 && ongoingData.data.length > 0" class="pagination">
+        <button [disabled]="currentPage == btn.display" tabindex="0" *ngFor="let btn of buttons"
+          (click)="redirectToPage(btn.url)" [ngClass]="{'disabled': currentPage == btn.display }"
+          (keyup.enter)="redirectToPage(btn.url)" class="loadMore">
+          {{btn.display}}
+        </button>
+      </div>
+      <br>
     </div>
   </div>
   <br>

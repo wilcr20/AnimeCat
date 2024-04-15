@@ -68,7 +68,7 @@ export class AppComponent {
   openMenu() {
     let select = document.getElementById("selectWebsite") as HTMLSelectElement;
     select.value = localStorage.getItem("website")!;
-    if(localStorage.getItem("website") == "animeflv"){
+    if (localStorage.getItem("website") == "animeflv") {
       this.pageList = [
         {
           "url": "/home",
@@ -90,18 +90,18 @@ export class AppComponent {
           "icon": "star-outline",
           "display": "Favoritos"
         },
-        // {
-        //   "url": '/ongoing',
-        //   "icon": "calendar-outline",
-        //   "display": "En emisión"
-        // },
+        {
+          "url": '/ongoing',
+          "icon": "calendar-outline",
+          "display": "En emisión"
+        },
         {
           "url": '/movies',
           "icon": "videocam-outline",
           "display": "Peliculas"
         },
       ]
-    }else if(localStorage.getItem("website") == "animeyt"){
+    } else if (localStorage.getItem("website") == "animeyt") {
       this.pageList = [
         {
           "url": "/home",
@@ -123,16 +123,16 @@ export class AppComponent {
           "icon": "star-outline",
           "display": "Favoritos"
         },
-         {
-           "url": '/ongoing',
-           "icon": "calendar-outline",
-           "display": "En emisión"
-         },
+        {
+          "url": '/ongoing',
+          "icon": "calendar-outline",
+          "display": "En emisión"
+        },
       ]
     }
   }
 
-  selectWebsite(){
+  selectWebsite() {
     let select = document.getElementById("selectWebsite") as HTMLSelectElement;
     localStorage.setItem("website", select.value);
     location.replace("home");

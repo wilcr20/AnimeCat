@@ -35,18 +35,13 @@ export class SearchPage implements OnInit {
   ionViewWillEnter() {
     this.genresList = genres.data;
     this.isSearchDone = false;
-    // this.searchResult = [];
-    // this.searchValue = "";
-    // this.buttons = [];
-    // this.paginationData = [];
-    // this.genreSelected = "";
-    // this.yearSelected = "";
     this.fillyearList();
     this.defaultSearchUrl = "https://www3.animeflv.net/browse?q=";
   }
 
   fillyearList() {
-    for (let index = 2023; index >= 1990; index--) {
+    var date = new Date();
+    for (let index = date.getFullYear(); index >= 1990; index--) {
       this.yearList.push(index);
     }
   }

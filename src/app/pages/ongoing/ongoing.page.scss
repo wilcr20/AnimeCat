@@ -19,6 +19,13 @@ ion-content {
     border-bottom: 2px solid gray;
   }
 
+  .noResults {
+    p {
+      margin-top: 5rem;
+      color: white;
+    }
+  }
+
   .cards-container {
     grid-template-columns: repeat(auto-fit, minmax(225px, 0fr));
     display: grid;
@@ -64,5 +71,38 @@ ion-content {
     }
 
   }
+
+  .pagination {
+    width: 80%;
+    margin-left: 10%;
+    button {
+      background: green;
+      color: white;
+      border-radius: 15px;
+      font-size: larger;
+  
+      &.cleanFilter {
+        width: 10rem;
+        height: 2rem;
+        margin-top: 1rem;
+        margin-left: 25px;
+      }
+  
+      &.loadMore {
+        margin: 0 10px 10px;
+        width: 3rem;
+        height: 3rem;
+  
+        &.disabled {
+          color: rgb(0, 119, 255);
+          background: white;
+        }
+      }
+  
+  
+    }
+  }
+
+  
 
 }

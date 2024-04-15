@@ -31,6 +31,10 @@ export class AnimeflvService {
 
   getMovies(body: any){
     return this.httpClient.post(environment.apiUrl+ "animeflv/movies", body);
-
   }
+
+  getAnimeOnGoing(body: any){
+    return this.httpClient.post(environment.apiUrl+ "animeflv/ongoing", body);
+  }
+
 }
