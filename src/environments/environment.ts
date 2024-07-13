@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: "https://sangria-cockroach-sock.cyclic.app/anime/"
+  // apiUrl: "https://sangria-cockroach-sock.cyclic.app/anime/"
+  apiUrl: "https://watchmanga.onrender.com/anime/"
 };
 
 /*

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import genres from '../../shared/data/genres.json';
 import { AnimeflvService } from 'src/app/shared/services/animeflv.service';
+import { AnimeytService } from 'src/app/shared/services/animeyt.service';
 
 @Component({
   selector: 'app-search',
@@ -23,8 +24,11 @@ export class SearchPage implements OnInit {
   yearSelected = "";
   currentPage = 1;
 
+  websiteSelected = localStorage.getItem("website");
+
+
   constructor(
-    // public animeytService: AnimeytService,
+    public animeytService: AnimeytService,
     public animeflvService: AnimeflvService,
     public router: Router
   ) { }
@@ -35,6 +39,7 @@ export class SearchPage implements OnInit {
   ionViewWillEnter() {
     this.genresList = genres.data;
     this.isSearchDone = false;
+    this.websiteSelected = localStorage.getItem("website");
     this.fillyearList();
     this.defaultSearchUrl = "https://www3.animeflv.net/browse?q=";
   }
@@ -51,17 +56,30 @@ export class SearchPage implements OnInit {
       this.isSearchDone = false;
       this.searchResult = [];
       this.buttons = [];
-    } else if (this.searchValue.trim() != "" && this.searchValue.length > 2) {
+    } else if (this.searchValue.trim() != "" && this.searchValue.length >= 2) {
       this.currentPage = 1;
       this.genreSelected = "";
       this.yearSelected = "";
-      this.animeflvService.searchAnime({ "term": this.defaultSearchUrl + this.searchValue })?.subscribe((data: any) => {
-        this.isSearchDone = true;
-        this.searchResult = data.data;
-        if (data.buttons) {
-          this.buttons = data.buttons.filter((btn: { display: string; }) => btn.display != "");
-        }
-      })
+
+      let subscriber = null;
+      if (this.websiteSelected == "animeflv") {
+        subscriber = this.animeflvService.searchAnime({ "term": this.defaultSearchUrl + this.searchValue });
+      } else if (this.websiteSelected == "animeyt") {
+        subscriber = this.animeytService.searchAnime({ "term": this.searchValue });
+      }
+
+      if (subscriber != null) {
+        subscriber.subscribe((resp: any) => {
+          this.isSearchDone = true;
+          this.searchResult = resp.data;
+          if (resp.buttons) {
+            //////// falta la paginacion para animeYT
+            this.buttons = resp.buttons.filter((btn: { display: string; }) => btn.display != "");
+          }
+        })
+      }
+
+
     }
   }
 
@@ -152,8 +170,8 @@ export class SearchPage implements OnInit {
         break;
       case "ArrowUp":
         if (index > 0) {
-          let newIndex =  index - 4;
-          if(newIndex < 0){
+          let newIndex = index - 4;
+          if (newIndex < 0) {
             return;
           }
           let element = document.getElementById("searchAnime_" + newIndex);

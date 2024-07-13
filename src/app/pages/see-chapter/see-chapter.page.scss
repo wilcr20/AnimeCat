@@ -105,7 +105,8 @@ ion-content {
             display: flex;
             justify-content: center;
             align-items: center;
-            background: no-repeat center;
+            // background: no-repeat center;
+            background: repeat center;
             border-right: 2px solid orange;
 
             &.border {

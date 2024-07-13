@@ -14,14 +14,14 @@
     <div class="search">
       <ion-searchbar (ionChange)="setValue()" [(ngModel)]="searchValue"
         placeholder="Ingrese el texto a buscar ..."></ion-searchbar>
-      <div class="selectFilter"  *ngIf="genresList.length > 0">
+      <div class="selectFilter"  *ngIf="genresList.length > 0 && websiteSelected == 'animeflv'">
         <label for="">Género: </label>
         <select (change)="onChangeGenre($event)" [(ngModel)]="genreSelected" tabindex="1">
           <option value="" selected disabled hidden>Género a filtrar</option>
           <option *ngFor="let genre of genresList" value={{genre.value}}>{{genre.name}}</option>
         </select>
       </div>
-      <div class="selectFilter" *ngIf="yearList.length > 0">
+      <div class="selectFilter" *ngIf="yearList.length > 0 && websiteSelected == 'animeflv'">
         <label for="">Año: </label>
         <select (change)="onChangeYear($event)" [(ngModel)]="yearSelected" tabindex="0">
           <option value="" selected disabled hidden>Año a filtrar</option>

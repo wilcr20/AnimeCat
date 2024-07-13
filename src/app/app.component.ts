@@ -10,48 +10,7 @@ import { MenuController } from '@ionic/angular';
 
 export class AppComponent {
 
-  pageList = [
-    {
-      "url": "/home",
-      "icon": "home-outline",
-      "display": "Animes recientes"
-    },
-    {
-      "url": '/search',
-      "icon": "search-outline",
-      "display": "Buscar"
-    },
-    // {
-    //   "url": "/directory",
-    //   "icon": "albums-outline",
-    //   "display": "Animes en Latino"
-    // },
-    {
-      "url": "/favorites",
-      "icon": "star-outline",
-      "display": "Favoritos"
-    },
-    // {
-    //   "url": '/ongoing',
-    //   "icon": "calendar-outline",
-    //   "display": "En emisión"
-    // },
-    {
-      "url": '/movies',
-      "icon": "videocam-outline",
-      "display": "Peliculas"
-    },
-    // {
-    //   "url": '/coming-soon',
-    //   "icon": "rocket-outline",
-    //   "display": "Próximamente"
-    // },
-    // {
-    //   "url": '/closeApp',
-    //   "icon": "close-circle-outline",
-    //   "display": "CERRAR APP"
-    // },
-  ]
+  pageList: any = [];
 
 
   constructor(
@@ -108,16 +67,16 @@ export class AppComponent {
           "icon": "home-outline",
           "display": "Animes recientes"
         },
-        // {
-        //   "url": '/search',
-        //   "icon": "search-outline",
-        //   "display": "Buscar"
-        // },
-        // {
-        //   "url": "/directory",
-        //   "icon": "albums-outline",
-        //   "display": "Animes en Latino"
-        // },
+        {
+          "url": '/search',
+          "icon": "search-outline",
+          "display": "Buscar"
+        },
+        {
+          "url": "/directory",
+          "icon": "albums-outline",
+          "display": "Animes en Latino"
+        },
         {
           "url": "/favorites",
           "icon": "star-outline",

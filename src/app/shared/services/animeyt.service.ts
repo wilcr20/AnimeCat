@@ -21,6 +21,10 @@ export class AnimeytService {
     return this.httpClient.post(environment.apiUrl+ "animeyt/SeeChapter", body);
   }
 
+  searchAnime(body:any){
+    return this.httpClient.post(environment.apiUrl+ "animeyt/search", body);
+  }
+
   getAnimeInfo(body:any){
     return this.httpClient.post(environment.apiUrl+ "animeyt/getAnimeInfo", body);
   }
