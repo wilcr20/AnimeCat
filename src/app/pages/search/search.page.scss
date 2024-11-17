@@ -46,7 +46,7 @@ ion-content {
   }
 
   .cards-container {
-    grid-template-columns: repeat(auto-fit, minmax(225px, 0fr));
+    grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
     display: grid;
     margin: 10px;
 
@@ -125,4 +125,22 @@ ion-content {
   }
   
 
+}
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  .main{
+    .search {
+      display: block;
+      text-align: start;
+  }
+  .cards-container{
+    ion-card{
+      img {
+        width: 45%;
+      }
+    }
+  }
+}
+  
 }

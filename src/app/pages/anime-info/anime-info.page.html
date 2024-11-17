@@ -15,10 +15,14 @@
       src={{data.imageUrl}} alt="" srcset="">
       <div class="description" *ngIf="data && (data.description  || data.genreList )">
         {{getDescription()}}
-        <div class="genreList" *ngIf="data && data.genreList">
-          <ion-chip class="genreChip" *ngFor="let genre of data.genreList">{{genre.genre}}</ion-chip>
-        </div>
+        
+        
       </div>
+      <div class="genreList" *ngIf="data && data.genreList">
+        <br>
+        <ion-chip class="genreChip" *ngFor="let genre of data.genreList">{{genre.genre}}</ion-chip>
+      </div>
+      <br>
       <br>
     </div>
     <div *ngIf="data && data.title" class="animeOptions">
@@ -46,6 +50,7 @@
         <tr *ngFor="let chapter of data.chapterList; let i = index">
           <td>{{getChapterNumber(i)}}</td>
           <td id="animeChapter_{{i}}" (keydown)="move($event, i, true, false)"
+            (click)="seeChapterAnime(chapter.chapterUrl,data.website, chapter.chapter, data.imageUrl)"
             (keyup.enter)="seeChapterAnime(chapter.chapterUrl,data.website, chapter.chapter, data.imageUrl)"
             tabindex="0">{{chapter.chapter}}</td>
           <td *ngIf="chapter.date">{{chapter.date}}</td>

@@ -22,7 +22,7 @@
     <p id="datePublish"  *ngIf="animeData && animeData.date">Publicado el {{animeData.date}}</p>
 
     <div class="serverList" *ngIf="animeData && animeData.servers && animeData.servers.length > 0">
-      <ion-chip tabindex="0" (keyup.enter)="updateServer(server)" *ngFor="let server of animeData.servers"
+      <ion-chip tabindex="0" (keyup.enter)="updateServer(server)" (click)="updateServer(server)" *ngFor="let server of animeData.servers"
         [ngClass]="{'selected': playerServerName === server.server }">
         {{server.server}}
       </ion-chip>

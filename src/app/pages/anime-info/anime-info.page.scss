@@ -178,3 +178,69 @@ ion-content {
         }
     }
 }
+
+
+@media only screen and (max-width: 768px) {
+
+    /* For mobile phones: */
+    .main {
+        .info {
+            text-align: center;
+            width: 100%;
+            // display: inline-table;
+            display: block;
+            left: 0;
+            max-height: max-content;
+
+            img {
+                width: 75%;
+
+                &.animeyt {
+                    width: 25%;
+                }
+            }
+
+            .description{
+                width: 100%;
+            }
+
+            .genreList{
+                // display: block;
+                display: contents;
+                // position: absolute;
+                width: 100%;
+                max-width: 100%;
+                left: 0;
+            }
+        }
+
+        .chapters{
+            width: 100%;
+            margin-left: 0%;
+            margin-top: 0%;
+        }
+
+        .animeOptions{
+            position: unset;
+            margin-top: 3%;
+            text-align: center;
+            width: auto;
+            button.favoriteBtn{
+                width: max-content;
+            }
+        }
+
+        .animeRelated{
+            margin-bottom: 5%;
+            ion-chip {
+                width: auto;
+                height: auto;
+                margin-bottom: 3%;
+            }
+        }
+
+        
+
+    }
+
+}
