@@ -105,6 +105,7 @@ export class SeeChapterPage {
   }
 
   setPlayerimg() {
+    console.log(this.data)
     this.playerImg = this.sanitizer.bypassSecurityTrustStyle('url(' + this.data.img + ')');
   }
 

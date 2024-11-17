@@ -91,10 +91,15 @@ export class AppComponent {
     }
   }
 
-  selectWebsite() {
-    let select = document.getElementById("selectWebsite") as HTMLSelectElement;
-    localStorage.setItem("website", select.value);
-    location.replace("home");
+
+  triggerEvent(ev: any){
+    console.log(ev.detail.value)
+    let selectedValue = ev.detail.value;
+    let currentWebsite = localStorage.getItem("website")!;
+    if(selectedValue !== currentWebsite){
+      localStorage.setItem("website", selectedValue);
+      location.replace("home");
+    }
   }
 
   redirect(url: string) {

@@ -12,11 +12,19 @@
     <ion-content class="ion-padding">
       <ion-content>
         <ion-list tabindex="-1">
-          <ion-menu-toggle auto-hide="true">
-            <select value="" id="selectWebsite" (change)="selectWebsite()">
+          <ion-menu-toggle auto-hide="false">
+            <!-- <select value="" (change)="selectWebsite()">
               <option value="animeflv">AnimeFlv</option>
               <option value="animeyt">AnimeYT</option>
-            </select>
+            </select> -->
+            <ion-select (ionDismiss)="$event.stopPropagation()"
+             value="-1" id="selectWebsite" label="Websites" 
+             fill="solid" interface="modal"
+              (ionChange)="triggerEvent($event)">
+              <ion-select-option value="animeflv">AnimeFlv</ion-select-option>
+              <ion-select-option value="animeyt">AnimeYT</ion-select-option>
+            </ion-select>
+            <br>
             <button tabindex="0" (click)="redirect(page.url)" *ngFor="let page of pageList">
               <ion-icon name={{page.icon}}></ion-icon>{{page.display}}
             </button>
